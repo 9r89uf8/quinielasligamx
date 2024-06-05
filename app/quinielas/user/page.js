@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import SingleQuiniela from '@/app/components/quinielas/SingleQuiniela';
 import { useStore } from '@/app/store/store';
 import { fetchUserQuinielas, fetchUserQuinielasByJornadaId } from '@/app/services/quinielasService';
-import { fetchAllJornadas } from '@/app/services/jornadaService';
+import {fetchAllJornadas, fetchLatestJornada} from '@/app/services/jornadaService';
 import {
     FormControl,
     Grid,
@@ -37,12 +37,13 @@ const UserDashboard = () => {
     useEffect(() => {
         const loadJornadasAndQuinielas = async () => {
             try {
+                const latestJornada = await fetchLatestJornada();
                 const fetchedJornadas = await fetchAllJornadas();
 
-                if (jornada) {
-                    const userQuinielas = await fetchUserQuinielas({ jornada, user });
 
-                }
+                const userQuinielas = await fetchUserQuinielas({ jornada: latestJornada.active, user });
+
+
                 setCurrentJornada(jornada ? jornada.id : '');
             } catch (error) {
                 console.error('Error loading jornadas and quinielas:', error);

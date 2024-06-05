@@ -3,7 +3,7 @@
 
 import React, { Fragment, useState, useEffect } from "react";
 import { useStore } from '@/app/store/store';
-import { createQuiniela } from '@/app/services/quinielasService';
+import {createQuiniela, fetchQuinielas, fetchUserQuinielasByJornadaId} from '@/app/services/quinielasService';
 import { useRouter } from 'next/navigation';
 // Material UI imports for styling
 import FormControl from "@mui/material/FormControl";
@@ -21,6 +21,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { Accordion, AccordionDetails, AccordionSummary, Divider } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import {fetchLatestJornada} from "@/app/services/jornadaService";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -60,19 +61,37 @@ const Buy = () => {
     const addQuinielaAction = useStore((state) => state.addQuiniela);
     const [formData, setFormData] = useState({});
 
-    useEffect(() => {
-        if (jornada && jornada.games) {
-            const initialGames = {};
-            jornada.games.forEach((game, index) => {
-                initialGames[index] = {
-                    gameId: game.gameId,
-                    team1: { name: game.team1.name, logo: game.team1.logo, guess: '' },
-                    team2: { name: game.team2.name, logo: game.team2.logo, guess: '' },
-                    guess: ''
-                };
-            });
-            setFormData(initialGames);
-        }
+    useEffect(()  => {
+        const getLatestJornada = async () => {
+            if (!jornada) {
+                const latestJornada = await fetchLatestJornada();
+                const initialGames = {};
+                latestJornada.active.games.forEach((game, index) => {
+                    initialGames[index] = {
+                        gameId: game.gameId,
+                        team1: { name: game.team1.name, logo: game.team1.logo, guess: '' },
+                        team2: { name: game.team2.name, logo: game.team2.logo, guess: '' },
+                        guess: ''
+                    };
+                });
+                setFormData(initialGames);
+            }else {
+                if (jornada && jornada.games) {
+                    const initialGames = {};
+                    jornada.games.forEach((game, index) => {
+                        initialGames[index] = {
+                            gameId: game.gameId,
+                            team1: { name: game.team1.name, logo: game.team1.logo, guess: '' },
+                            team2: { name: game.team2.name, logo: game.team2.logo, guess: '' },
+                            guess: ''
+                        };
+                    });
+                    setFormData(initialGames);
+                }
+            }
+        };
+
+        getLatestJornada();
     }, [jornada]);
 
     const onChange = (e, index) => {

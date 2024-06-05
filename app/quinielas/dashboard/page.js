@@ -91,15 +91,21 @@ const Dashboard = () => {
                 if (!jornada) {
                     const latestJornada = await fetchLatestJornada();
                     setCurrentJornadaId(latestJornada.active.id);
+
+                    if (user ) {
+                        const userQuinielasData = await fetchUserQuinielasByJornadaId({ id: latestJornada.active.id, user });
+                    }
+
+                    if (!quinielas || quinielas.length === 0) {
+                        await fetchQuinielas({ jornada: latestJornada.active });
+                    }
                 }else {
                     setCurrentJornadaId(jornada.id);
+                    if (user ) {
+                        const userQuinielasData = await fetchUserQuinielasByJornadaId({ id: jornada.id, user });
+                    }
                 }
-                if (!quinielas || quinielas.length === 0) {
-                    await fetchQuinielas({ jornada: jornada });
-                }
-                if (!userQuinielas || userQuinielas.length === 0) {
-                    const userQuinielasData = await fetchUserQuinielasByJornadaId({ id: currentJornadaId, user });
-                }
+
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
@@ -140,7 +146,7 @@ const Dashboard = () => {
                     </Grid>
                 )}
 
-                {!loading && (
+                {!loading && quinielas && (
                     <WinnersList quinielas={quinielas} jornada={jornada} />
                 )}
             </Grid>

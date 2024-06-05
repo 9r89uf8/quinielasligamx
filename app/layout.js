@@ -8,6 +8,11 @@ import './styles/globals.css';
 const Layout = ({ children }) => {
   return (
       <html lang="en">
+      <head>
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="icon" href="/favicon.ico" />
+          <meta name="robots" content="index, follow" />
+      </head>
       <body>
 
         <Navbar/>

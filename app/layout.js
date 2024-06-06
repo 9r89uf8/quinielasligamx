@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
       <html lang="en">
       <head>
           <link rel="manifest" href="/manifest.json" />
-          <link rel="icon" href="/public/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
           <meta name="robots" content="index, follow" />
           <meta name="theme-color" content="#000000" />
       </head>

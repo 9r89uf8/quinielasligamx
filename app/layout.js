@@ -12,6 +12,7 @@ const Layout = ({ children }) => {
           <link rel="manifest" href="/manifest.json" />
           <link rel="icon" href="/public/favicon.ico" />
           <meta name="robots" content="index, follow" />
+          <meta name="theme-color" content="#000000" />
       </head>
       <body>
 

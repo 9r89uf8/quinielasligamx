@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Button, Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import { AccountCircle } from '@mui/icons-material';
 import { useStore } from '../store/store'; // Ensure this path is correct according to your structure
 import { logoutUser } from '../services/authService'; // Ensure this path is correct according to your structure
@@ -20,6 +21,16 @@ const Navbar = () => {
         setAnchorEl(null);
     };
 
+    const handleLogin = () => {
+        handleMenuClose();
+        router.push('/login');
+    };
+
+    const handleRegister = () => {
+        handleMenuClose();
+        router.push('/register');
+    };
+
     const handleSignOut = async () => {
         await logoutUser(); // Ensure logoutUser properly clears any session data on the server
         handleMenuClose();
@@ -35,40 +46,35 @@ const Navbar = () => {
                         alt="logo"
                         style={{ width: 45, height: 'auto', marginRight: 4 }}
                     />
-                    <Button color="inherit" onClick={() => router.push('/')}>Quinielas</Button>
+                    <Button color="inherit" onClick={() => router.push('/')}>Quinielas Liga MX</Button>
                 </Box>
 
-                {user ? (
-                    <div>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleMenuClose}
-                        >
-                            <MenuItem onClick={handleMenuClose}>
-                                <Button color="inherit" onClick={() => router.push('/quinielas')}>Quinielas</Button>
-                            </MenuItem>
-                            <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-                        </Menu>
-                    </div>
-                ) : (
-                    <>
-                        <Button color="inherit" onClick={() => router.push('/login')}>Sign In</Button>
-                        <Button color="inherit" onClick={() => router.push('/register')}>Register</Button>
-                    </>
-                )}
+                <div>
+                    <IconButton
+                        size="large"
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenuOpen}
+                        color="inherit"
+                    >
+                        <DehazeIcon />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleMenuClose}
+                    >
+                        {user ? (
+                            <MenuItem onClick={handleSignOut}>Salir</MenuItem>
+                        ) : [
+                            <MenuItem key="login" onClick={handleLogin}>Entrar a mi cuenta</MenuItem>,
+                            <MenuItem key="register" onClick={handleRegister}>Crear Cuenta</MenuItem>
+                        ]}
+                    </Menu>
+                </div>
             </Toolbar>
         </AppBar>
     );

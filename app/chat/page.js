@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useStore } from '@/app/store/store';
 import ConversationHistory from '@/app/components/chat/ConversationHistory';

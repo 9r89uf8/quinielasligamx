@@ -23,6 +23,7 @@ Disallow: /chats
 Disallow: /member
 Disallow: /reset
 Disallow: /video
+Disallow: /quinielas
 
 
 Allow: /

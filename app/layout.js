@@ -5,6 +5,25 @@ import FloatingNavbar from "@/app/components/FloatingNavbar";
 import Notifications from "@/app/components/Notifications";
 import './styles/globals.css';
 
+function generateSchemaMarkup() {
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "quinielasligamx.com",
+        "url": "https://www.quinielasligamx.com",
+        "description": "Quinielas liga mx 2024-2025 del fútbol mexicano. 10,000 dólares en premios",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.quinielasligamx.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    };
+
+    return {
+        __html: JSON.stringify(schemaData)
+    };
+}
+
 const Layout = ({ children }) => {
   return (
       <html lang="es">
@@ -16,6 +35,12 @@ const Layout = ({ children }) => {
               <link rel="icon" href="/favicon.ico" />
               <meta name="robots" content="index, follow" />
               <meta name="theme-color" content="#000000" />
+
+            {/* Schema Markup */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={generateSchemaMarkup()}
+            />
           </head>
       <body>
 

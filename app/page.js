@@ -14,16 +14,16 @@ const HomePage = () => {
                     <p style={styles.description}>
                         Si vives en Estados Unidos puedes ganar
                     </p>
-                    <h3 style={{ ...styles.prize, ...styles.button }}>10,000 dólares</h3>
+                    <h3 style={{ ...styles.prize, ...styles.button }}>$10,000 dólares</h3>
                 </div>
                 <div style={styles.card}>
                     <p style={styles.description}>
                         Si vives en México puedes ganar
                     </p>
-                    <h3 style={{ ...styles.prize, ...styles.button }}>120,000 pesos</h3>
+                    <h3 style={{ ...styles.prize, ...styles.button }}>$120,000 pesos</h3>
                 </div>
                 <Link href="/quinielas" passHref>
-                    <button style={styles.button}>Juega Ahora</button>
+                    <button style={styles.buttonClick}>Juega Ahora</button>
                 </Link>
             </div>
             <div style={styles.winnerSection}>
@@ -130,7 +130,7 @@ const styles = {
         textAlign: 'center',
     },
     description: {
-        fontSize: '1.25rem',
+        fontSize: '1.55rem',
         marginBottom: '10px',
         color: '#050505',
     },
@@ -141,6 +141,14 @@ const styles = {
         color: '#ffffff',
     },
     button: {
+        fontSize: '2rem',
+        color: '#383838',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        transition: 'background 0.3s ease',
+    },
+    buttonClick: {
         fontSize: '1.25rem',
         padding: '15px 30px',
         background: 'linear-gradient(45deg, #0077b6, #00b4d8)',

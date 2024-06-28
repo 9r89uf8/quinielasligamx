@@ -1,0 +1,31 @@
+@keyframes swipe {
+    0%, 100% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+}
+
+.swipeIcon {
+    animation: swipe 1.5s infinite;
+}
+
+.prizeScroller {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.prizeScroller::-webkit-scrollbar {
+    display: none;
+}
+
+.listItem::before {
+    content: '✓';
+    color: #0077b6;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .prizeBox {
+        width: calc(100% - 20px);
+    }
+}

@@ -37,28 +37,33 @@ const HomePage = () => {
                 </div>
                 <div style={styles.winnerGrid}>
                     <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>Carlos Sánchez</p>
+                        <p style={styles.winnerName}>Carlos11S</p>
                         <p style={styles.winnerAmount}>Jornada 17, 2024</p>
+                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
                         <p style={styles.winnerAmount}>$18,000 dólares</p>
                     </div>
                     <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>María Rodríguez</p>
+                        <p style={styles.winnerName}>Mario_Rodríguez3</p>
                         <p style={styles.winnerAmount}>Jornada 17, 2024</p>
+                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
                         <p style={styles.winnerAmount}>$16,000 dólares</p>
                     </div>
                     <div style={styles.winnerCard}>
                         <p style={styles.winnerName}>Juan Pérez</p>
                         <p style={styles.winnerAmount}>Jornada 16, 2024</p>
+                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
                         <p style={styles.winnerAmount}>$12,000 dólares</p>
                     </div>
                     <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>Ana Gómez</p>
+                        <p style={styles.winnerName}>luisitoo2024</p>
                         <p style={styles.winnerAmount}>Jornada 15, 2024</p>
+                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
                         <p style={styles.winnerAmount}>$14,000 dólares</p>
                     </div>
                     <div style={styles.winnerCard}>
                         <p style={styles.winnerName}>Luis Martínez</p>
                         <p style={styles.winnerAmount}>Jornada 15, 2024</p>
+                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
                         <p style={styles.winnerAmount}>$10,000 dólares</p>
                     </div>
                 </div>
@@ -202,7 +207,7 @@ const styles = {
         marginBottom: 40
     },
     winnerName: {
-        fontSize: '1.5rem',
+        fontSize: '1.8rem',
         fontWeight: '700',
         color: '#d5d5d5',
     },
@@ -212,8 +217,13 @@ const styles = {
         color: '#505050',
     },
     winnerAmount: {
+        fontSize: '1.55rem',
+        color: '#c7c7c7',
+    },
+    winnerFut: {
         fontSize: '1.25rem',
         color: '#c7c7c7',
+        marginTop: -12
     },
     playersDescription: {
         fontSize: '1.35rem',

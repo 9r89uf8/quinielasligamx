@@ -88,6 +88,71 @@ const HomePage = () => {
                     "Participar en las quinielas es muy divertido y emocionante. ¡Recomiendo a todos los aficionados!" - María López
                 </p>
             </div>
+
+            <div style={styles.teamsSection}>
+                <h2 style={styles.sectionTitle}>Liga Mexicana BBVA MX Equipos 2024-2025</h2>
+                <div style={styles.winnerGrid}>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>América</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Atlas</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Atlético de San Luis</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Tijuana</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Cruz Azul</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Guadalajara</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>FC Juarez</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>León</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Mazatlán FC</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Monterrey</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Necaxa</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Pachuca</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Puebla</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Pumas UNAM</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Querétaro</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Santos</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Tigres UANL</p>
+                    </div>
+                    <div style={styles.teamsCard}>
+                        <p style={styles.teamName}>Toluca</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div style={styles.teamsSection}>
+                <p style={styles.footer}>© 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx 2024-2025.</p>
+            </div>
         </div>
     );
 };
@@ -186,6 +251,17 @@ const styles = {
         marginBottom: '40px',
         textAlign: 'center',
     },
+    teamsSection: {
+        backgroundColor: '#ffffff',
+        padding: '20px',
+        borderRadius: '10px',
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
+        maxWidth: '800px',
+        width: '100%',
+        marginBottom: '40px',
+        marginTop:'40px',
+        textAlign: 'center',
+    },
     winnerGrid: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -197,6 +273,23 @@ const styles = {
         borderRadius: '10px',
         boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
+    },
+    teamsCard: {
+        background: 'linear-gradient(45deg, #0d1b2a, #0b090a)',
+        padding: '5px',
+        borderRadius: '10px',
+        boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
+        textAlign: 'center',
+    },
+    teamName: {
+        fontSize: '1.4rem',
+        fontWeight: '500',
+        color: '#d5d5d5',
+    },
+    footer: {
+        fontSize: '1.4rem',
+        fontWeight: '500',
+        color: '#212121',
     },
     playersCard: {
         backgroundColor: '#ffffff',

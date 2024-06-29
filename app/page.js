@@ -275,7 +275,7 @@ const styles = {
         textAlign: 'center',
     },
     teamsCard: {
-        background: 'linear-gradient(45deg, #0d1b2a, #0b090a)',
+        background: 'white',
         padding: '5px',
         borderRadius: '10px',
         boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
@@ -284,7 +284,7 @@ const styles = {
     teamName: {
         fontSize: '1.4rem',
         fontWeight: '500',
-        color: '#d5d5d5',
+        color: '#0a0a0a',
     },
     footer: {
         fontSize: '1.4rem',

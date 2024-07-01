@@ -1,5 +1,7 @@
 // app/api/auth/register/route.js
 import { adminAuth, adminDb } from '@/app/utils/firebaseAdmin';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/app/utils/firebaseClient';
 import {cookies} from "next/headers";
 
 export async function POST(req) {
@@ -25,13 +27,19 @@ export async function POST(req) {
             name: username,
         });
 
+
+        // Sign in the user to get the ID token
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const idToken = await userCredential.user.getIdToken();
+
+
         // Fetch the saved user document from Firestore
         const userDoc = await adminDb.firestore().collection('users').doc(userRecord.uid).get();
         const userData = userDoc.data();
 
         // Set the token in an httpOnly cookie
         const cookieStore = cookies();
-        cookieStore.set('token', token, {
+        cookieStore.set('token', idToken, {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',

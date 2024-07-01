@@ -58,7 +58,6 @@ const Buy = () => {
     const jornada = useStore((state) => state.buyJornada);
     const user = useStore((state) => state.user);
     const router = useRouter();
-    const addQuinielaAction = useStore((state) => state.addQuiniela);
     const [formData, setFormData] = useState({});
 
     useEffect(()  => {
@@ -127,8 +126,7 @@ const Buy = () => {
         });
 
         await createQuiniela({ games: formattedData, user: user, jornada: jornada });
-        addQuinielaAction({ games: formattedData, user: user, jornada: jornada });
-        router.push('/buy');
+        router.push('/cart');
     };
 
     let list;

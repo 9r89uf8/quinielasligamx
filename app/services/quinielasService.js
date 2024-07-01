@@ -199,6 +199,7 @@ export const fetchQuinielasWinners = async (formData) => {
 export const createQuiniela = async (formData) => {
     const addQuiniela = useStore.getState().addQuiniela;
     const setLoadingQuinielas = useStore.getState().setLoadingQuinielas;
+    const getUserCart = useStore.getState().setLoadingGetUserCart;
 
     setLoadingQuinielas(true);
 
@@ -213,13 +214,13 @@ export const createQuiniela = async (formData) => {
 
         if (response.ok) {
             const newQuiniela = await response.json();
-            addQuiniela(newQuiniela);
+            // getUserCart(true);
             return newQuiniela;
         } else {
             throw new Error('Failed to create quiniela');
         }
     } catch (error) {
-        console.error('Error creating quiniela:', error);
+        console.log(error.message);
         return null;
     } finally {
         setLoadingQuinielas(false);

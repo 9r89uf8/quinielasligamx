@@ -87,7 +87,7 @@ const Cart = () => {
 
                     <Grid item sm={6} lg={6} xs={6}>
                         <Typography variant="h5" gutterBottom>
-                            {quantity}
+                            {userCart.quantity}
                         </Typography>
                     </Grid>
 
@@ -99,7 +99,7 @@ const Cart = () => {
 
                     <Grid item sm={6} lg={6} xs={6}>
                         <Typography variant="h5" gutterBottom>
-                            {free}
+                            {userCart.free}
                         </Typography>
                     </Grid>
 
@@ -110,7 +110,7 @@ const Cart = () => {
                     </Grid>
                     <Grid item sm={6} lg={6} xs={6}>
                         <Typography variant="h5" gutterBottom>
-                            ${totalString}
+                            ${userCart.totalString}
                         </Typography>
                     </Grid>
                     <Grid item sm={12} lg={9} xs={12}>
@@ -134,7 +134,7 @@ const Cart = () => {
                                         </Button>
                                     </div>
 
-                                    {userCart && userCart.length > 0 && (
+                                    {userCart && userCart.quinielas&& userCart.quinielas.length > 0 && (
                                         <>
                                             {userCart.total > 0 ? (
                                                 <CheckoutButton price={buyJornada ? buyJornada.price : jornada.price} country={user.country} user={user.uid} jornadaId={buyJornada ? buyJornada.id : jornada.id} />
@@ -169,9 +169,9 @@ const Cart = () => {
                 </Grid>
             </Item>
 
-            {userCart && userCart.length > 0 && (
+            {userCart && userCart.quinielas&& userCart.quinielas.length > 0 && (
                 <Grid container spacing={1} style={{ marginTop: 5 }}>
-                    {userCart.map((post, index) => (
+                    {userCart.quinielas.map((post, index) => (
                         <SingleQuiniela
                             key={index}
                             quiniela={post}

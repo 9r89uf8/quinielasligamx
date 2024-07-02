@@ -10,8 +10,6 @@ export async function POST(req) {
     const { userId, country, price, jornadaId } = await req.json();
     const origin = 'http://localhost:3000'; // Default to localhost for development
 
-    console.log(price)
-
     const quinielasRef = adminDb.firestore().collection('quiniela');
     const quinielasSnapshot = await quinielasRef
         .where('paid', '==', false)
@@ -23,7 +21,6 @@ export async function POST(req) {
 
     // Calculate quantity
     const quantity = quinielasSnapshot.size;
-    console.log(quantity)
     //set the quantity on the payment by checking how many quinielas the snapshot has
 
     let currency, fPrice, locale;

@@ -2,11 +2,6 @@ import { useStore } from '../store/store'; // Ensure you import the correct stor
 
 export const getCart = async (formData) => {
     const setCart = useStore.getState().setCart;
-    const setPrice = useStore.getState().setPrice;
-    const setTotal = useStore.getState().setTotal;
-    const setQuantity = useStore.getState().setQuantity;
-    const setTotalString = useStore.getState().setTotalString;
-    const setFree = useStore.getState().setFree;
 
 
     try {
@@ -20,12 +15,7 @@ export const getCart = async (formData) => {
 
         if (response.ok) {
             const cart = await response.json();
-            setCart(cart.quinielas);
-            setPrice(cart.price)
-            setTotal(cart.total)
-            setQuantity(cart.quantity)
-            setFree(cart.free)
-            setTotalString(cart.totalString)
+            setCart(cart);
             return cart;
         } else {
             throw new Error('Failed to update jornada');

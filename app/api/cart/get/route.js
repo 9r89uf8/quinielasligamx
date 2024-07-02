@@ -1,7 +1,6 @@
 // app/api/posts/create/route.js
 import { adminDb } from '@/app/utils/firebaseAdmin';
 import { authMiddleware } from '@/app/middleware/authMiddleware';
-
 export async function POST(req) {
     try {
         await authMiddleware(req);

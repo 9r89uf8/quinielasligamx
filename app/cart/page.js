@@ -5,6 +5,7 @@ import { useStore } from '@/app/store/store';
 import { useRouter } from 'next/navigation';
 import CheckoutButton from '@/app/components/CheckoutButton';
 import FreeQuinielasButton from "@/app/components/FreeQuinielasButton";
+import CircularProgress from '@mui/material/CircularProgress';
 import SingleQuiniela from '@/app/components/quinielas/SingleQuiniela';
 import { getCart } from "@/app/services/cartService";
 import { fetchLatestJornada } from "@/app/services/jornadaService";
@@ -66,6 +67,14 @@ const Cart = () => {
     const handleClick = () => {
         router.push('/add'); // Replace '/add' with the path you want to navigate to
     };
+
+    if (!userCart) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>

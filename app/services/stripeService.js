@@ -88,14 +88,14 @@ export const verifySession = async (sessionId) => {
             addNotification({
                 id: Date.now(),
                 type: 'success',
-                message: 'Payment Successful!',
+                message: 'Pago Exitoso',
             });
         } else {
             setStatus('cancel');
             addNotification({
                 id: Date.now(),
                 type: 'error',
-                message: 'Payment Canceled',
+                message: 'Pago Cancelado',
             });
         }
     } catch (error) {
@@ -104,7 +104,7 @@ export const verifySession = async (sessionId) => {
         addNotification({
             id: Date.now(),
             type: 'error',
-            message: 'Payment Verification Failed',
+            message: 'Error de verificación de pago',
         });
     } finally {
         setLoading(false);

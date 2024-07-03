@@ -53,7 +53,7 @@ const Quinielas = () => {
             <Typography variant="h4" gutterBottom>
                 Quinielas
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} justifyContent="center">
                 {quinielas && quinielas.length > 0 ? (
                     quinielas.map((quiniela, index) => (
                         <SingleQuiniela key={quiniela.id} quiniela={quiniela} index={index} showDelete={false} showScore={true} />

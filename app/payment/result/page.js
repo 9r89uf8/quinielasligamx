@@ -3,7 +3,7 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Container, Typography, CircularProgress } from '@mui/material';
+import {Container, Typography, CircularProgress, Button} from '@mui/material';
 import { useStore } from '@/app/store/store';
 import { verifySession } from '@/app/services/stripeService';
 
@@ -32,16 +32,40 @@ const page = () => {
         );
     }
 
+    const handleNavigate = () => {
+        router.push('/quinielas/user'); // Replace '/register' with the path you want to navigate to
+    };
+
     return (
         <Container maxWidth="sm">
             {status === 'success' ? (
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Payment Successful!
-                </Typography>
+                    <div style={{textAlign: "center", marginTop: 15}}>
+                        <Typography variant="h4" component="h1" gutterBottom>
+                            Pago Exitoso!
+                        </Typography>
+                        <Button
+                            onClick={handleNavigate}
+                            style={{
+                                backgroundImage: 'linear-gradient(45deg, #32cd32, #008080)',
+                                color: 'white',
+                                padding: '10px 20px',
+                                borderRadius: '20px',
+                                fontWeight: 'bold',
+                                boxShadow: '0 3px 5px 2px rgba(50, 205, 50, .3)',
+                                marginTop: '20px'
+                            }}
+                        >
+                            Ver Mis Quinielas
+                        </Button>
+                    </div>
+
             ) : (
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Payment Canceled
-                </Typography>
+                <div style={{textAlign: "center", marginTop: 15}}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Pago Cancelado
+                    </Typography>
+                </div>
+
             )}
         </Container>
     );

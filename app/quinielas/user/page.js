@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    margin: '15px auto 0px auto'
+    margin: theme.spacing(3)
 }));
 
 const UserDashboard = () => {
@@ -113,7 +113,7 @@ const UserDashboard = () => {
             </Item>
 
             {user && quinielas && quinielas.length > 0 && (
-                <Grid container spacing={1} style={{ marginTop: 5 }}>
+                <Grid container spacing={2} style={{ marginTop: 5 }} justifyContent="center">
                     {quinielas.map((post, index) => (
                         <SingleQuiniela
                             key={index}

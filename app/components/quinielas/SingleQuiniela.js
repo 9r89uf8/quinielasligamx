@@ -7,6 +7,7 @@ import { alpha, styled } from '@mui/material/styles';
 import FaceIcon from '@mui/icons-material/Face';
 import { useStore } from '@/app/store/store';
 import { deleteQuiniela } from '@/app/services/quinielasService';
+import {getCart} from "@/app/services/cartService";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -21,7 +22,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
     background: 'linear-gradient(45deg, #f8f9fa 30%, #e9ecef 90%)',
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
-    margin: 'auto',
     marginBottom: 15,
 }));
 
@@ -39,11 +39,12 @@ const StyledTextFour = styled(Typography)(({ theme }) => ({
 }));
 
 const SingleQuiniela = ({ quiniela, index, showDelete, showScore }) => {
-    const removeQuiniela = useStore((state) => state.removeQuiniela);
+    const user = useStore((state) => state.user);
+    const buyJornada = useStore((state) => state.buyJornada);
 
     const handleDelete = async (id) => {
         await deleteQuiniela(id);
-        removeQuiniela(id);
+        await getCart({ jornada: buyJornada, user: user });
     };
 
     const list = quiniela.games.map((item, index) => (
@@ -114,7 +115,7 @@ const SingleQuiniela = ({ quiniela, index, showDelete, showScore }) => {
     ));
 
     return (
-        <Grid item xs={12} sm={6} key={index} style={{ position: 'relative' }}>
+        <Grid item xs={11} sm={6} key={index} style={{ position: 'relative' }}>
             <StyledCard>
                 <CardContent>
                     <Item>

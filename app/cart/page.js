@@ -27,7 +27,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.primary,
     background: '#ffffff',
     borderRadius: theme.shape.borderRadius,
-    marginTop: theme.spacing(3),
+    margin: theme.spacing(3),
 }));
 
 const Cart = () => {
@@ -179,7 +179,7 @@ const Cart = () => {
             </Item>
 
             {userCart && userCart.quinielas&& userCart.quinielas.length > 0 && (
-                <Grid container spacing={1} style={{ marginTop: 5 }}>
+                <Grid container spacing={2} style={{ marginTop: 5 }} justifyContent="center">
                     {userCart.quinielas.map((post, index) => (
                         <SingleQuiniela
                             key={index}

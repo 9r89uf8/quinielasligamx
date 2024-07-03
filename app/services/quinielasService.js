@@ -229,10 +229,6 @@ export const createQuiniela = async (formData) => {
 
 // Delete a quiniela
 export const deleteQuiniela = async (id) => {
-    const removeQuiniela = useStore.getState().removeQuiniela;
-    const setLoadingQuinielas = useStore.getState().setLoadingQuinielas;
-
-    setLoadingQuinielas(true);
 
     try {
         const response = await fetch(`/api/quinielas/delete/${id}`, {
@@ -243,7 +239,6 @@ export const deleteQuiniela = async (id) => {
         });
 
         if (response.ok) {
-            removeQuiniela(id);
             return { id };
         } else {
             throw new Error('Failed to delete quiniela');
@@ -251,8 +246,6 @@ export const deleteQuiniela = async (id) => {
     } catch (error) {
         console.error('Error deleting quiniela:', error);
         return null;
-    } finally {
-        setLoadingQuinielas(false);
     }
 };
 

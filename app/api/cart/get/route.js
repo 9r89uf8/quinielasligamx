@@ -56,7 +56,7 @@ export async function POST(req) {
         if (userData.country === 'US') {
             price = jornadaData.price;
             total = payableQuinielasCount * jornadaData.price;
-            totalString = `${total} Dollars`;
+            totalString = `${total} Dólares`;
         } else {
             price = jornadaData.price * 15;
             total = payableQuinielasCount * (jornadaData.price * 15);

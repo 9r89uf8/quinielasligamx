@@ -8,7 +8,10 @@ const HomePage = () => {
                 <h1 style={styles.mainTitle}>Quinielas Liga MX</h1>
                 <h2 style={styles.subtitle}>2024-2025</h2>
                 <p style={styles.description}>
-                    ¿Te gusta el fútbol o eres bueno adivinando los ganadores de los partidos de la Liga MX? Participa en nuestras quinielas y demuestra tu conocimiento.
+                    ¡Participa en las mejores quinielas de la Liga MX 2024-2025 y gana dinero real! ¿Eres un experto en fútbol de la liga BBVA MX y tienes un
+                    don para predecir los resultados? Demuestra tu conocimiento en nuestras quiniela de
+                    la Liga MX. Tenemos lo que necesitas para poner a prueba tus habilidades y
+                    disfrutar al máximo cada jornada del torneo.
                 </p>
                 <div style={styles.card}>
                     <p style={styles.description}>
@@ -22,9 +25,19 @@ const HomePage = () => {
                     </p>
                     <h3 style={{ ...styles.prize, ...styles.button }}>$120,000 pesos</h3>
                 </div>
-                <Link href="/quinielas" passHref>
-                    <button style={styles.buttonClick}>Juega Ahora</button>
+                <Link href="/buy" passHref>
+                    <button style={styles.buttonClick}>Comprar Quiniela</button>
                 </Link>
+
+                <div style={styles.cardMessage}>
+                    <p style={styles.description}>
+                        Tiene alguna pregunta?
+                    </p>
+                    <Link href="/chat" passHref>
+                        <button style={styles.buttonClickMessage}>Mandar Mensaje</button>
+                    </Link>
+                </div>
+
             </div>
             <div style={styles.winnerSection}>
                 <h2 style={styles.sectionTitle}>Ganadores Anteriores</h2>
@@ -199,6 +212,18 @@ const styles = {
         marginBottom: '20px',
         textAlign: 'center',
     },
+    cardMessage: {
+        background: 'linear-gradient(45deg, #edf2fb, #e2eafc)',
+        color: '#000000',
+        padding: '20px',
+        borderRadius: '10px',
+        boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
+        width: '100%',
+        maxWidth: '600px',
+        marginBottom: '20px',
+        marginTop:20,
+        textAlign: 'center',
+    },
     description: {
         fontSize: '1.55rem',
         marginBottom: '10px',
@@ -222,6 +247,16 @@ const styles = {
         fontSize: '1.25rem',
         padding: '15px 30px',
         background: 'linear-gradient(45deg, #0077b6, #00b4d8)',
+        color: '#ffffff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        transition: 'background 0.3s ease',
+    },
+    buttonClickMessage: {
+        fontSize: '1.25rem',
+        padding: '15px 30px',
+        background: 'linear-gradient(45deg, #ff9e00, #ff6d00)',
         color: '#ffffff',
         border: 'none',
         borderRadius: '5px',

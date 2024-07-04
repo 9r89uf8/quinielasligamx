@@ -29,8 +29,16 @@ const Layout = ({ children }) => {
       <html lang="es">
         <head>
               <title>Quinielas de la Liga MX 2024-2025 - 10,000 Dólares en Efectivo a los Ganadores.</title>
-              <meta name="description" content="10,000 dólares en premios: Participa en las quinielas de la Liga MX 2024-2025 con equipos como América, Chivas, y Cruz Azul. ¡Únete a nuestra comunidad de aficionados al fútbol mexicano y gana premios en efectivo!" />
-              <meta name="keywords" content="quinielas, Liga MX, fútbol mexicano, ganar dinero, premios en efectivo, quinielas en línea, apuestas deportivas" />
+              <meta name="description" content="10,000 dólares en premios. Participa en las mejores quinielas Liga MX 2024-2025 con equipos como América, Chivas, y Cruz Azul. ¡Únete a la quiniela Liga MX más emocionante!" />
+              <meta name="keywords" content="quinielas liga mx 2024, quinielas liga mx, quiniela liga mx, quiniela liga mx 2024, apuestas deportivas" />
+              <link rel="canonical" href="https://www.quinielasligamx.com/" />
+              <meta property="og:title" content="Quinielas Liga MX 2024 | Gana $10,000 en Efectivo"/>
+              <meta property="og:description" content="Participa en las mejores quinielas Liga MX 2024-2025. Gana hasta $10,000 en efectivo prediciendo resultados. ¡Únete ahora!"/>
+              <meta property="og:url" content="https://www.quinielasligamx.com/"/>
+              <meta property="og:type" content="website"/>
+              <meta name="twitter:card" content="summary_large_image"/>
+              <meta name="twitter:title" content="Quinielas Liga MX 2024 | Gana $10,000 en Efectivo"/>
+              <meta name="twitter:description" content="Participa en las mejores quinielas Liga MX 2024-2025. Gana hasta $10,000 en efectivo prediciendo resultados. ¡Únete ahora!"/>
               <link rel="manifest" href="/manifest.json" />
               <link rel="icon" href="/favicon.ico" />
               <meta name="robots" content="index, follow" />

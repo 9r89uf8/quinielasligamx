@@ -41,10 +41,10 @@ const BuyBanner = ({cart, jornada}) => {
     const router = useRouter();
 
     const handleChatRedirect = () => {
-        if(cart.length>0){
-            router.push('/buy');
+        if(cart&&cart.length>0){
+            router.push('/cart');
         }else {
-            router.push('/add');
+            router.push('/buy');
         }
 
     };

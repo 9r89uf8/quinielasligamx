@@ -114,10 +114,9 @@ export const refundJornada = async (formData) => {
 
 export const updateJornadaScore = async (formData) => {
     const setJornada = useStore.getState().setJornada;
-    const setLoadingTrue = useStore.getState().setLoadingTrue;
-    const setLoadingFalse = useStore.getState().setLoadingFalse;
+    const setLoading = useStore.getState().setLoadingJornada;
 
-    setLoadingTrue();
+    setLoading(true);
 
     try {
         const response = await fetch('/api/jornada/update', {
@@ -131,13 +130,13 @@ export const updateJornadaScore = async (formData) => {
         if (response.ok) {
             const updatedJornada = await response.json();
             setJornada(updatedJornada);
-            setLoadingFalse();
+            setLoading(false);
             return updatedJornada;
         } else {
             throw new Error('Failed to update jornada score');
         }
     } catch (error) {
-        setLoadingFalse();
+        setLoading(false);
         console.error('Error updating jornada score:', error);
         return null;
     }

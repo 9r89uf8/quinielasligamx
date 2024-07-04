@@ -59,6 +59,7 @@ const Buy = () => {
     const user = useStore((state) => state.user);
     const router = useRouter();
     const [formData, setFormData] = useState({});
+    const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
 
     useEffect(()  => {
         const getLatestJornada = async () => {
@@ -104,12 +105,21 @@ const Buy = () => {
         }));
     };
 
-    const handleBuyClickR = () => {
+    const handleRegisterClick = () => {
         router.push('/register');
     };
 
+    const handleBuyClick = (e) => {
+        e.preventDefault()
+        if (!user) {
+            setShowRegisterPrompt(true);
+        } else {
+            onSubmit();
+        }
+    };
+
     const onSubmit = async (e) => {
-        e.preventDefault();
+        e && e.preventDefault();
 
         const formattedData = Object.keys(formData).map(game => {
             const gameData = formData[game];
@@ -223,16 +233,27 @@ const Buy = () => {
                             </AccordionDetails>
                         </StyledAccordion>
                     </Item>
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={handleBuyClick}>
                         <Item elevation={6}>
                             <Grid container spacing={2} justify="center" style={{ marginBottom: '10px' }}>
                                 {list}
                             </Grid>
-                            <Button type="submit" variant="contained" color="primary" fullWidth size="large">
+                            <Button style={{marginTop:20}} type="submit" variant="contained" color="primary" size="large" disabled={showRegisterPrompt}>
                                 Comprar Quiniela
                             </Button>
                         </Item>
                     </form>
+
+                    {showRegisterPrompt && (
+                        <Box mt={2} textAlign="center">
+                            <Typography variant="h6" color="error">
+                                Por favor regístrate antes de comprar una quiniela.
+                            </Typography>
+                            <Button variant="contained" color="primary" onClick={handleRegisterClick}>
+                                Registrate Aqui
+                            </Button>
+                        </Box>
+                    )}
                 </Box>
             </Fragment>
         );
@@ -245,9 +266,6 @@ const Buy = () => {
                             No hay Quinielas a la venta por el momento.
                         </Typography>
                     </Badge>
-                    <Button onClick={handleBuyClickR} variant="contained" color="primary" fullWidth size="large">
-                        Regístrate para recibir notificaciones
-                    </Button>
                 </Item>
             </Box>
         );

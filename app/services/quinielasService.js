@@ -227,6 +227,92 @@ export const createQuiniela = async (formData) => {
     }
 };
 
+
+export const addDummyQuinielas = async (formData) => {
+    const dummy = useStore.getState().setDummy;
+    try {
+        dummy(true)
+        const response = await fetch('/api/quinielas/dummy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            dummy(false)
+            const newQuiniela = await response.json();
+            // getUserCart(true);
+            return newQuiniela;
+        } else {
+            dummy(false)
+            throw new Error('Failed to create dummy quiniela');
+        }
+    } catch (error) {
+        dummy(false)
+        console.log(error.message);
+        return null;
+    }
+};
+
+export const addDummyQuinielaWinners = async (formData) => {
+    const dummy = useStore.getState().setDummy;
+    try {
+        dummy(true)
+        const response = await fetch('/api/jornada/dummyWinners', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            dummy(false)
+            const newQuiniela = await response.json();
+            // getUserCart(true);
+            return newQuiniela;
+        } else {
+            dummy(false)
+            throw new Error('Failed to create dummy quiniela');
+        }
+    } catch (error) {
+        dummy(false)
+        console.log(error.message);
+        return null;
+    }
+};
+
+
+export const deleteAllQuinielasByJornadaId = async (formData) => {
+    const dummy = useStore.getState().setDummy;
+
+    try {
+        dummy(true)
+        const response = await fetch('/api/quinielas/deleteAllByJornadaId', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            dummy(false)
+            const newQuiniela = await response.json();
+            // getUserCart(true);
+            return newQuiniela;
+        } else {
+            dummy(false)
+            throw new Error('Failed to create dummy quiniela');
+        }
+    } catch (error) {
+        dummy(false)
+        console.log(error.message);
+        return null;
+    }
+};
 // Delete a quiniela
 export const deleteQuiniela = async (id) => {
 

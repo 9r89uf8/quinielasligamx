@@ -65,7 +65,7 @@ const Cart = () => {
     };
 
     const handleClick = () => {
-        router.push('/add'); // Replace '/add' with the path you want to navigate to
+        router.push('/buy'); // Replace '/add' with the path you want to navigate to
     };
 
     if (!userCart) {

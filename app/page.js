@@ -256,7 +256,7 @@ const styles = {
     buttonClickMessage: {
         fontSize: '1.25rem',
         padding: '15px 30px',
-        background: 'linear-gradient(45deg, #ff9e00, #ff6d00)',
+        background: 'linear-gradient(45deg, #001f54, #0a1128)',
         color: '#ffffff',
         border: 'none',
         borderRadius: '5px',

@@ -7,6 +7,7 @@ const DOMAIN = "quinielasligamx.com";
 const mailgun = new Mailgun(formData);
 const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API });
 
+
 export async function POST(req) {
     const { email } = await req.json();
 

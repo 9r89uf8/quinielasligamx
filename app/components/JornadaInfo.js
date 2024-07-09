@@ -23,7 +23,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     backgroundImage: 'linear-gradient(45deg, #403d39, #252422)',
     color: 'white',
     padding: '10px 20px',
-    fontSize: '18px',
+    fontSize: '22px',
     marginBottom: 12,
     borderRadius: '20px',
     fontWeight: 'bold',
@@ -63,10 +63,10 @@ const JornadaInfo = ({ jornada }) => {
                 {jornada && (
                     <>
                         <Grid item xs={12}>
-                            <Typography variant="h5" gutterBottom>
+                            <Typography variant="h4" gutterBottom>
                                 Jornada {jornada.jornadaNum}
                             </Typography>
-                            <Typography variant="h6" gutterBottom style={{ color: '#555' }}>
+                            <Typography variant="h5" gutterBottom style={{ color: '#555' }}>
                                 Termina el {jornada.endDate}
                             </Typography>
                         </Grid>

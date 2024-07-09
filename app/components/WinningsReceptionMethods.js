@@ -42,11 +42,11 @@ const WinningsReceptionMethods = () => {
                             <Typography variant="h5">Western Union</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography variant="h6" gutterBottom style={{textAlign: "start"}}>
+                            <Typography variant="h5" gutterBottom style={{textAlign: "start"}}>
                                 La forma más fácil y rápida de recibir su dinero.
                             </Typography>
                             <Divider style={{margin: '20px 0'}}/>
-                            <Typography variant="h6" gutterBottom style={{textAlign: "start"}}>
+                            <Typography variant="h5" gutterBottom style={{textAlign: "start"}}>
                                 Uno de nuestros representantes lo llamará cuando gane por teléfono para pedir tu información.
                             </Typography>
                         </AccordionDetails>
@@ -62,11 +62,11 @@ const WinningsReceptionMethods = () => {
                             <Typography variant="h5" style={{textAlign: "start"}}>Cuenta de Banco <span style={{color: '#ffc300'}}>recomendado</span></Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography variant="h6" gutterBottom style={{textAlign: "start"}}>
+                            <Typography variant="h5" gutterBottom style={{textAlign: "start"}}>
                                 La forma más segura de recibir tu dinero.
                             </Typography>
                             <Divider style={{margin: '20px 0'}}/>
-                            <Typography variant="h6" gutterBottom style={{textAlign: "start"}}>
+                            <Typography variant="h5" gutterBottom style={{textAlign: "start"}}>
                                 Uno de nuestros representantes lo llamará cuando gane por teléfono para pedir tu información.
                             </Typography>
                         </AccordionDetails>

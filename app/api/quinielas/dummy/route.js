@@ -100,7 +100,7 @@ export async function POST(req) {
 
 
         // Run the main logic 50 times
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 30; i++) {
             const user = users[Math.floor(Math.random() * users.length)]; // Select a random user
             const randomId = user.id; // Assuming the ID is what you refer to as randomId
 

@@ -5,6 +5,7 @@ import { useStore } from '@/app/store/store';
 import FormControl from "@mui/material/FormControl";
 import {updateJornadaScore} from "@/app/services/jornadaService";
 import { FormControlLabel, Checkbox } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import InputLabel from "@mui/material/InputLabel";
 import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
@@ -46,6 +47,7 @@ const UpdateJornadaScore = () => {
     const jornada = useStore((state) => state.jornada);
     const loading = useStore((state) => state.loadingJornada);
     const user = useStore((state) => state.user);
+    const router = useRouter();
 
     let initialGames = {};
 
@@ -102,6 +104,7 @@ const UpdateJornadaScore = () => {
         await updateJornadaScore({jornada: jornada, games: formData})
         // dispatch(addQuiniela({games: Object.values(formData), user: user, jornada: jornada}))
         // navigate('/buy')
+        router.push('/jornada/admin')
     };
 
     let list;

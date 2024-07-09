@@ -102,10 +102,10 @@ const JornadaInfo = ({ jornada }) => {
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     <Typography variant="h6" gutterBottom>
-                                        Necesitas hacer 9 puntos en una quiniela para ganar los ${jornada.prize*15} Pesos automaticamente.
+                                        Necesitas hacer 9 puntos en una quiniela para ganar los ${jornada.prize} dolares o ${jornada.prize*15} Pesos automaticamente.
                                     </Typography>
                                     <Typography variant="h6">
-                                        Cada persona con 9 puntos gana ${jornada.prize*15} Pesos sin importar la cantidad de ganadores.
+                                        Cada persona con 9 puntos gana ${jornada.prize} dolares o ${jornada.prize*15} pesos sin importar la cantidad de ganadores.
                                     </Typography>
                                 </AccordionDetails>
                             </CustomAccordion>

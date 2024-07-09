@@ -85,12 +85,12 @@ const RegisterPage = () => {
                     <CardContent style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
 
                         <Box textAlign="center">
-                            <Typography variant="h5" style={{marginBottom:9}}>Crear una cuenta</Typography>
+                            <Typography variant="h4" style={{marginBottom:20}}>Crear una cuenta</Typography>
 
                             <form onSubmit={handleRegister}>
                                 <TextField style={{marginBottom: 15}} label="Usuario" name="name" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" fullWidth required
                                            InputLabelProps={{
-                                               sx: { color: 'black' } // Apply white color to label
+                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
                                            }}
                                            sx={{
                                                '& label.Mui-focused': {
@@ -112,7 +112,7 @@ const RegisterPage = () => {
 
                                 <TextField style={{marginBottom: 15}} label="Teléfono" name="phone" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} variant="outlined" fullWidth required
                                            InputLabelProps={{
-                                               sx: { color: 'black' } // Apply white color to label
+                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
                                            }}
                                            sx={{
                                                '& label.Mui-focused': {
@@ -135,7 +135,7 @@ const RegisterPage = () => {
 
                                 <TextField style={{marginBottom: 15}} label="Correo electrónico" name="email" value={email} onChange={e => setEmail(e.target.value)} variant="outlined" fullWidth required
                                            InputLabelProps={{
-                                               sx: { color: 'black' } // Apply white color to label
+                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
                                            }}
                                            sx={{
                                                '& label.Mui-focused': {
@@ -156,7 +156,7 @@ const RegisterPage = () => {
                                 />
                                 <TextField style={{marginBottom: 15}} label="Contraseña" name="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" type="password" fullWidth required
                                            InputLabelProps={{
-                                               sx: { color: 'black' } // Apply white color to label
+                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
                                            }}
                                            sx={{
                                                '& label.Mui-focused': {
@@ -177,7 +177,7 @@ const RegisterPage = () => {
                                 />
 
 
-                                <GradientButton style={{marginBottom: 15}} type="submit" variant="contained" fullWidth disabled={disableRegister}>
+                                <GradientButton style={{marginBottom: 15, fontSize:22, marginTop:15}} type="submit" variant="contained" disabled={disableRegister}>
                                     Crear Cuenta
                                 </GradientButton>
 
@@ -191,10 +191,10 @@ const RegisterPage = () => {
                     </CardContent>
                 </GlassCard>
 
-                <GlassCard elevation={4}>
+                <GlassCard elevation={4} style={{margin:18}}>
                     <img src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/Quinielas+(1).png" alt="logo" style={{width: 45, height: "auto"}}/>
                     <Typography style={{fontSize:'14px'}}>
-                        Copyright © 2020-2024 QuinielasLigaMx. Reservados todos los derechos.
+                        © 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx 2024-2025.
                     </Typography>
 
 

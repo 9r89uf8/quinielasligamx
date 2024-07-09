@@ -20,14 +20,14 @@ export const loginUser = async (email, password) => {
             addNotification({
                 id: Date.now(),
                 type: 'success',
-                message: 'Login successful!',
+                message: 'Inicio de sesión exitosa',
             });
             return { user: data.user, error: null };
         } else {
             addNotification({
                 id: Date.now(),
                 type: 'error',
-                message: 'Login failed',
+                message: 'error de inicio de sesion',
             });
             const errorData = await response.json();
             return { user: null, error: errorData.error };

@@ -50,7 +50,7 @@ const Quinielas = () => {
             <WinningsReceptionMethods/>
             <QuinielaWinners/>
             <FilterQuinielas jornada={jornada}/>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" gutterBottom style={{textAlign: 'center'}}>
                 Quinielas
             </Typography>
             <Grid container spacing={2} justifyContent="center">

@@ -76,7 +76,7 @@ const LoginPage = () => {
                 <Grid container spacing={1} justifyContent="center">
                     <Grid item sm={11} lg={7} xs={11}>
                         <Item elevation={4}>
-                            <Typography variant="h5" gutterBottom style={{margin: 18}}>
+                            <Typography variant="h4" gutterBottom style={{margin: 18}}>
                                 Ingrese a su cuenta
                             </Typography>
 
@@ -93,7 +93,7 @@ const LoginPage = () => {
                                                 onChange={e => setEmail(e.target.value)}
                                                 required
                                                 InputLabelProps={{
-                                                    sx: { color: 'black' } // Apply white color to label
+                                                    sx: { color: 'black', fontSize:22 } // Apply white color to label
                                                 }}
                                                 sx={{
                                                     '& label.Mui-focused': {
@@ -119,7 +119,7 @@ const LoginPage = () => {
                                         <FormControl>
                                             <TextField style={{marginBottom: 15}} label="Contraseña" name="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" type="password" fullWidth required
                                                        InputLabelProps={{
-                                                           sx: { color: 'black' } // Apply white color to label
+                                                           sx: { color: 'black', fontSize:22 } // Apply white color to label
                                                        }}
                                                        sx={{
                                                            '& label.Mui-focused': {
@@ -142,7 +142,7 @@ const LoginPage = () => {
                                     </Grid>
 
                                     <Grid item sm={11} lg={7} xs={11}>
-                                        <GradientButton style={{margin: 10}} type="submit" variant="contained">Entrar</GradientButton>
+                                        <GradientButton style={{margin: 10, fontSize:22}} type="submit" variant="contained">Entrar</GradientButton>
                                     </Grid>
 
                                     {/*<Typography variant="h6" gutterBottom style={{marginBottom: 10, color: '#ffffff'}}>*/}
@@ -152,7 +152,7 @@ const LoginPage = () => {
                                     {/*</Typography>*/}
 
 
-                                    <Button size='small' style={{ marginTop: '2px', color: 'black' }} onClick={handleReset}>
+                                    <Button size='medium' style={{ marginTop: '15px', color: 'black' }} variant="outlined" onClick={handleReset}>
                                         ¿Olvidaste tu contraseña?
                                     </Button>
 
@@ -163,11 +163,11 @@ const LoginPage = () => {
                         </Item>
                     </Grid>
 
-                    <Grid item sm={11} lg={7} xs={11} style={{marginBottom: 20}}>
+                    <Grid item sm={11} lg={7} xs={11}>
                         <Item elevation={4}>
                             <img src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/Quinielas+(1).png" alt="logo" style={{width: 45, height: "auto"}}/>
                             <Typography style={{color: 'black', fontSize:'14px'}}>
-                                Copyright © 2020-2024 QuinielasLigaMx. Reservados todos los derechos.
+                                © 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx 2024-2025.
                             </Typography>
 
 

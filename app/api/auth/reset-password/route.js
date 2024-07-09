@@ -12,7 +12,7 @@ export async function POST(req) {
 
 
         const data = {
-            from: 'Nueva contraseña <mailgun@yourdomain.com>',
+            from: "Nueva contraseña <postmaster@quinielasligamx.com>",
             to: email,
             subject: 'Crear nueva contraseña',
             template: 'password',
@@ -27,6 +27,7 @@ export async function POST(req) {
 
         return NextResponse.json({ message: 'Correo electrónico de restablecimiento de contraseña enviado.' });
     } catch (error) {
+        console.log(error.message)
         return NextResponse.json({ message: 'Failed to send password reset email.' }, { status: 500 });
     }
 }

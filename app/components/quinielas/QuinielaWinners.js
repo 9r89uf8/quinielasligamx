@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useStore } from '@/app/store/store';
-import { fetchQuinielasWinners } from '@/app/services/quinielasService';
+import { fetchQuinielas, fetchQuinielasWinners } from '@/app/services/quinielasService';
 import {
     Box,
     Typography,
@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+import { fetchAllJornadas, fetchLatestJornada } from "@/app/services/jornadaService";
 
 const GradientButton = styled(Button)(({ theme }) => ({
     background: 'linear-gradient(45deg, #f8f9fa, #e9ecef)',
@@ -58,50 +59,64 @@ const ScrollableContainer = styled('div')(({ theme }) => ({
 }));
 
 const QuinielaWinners = () => {
+
     const [visible, setVisible] = useState(3);
     const [currentJornadaId, setCurrentJornadaId] = useState('');
-    const [attemptedCurrentJornada, setAttemptedCurrentJornada] = useState(false);
 
     const winners = useStore((state) => state.winners);
     const jornadas = useStore((state) => state.jornadas);
-    const jornada = useStore((state) => state.jornada);
-
 
     const showMoreItems = () => {
         setVisible((prevState) => prevState + 2);
     };
 
     useEffect(() => {
-        if (jornada && jornada.id) {
-            setCurrentJornadaId(jornada.id);
-            setAttemptedCurrentJornada(false);
-        }
-    }, [jornada]);
+        const loadAllJornadas = async () => {
+            try {
+                await fetchAllJornadas();
+                // Assuming fetchAllJornadas updates the store
+            } catch (error) {
+                console.error('Error loading jornadas:', error);
+            }
+        };
+
+        loadAllJornadas();
+    }, []);
 
     useEffect(() => {
-        if (!currentJornadaId || attemptedCurrentJornada) return;
+        if (jornadas && jornadas.length > 0) {
+            const activeJornadaIndex = jornadas.findIndex(j => j.active);
+            if (activeJornadaIndex > 0) {
+                // Set the previous jornada as the current one
+                setCurrentJornadaId(jornadas[activeJornadaIndex - 1].id);
+            } else if (activeJornadaIndex === 0 && jornadas.length > 1) {
+                // If the active jornada is the first one, set the second jornada as current
+                setCurrentJornadaId(jornadas[1].id);
+            } else {
+                // If no active jornada found or it's the only jornada, set the last jornada as current
+                setCurrentJornadaId(jornadas[jornadas.length - 1].id);
+            }
+        }
+    }, [jornadas]);
+
+    useEffect(() => {
+        if (!currentJornadaId) return;
 
         const fetchWinners = async () => {
-            const winnersData = await fetchQuinielasWinners({ id: currentJornadaId });
-            setAttemptedCurrentJornada(true);
+            try {
+                await fetchQuinielasWinners({ id: currentJornadaId });
+                // Assuming fetchQuinielasWinners updates the store
+            } catch (error) {
+                console.error('Error fetching winners:', error);
+            }
         };
 
         fetchWinners();
-    }, [currentJornadaId, attemptedCurrentJornada]);
-
-    useEffect(() => {
-        if (winners&&winners.length === 0 && attemptedCurrentJornada && jornadas && jornadas.length > 1) {
-            const previousJornadaId = jornadas[1].id;
-            setCurrentJornadaId(previousJornadaId);
-            setAttemptedCurrentJornada(false);
-        }
-    }, [winners, attemptedCurrentJornada, jornadas]);
+    }, [currentJornadaId]);
 
     const handleChange = async (event) => {
         const selectedJornadaId = event.target.value;
         setCurrentJornadaId(selectedJornadaId);
-
-        const winnersData = await fetchQuinielasWinners({ id: selectedJornadaId });
     };
 
     return (
@@ -109,10 +124,10 @@ const QuinielaWinners = () => {
             <Item elevation={6}>
                 <MilitaryTechIcon sx={{ color: '#3d52d5', margin: '8px auto' }} />
                 <Typography variant="h5" component="div" gutterBottom style={{ color: 'blue' }}>
-                    {winners&&winners.length} ganadores de la Jornada
+                    {winners && winners.length} ganadores de la Jornada
                 </Typography>
                 <FormControl>
-                    {jornadas&&currentJornadaId && (
+                    {jornadas && currentJornadaId && (
                         <Select
                             displayEmpty
                             value={currentJornadaId}
@@ -169,3 +184,4 @@ const QuinielaWinners = () => {
 };
 
 export default QuinielaWinners;
+

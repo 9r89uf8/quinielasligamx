@@ -1,5 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import FantasyScoreList from "@/app/components/FantasyScoreList";
+
+const fantasyScores = [
+    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
+    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'Mexico', prize: '10,000', currency: 'dólares'},
+    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
+    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
+    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'Mexico', prize: '10,000', currency: 'dólares'},
+];
 
 const HomePage = () => {
     return (
@@ -39,48 +48,17 @@ const HomePage = () => {
                 </div>
 
             </div>
-            <div style={styles.winnerSection}>
-                <h2 style={styles.sectionTitle}>Ganadores Anteriores</h2>
+            <div style={styles.content}>
+                <h2 style={styles.sectionTitle}>Ganadores Recientes</h2>
 
-                <div>
-                    <div style={styles.playersCard}>
-                        <p style={styles.playersName}>22,000</p>
-                        <p style={styles.playersDescription}>Jugadores de Estados Unidos y México participando en nuestras quinielas.</p>
-                    </div>
+                <div style={styles.playersCard}>
+                    <p style={styles.playersDescription}>Jugadores de Estados Unidos y México participando en nuestras
+                        quinielas.</p>
+                    <p style={styles.playersName}>22,000</p>
                 </div>
-                <div style={styles.winnerGrid}>
-                    <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>Carlos11S</p>
-                        <p style={styles.winnerAmount}>Jornada 17, 2024</p>
-                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
-                        <p style={styles.winnerAmount}>$18,000 dólares</p>
-                    </div>
-                    <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>Mario_Rodríguez3</p>
-                        <p style={styles.winnerAmount}>Jornada 17, 2024</p>
-                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
-                        <p style={styles.winnerAmount}>$16,000 dólares</p>
-                    </div>
-                    <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>Juan Pérez</p>
-                        <p style={styles.winnerAmount}>Jornada 16, 2024</p>
-                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
-                        <p style={styles.winnerAmount}>$12,000 dólares</p>
-                    </div>
-                    <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>luisitoo2024</p>
-                        <p style={styles.winnerAmount}>Jornada 15, 2024</p>
-                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
-                        <p style={styles.winnerAmount}>$14,000 dólares</p>
-                    </div>
-                    <div style={styles.winnerCard}>
-                        <p style={styles.winnerName}>Luis Martínez</p>
-                        <p style={styles.winnerAmount}>Jornada 15, 2024</p>
-                        <p style={styles.winnerFut}>Futbol Mexicano Clausura 2024</p>
-                        <p style={styles.winnerAmount}>$10,000 dólares</p>
-                    </div>
-                </div>
+                <FantasyScoreList scores={fantasyScores} />
             </div>
+
             <div style={styles.content}>
                 <h2 style={styles.sectionTitle}>¿Cómo Funciona?</h2>
                 <p style={styles.text}>
@@ -276,16 +254,51 @@ const styles = {
         marginBottom: '40px',
         textAlign: 'center',
     },
+
+
     winnerSection: {
-        backgroundColor: '#ffffff',
-        padding: '20px',
-        borderRadius: '10px',
-        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
-        maxWidth: '800px',
+        margin: '20px',
+        fontFamily: 'Arial, sans-serif',
+    },
+    sectionTitle: {
+        textAlign: 'center',
+        fontSize: '32px',
+        marginBottom: '10px',
+        color: '#002366',
+        fontWeight: '700',
+    },
+    playersCard: {
+        textAlign: 'center',
+        marginBottom: '30px',
+    },
+    playersName: {
+        fontSize: '35px',
+        fontWeight: 'bold',
+        margin: '0',
+    },
+    playersDescription: {
+        fontSize: '18px',
+        color: '#555',
+        margin: '5px 0 0 0',
+    },
+    winnerTable: {
         width: '100%',
-        marginBottom: '40px',
+        borderCollapse: 'collapse',
+    },
+    winnerTableTh: {
+        border: '1px solid #ddd',
+        padding: '12px',
+        textAlign: 'center',
+        backgroundColor: '#f4f4f4',
+        fontWeight: 'bold',
+    },
+    winnerTableTd: {
+        border: '1px solid #ddd',
+        padding: '12px',
         textAlign: 'center',
     },
+
+
     teamsSection: {
         backgroundColor: '#ffffff',
         padding: '20px',
@@ -326,23 +339,10 @@ const styles = {
         fontWeight: '500',
         color: '#212121',
     },
-    playersCard: {
-        backgroundColor: '#ffffff',
-        padding: '5px',
-        borderRadius: '10px',
-        boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
-        textAlign: 'center',
-        marginBottom: 40
-    },
     winnerName: {
         fontSize: '1.8rem',
         fontWeight: '700',
         color: '#d5d5d5',
-    },
-    playersName: {
-        fontSize: '2.5rem',
-        fontWeight: '700',
-        color: '#505050',
     },
     winnerAmount: {
         fontSize: '1.55rem',
@@ -353,11 +353,6 @@ const styles = {
         color: '#c7c7c7',
         marginTop: -12
     },
-    playersDescription: {
-        fontSize: '1.35rem',
-        fontWeight: '700',
-        color: '#232323',
-    },
     content: {
         backgroundColor: '#ffffff',
         padding: '40px',
@@ -365,12 +360,7 @@ const styles = {
         boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
         maxWidth: '800px',
         width: '100%',
-    },
-    sectionTitle: {
-        fontSize: '2rem',
-        fontWeight: '700',
-        color: '#002366',
-        marginBottom: '20px',
+        marginBottom: 30
     },
     text: {
         fontSize: '1.5rem',

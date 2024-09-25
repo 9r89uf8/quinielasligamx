@@ -88,7 +88,7 @@ export async function POST(req) {
                 from: "Compra <mailgun@quinielaligamx.com>",
                 to: userData.email,
                 subject: "Compra de quinielas",
-                template: "quinielas",
+                template: "quiniela",
                 'h:X-Mailgun-Variables': JSON.stringify({quinielas: quinielas, id: jornada.id, name: userData.name, quantity: quinielas.length, price: price, total: total, totalString: totalString})
             };
             mg.messages().send(data, function (error, body) {

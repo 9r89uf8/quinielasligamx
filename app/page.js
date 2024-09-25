@@ -48,7 +48,7 @@ const HomePage = () => {
                 </div>
 
             </div>
-            <div style={styles.content}>
+            <div style={styles.contentTwo}>
                 <h2 style={styles.sectionTitle}>Ganadores Recientes</h2>
 
                 <div style={styles.playersCard}>
@@ -356,6 +356,15 @@ const styles = {
     content: {
         backgroundColor: '#ffffff',
         padding: '40px',
+        borderRadius: '10px',
+        boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
+        maxWidth: '800px',
+        width: '100%',
+        marginBottom: 30
+    },
+    contentTwo: {
+        backgroundColor: '#ffffff',
+        padding: '5px',
         borderRadius: '10px',
         boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
         maxWidth: '800px',

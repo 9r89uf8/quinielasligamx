@@ -29,4 +29,4 @@ Disallow: /quinielas
 Allow: /
 
 
-Sitemap: https://www.quinielasligamx.com/sitemap.xml
+Sitemap: https://www.quinielaligamx.com/sitemap.xml

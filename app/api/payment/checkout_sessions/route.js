@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 export async function POST(req) {
     const { userId, country, price, jornadaId } = await req.json();
-    const origin = process.env.NODE_ENV==='production'?'https://www.quinielasligamx.com':'http://localhost:3000'; // Default to localhost for development
+    const origin = process.env.NODE_ENV==='production'?'https://www.quinielaligamx.com':'http://localhost:3000'; // Default to localhost for development
 
     const quinielasRef = adminDb.firestore().collection('quiniela');
     const quinielasSnapshot = await quinielasRef

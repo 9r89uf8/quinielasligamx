@@ -82,10 +82,10 @@ export async function POST(req) {
 
 
             const mailgun = require("mailgun-js");
-            const DOMAIN = "quinielasligamx.com";
+            const DOMAIN = "quinielaligamx.com";
             const mg = mailgun({apiKey: process.env.MAILGUN_API, domain: DOMAIN});
             const data = {
-                from: "Compra <mailgun@quinielasligamx.com>",
+                from: "Compra <mailgun@quinielaligamx.com>",
                 to: userData.email,
                 subject: "Compra de quinielas",
                 template: "quinielas",

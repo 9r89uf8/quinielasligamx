@@ -1,10 +1,8 @@
 // app/register/page.jsx
 'use client'
 import React, { useState, useEffect } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import {registerUser} from "@/app/services/authService";
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -54,6 +52,7 @@ const RegisterPage = () => {
 
 
     useEffect(() => {
+
         fetch('https://ipinfo.io/json?token=5a17bbfded96f7')
             .then(response => response.json())
             .then(data => {

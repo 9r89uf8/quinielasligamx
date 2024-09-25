@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import FantasyScoreList from "@/app/components/FantasyScoreList";
+import TeamStandingsTable from "@/app/components/TeamStandingsTable";
 
 const fantasyScores = [
     { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
@@ -10,6 +11,27 @@ const fantasyScores = [
     { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'Mexico', prize: '10,000', currency: 'dólares'},
 ];
 
+const teams = [
+    { name: "1. Cruz Azul", played: 9, won: 7, lost: 2, drawn: 1, points: 22 },
+    { name: "2. Tigres UANL", played: 9, won: 6, lost: 3, drawn: 1, points: 20 },
+    { name: "3. Monterrey", played: 10, won: 7, lost: 2, drawn: 1, points: 20 },
+    { name: "4. Toluca", played: 9, won: 6, lost: 3, drawn: 1, points: 18 },
+    { name: "5. Pumas UNAM", played: 9, won: 7, lost: 2, drawn: 1, points: 16 },
+    { name: "6. Guadalajara", played: 9, won: 6, lost: 3, drawn: 1, points: 14 },
+    { name: "7. San Luis", played: 9, won: 7, lost: 2, drawn: 1, points: 14 },
+    { name: "8. Atlas", played: 9, won: 6, lost: 3, drawn: 1, points: 14 },
+    { name: "9. Club Tijuana", played: 9, won: 7, lost: 2, drawn: 1, points: 14 },
+    { name: "10. Club América", played: 9, won: 7, lost: 2, drawn: 1, points: 13 },
+    { name: "11. Necaxa", played: 9, won: 6, lost: 3, drawn: 1, points: 12 },
+    { name: "12. Puebla", played: 10, won: 7, lost: 2, drawn: 1, points: 11 },
+    { name: "13. Pachuca", played: 9, won: 6, lost: 3, drawn: 1, points: 9 },
+    { name: "14. Santos Laguna", played: 9, won: 7, lost: 2, drawn: 1, points: 8 },
+    { name: "15. Mazatlán", played: 9, won: 6, lost: 3, drawn: 1, points: 7 },
+    { name: "16. León", played: 9, won: 7, lost: 2, drawn: 1, points: 7 },
+    { name: "17. Querétaro", played: 10, won: 6, lost: 3, drawn: 1, points: 7 },
+    { name: "18. Juárez", played: 9, won: 7, lost: 2, drawn: 1, points: 4 },
+];
+
 const HomePage = () => {
     return (
         <div style={styles.container}>
@@ -17,7 +39,8 @@ const HomePage = () => {
                 <h1 style={styles.mainTitle}>Quinielas Liga MX</h1>
                 <h2 style={styles.subtitle}>2024-2025</h2>
                 <p style={styles.description}>
-                    ¡Participa en las mejores quinielas de la Liga MX 2024-2025 y gana dinero real! ¿Eres un experto en fútbol de la liga BBVA MX y tienes un
+                    ¡Participa en las mejores quinielas de la Liga MX 2024-2025 y gana dinero real! ¿Eres un experto en
+                    fútbol de la liga BBVA MX y tienes un
                     don para predecir los resultados? Demuestra tu conocimiento en nuestras quiniela de
                     la Liga MX. Tenemos lo que necesitas para poner a prueba tus habilidades y
                     disfrutar al máximo cada jornada del torneo.
@@ -26,13 +49,13 @@ const HomePage = () => {
                     <p style={styles.description}>
                         Si vives en Estados Unidos puedes ganar
                     </p>
-                    <h3 style={{ ...styles.prize, ...styles.button }}>$10,000 dólares</h3>
+                    <h3 style={{...styles.prize, ...styles.button}}>$10,000 dólares</h3>
                 </div>
                 <div style={styles.card}>
                     <p style={styles.description}>
                         Si vives en México puedes ganar
                     </p>
-                    <h3 style={{ ...styles.prize, ...styles.button }}>$120,000 pesos</h3>
+                    <h3 style={{...styles.prize, ...styles.button}}>$120.000 pesos</h3>
                 </div>
                 <Link href="/buy" passHref>
                     <button style={styles.buttonClick}>Comprar Quiniela</button>
@@ -56,13 +79,24 @@ const HomePage = () => {
                         quinielas.</p>
                     <p style={styles.playersName}>22,000</p>
                 </div>
-                <FantasyScoreList scores={fantasyScores} />
+                <FantasyScoreList scores={fantasyScores}/>
+            </div>
+
+            <div style={styles.contentTwo}>
+                <h2 style={styles.sectionTitle}>Tabla General</h2>
+
+                <div style={styles.playersCard}>
+                    <p style={styles.playersDescription}>Liga BBVA MX Standings 2024-25</p>
+                </div>
+                <TeamStandingsTable teams={teams}/>
             </div>
 
             <div style={styles.content}>
                 <h2 style={styles.sectionTitle}>¿Cómo Funciona?</h2>
                 <p style={styles.text}>
-                    Participar en nuestras quinielas es muy fácil. Simplemente regístrate, selecciona los resultados de los partidos de la Liga MX y compite contra otros aficionados. Los jugadores con más aciertos ganan premios en efectivo.
+                    Participar en nuestras quinielas es muy fácil. Simplemente regístrate, selecciona los resultados de
+                    los partidos de la Liga MX y compite contra otros aficionados. Los jugadores con más aciertos ganan
+                    premios en efectivo.
                 </p>
                 <h2 style={styles.sectionTitle}>Beneficios de Participar</h2>
                 <ul style={styles.list}>
@@ -76,7 +110,8 @@ const HomePage = () => {
                     "Gracias a las quinielas de la Liga MX gané 7,000 dólares. ¡Es increíble!" - Juan Pérez
                 </p>
                 <p style={styles.text}>
-                    "Participar en las quinielas es muy divertido y emocionante. ¡Recomiendo a todos los aficionados!" - María López
+                    "Participar en las quinielas es muy divertido y emocionante. ¡Recomiendo a todos los aficionados!" -
+                    María López
                 </p>
             </div>
 
@@ -142,7 +177,8 @@ const HomePage = () => {
             </div>
 
             <div style={styles.teamsSection}>
-                <p style={styles.footer}>© 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx 2024-2025.</p>
+                <p style={styles.footer}>© 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx
+                    2024-2025.</p>
             </div>
         </div>
     );

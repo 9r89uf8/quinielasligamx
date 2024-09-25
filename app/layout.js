@@ -9,9 +9,9 @@ function generateSchemaMarkup() {
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "quinielasligamx.com",
+        "name": "quiniela liga mx",
         "url": "https://www.quinielasligamx.com",
-        "description": "Quinielas liga mx 2024-2025 del fútbol mexicano. 10,000 dólares en premios",
+        "description": "Quiniel liga mx 2024-2025 del fútbol mexicano. 10,000 dólares en premios",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://www.quinielasligamx.com/search?q={search_term_string}",
@@ -28,8 +28,8 @@ const Layout = ({ children }) => {
   return (
       <html lang="es">
         <head>
-              <title>Quinielas de la Liga MX 2024-2025 - 10,000 Dólares en Efectivo a los Ganadores.</title>
-              <meta name="description" content="10,000 dólares en premios. Participa en las mejores quinielas Liga MX 2024-2025 con equipos como América, Chivas, y Cruz Azul. ¡Únete a la quiniela Liga MX más emocionante!" />
+              <title>Quiniela liga mx 2024-2025 - 10,000 Dólares en Efectivo a los Ganadores.</title>
+              <meta name="description" content="10,000 dólares en premios. Participa en las mejor quiniela Liga MX 2024-2025 con equipos como América, Chivas, y Cruz Azul. ¡Únete a la quiniela Liga MX más emocionante!" />
               <meta name="keywords" content="quinielas liga mx 2024, quinielas liga mx, quiniela liga mx, quiniela liga mx 2024, apuestas deportivas" />
               <link rel="canonical" href="https://www.quinielasligamx.com/" />
               <meta property="og:title" content="Quinielas Liga MX 2024 | Gana $10,000 en Efectivo"/>

@@ -138,7 +138,7 @@ const HomePage = () => {
             </div>
 
             <div style={styles.teamsSection}>
-                <p style={styles.footer}>© 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx
+                <p style={styles.footer}>© 2024 - Todos los Derechos Reservados LIGA MX. Quiniela liga mx
                     2024-2025.</p>
             </div>
         </div>

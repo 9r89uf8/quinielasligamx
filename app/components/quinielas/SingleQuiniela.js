@@ -1,6 +1,3 @@
-// components/SingleQuiniela.js
-'use client';
-
 import React from 'react';
 import { Box, Button, Paper, Typography, Grid, Card, CardContent, CardActions, Chip, Avatar } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';

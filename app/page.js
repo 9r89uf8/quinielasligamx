@@ -2,13 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import FantasyScoreList from "@/app/components/FantasyScoreList";
 import TeamStandingsTable from "@/app/components/TeamStandingsTable";
+import UsersParticipatingTable from "@/app/components/UsersParticipatingTable";
 
 const fantasyScores = [
-    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
-    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'Mexico', prize: '10,000', currency: 'dólares'},
-    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
-    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '120.000', currency: 'pesos'},
-    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'Mexico', prize: '10,000', currency: 'dólares'},
+    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150.000', currency: 'pesos'},
+    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'Estados Unidos', prize: '10,000', currency: 'dólares'},
+    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150.000', currency: 'pesos'},
+    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150.000', currency: 'pesos'},
+    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'Estados Unidos', prize: '10,000', currency: 'dólares'},
 ];
 
 const teams = [
@@ -32,14 +33,27 @@ const teams = [
     { name: "18. Juárez", played: 9, won: 7, lost: 2, drawn: 1, points: 4 },
 ];
 
+const users = [
+    { username: "1. Carlos123", country: 'México', purchase: 12 },
+    { username: "2. LunaBella", country: 'Estados Unidos', purchase: 4 },
+    { username: "3. SolAmigo9", country: 'México', purchase: 5 },
+    { username: "4. Marinero1", country: 'Estados Unidos', purchase: 10 },
+    { username: "5. CocoLoco", country: 'México', purchase: 20 },
+    { username: "6. Pepe77", country: 'México', purchase: 6 },
+    { username: "7. Lalo1234", country: 'Estados Unidos', purchase: 2 },
+    { username: "8. TitoPerez", country: 'Estados Unidos', purchase: 1 },
+    { username: "9. Memo001", country: 'Estados Unidos', purchase: 2 },
+    { username: "10. Chuyito", country: 'México', purchase: 4 }
+];
+
+
 const HomePage = () => {
     return (
         <div style={styles.container}>
             <div style={styles.header}>
-                <h1 style={styles.mainTitle}>Quinielas Liga MX</h1>
-                <h2 style={styles.subtitle}>2024-2025</h2>
+                <h1 style={styles.mainTitle}>Quiniela Liga MX 2024-2025</h1>
                 <p style={styles.description}>
-                    ¡Participa en las mejores quinielas de la Liga MX 2024-2025 y gana dinero real! ¿Eres un experto en
+                    ¡Participa en la mejor quiniela de la Liga MX 2024-2025 y gana dinero real! ¿Eres un experto en
                     fútbol de la liga BBVA MX y tienes un
                     don para predecir los resultados? Demuestra tu conocimiento en nuestras quiniela de
                     la Liga MX. Tenemos lo que necesitas para poner a prueba tus habilidades y
@@ -55,7 +69,7 @@ const HomePage = () => {
                     <p style={styles.description}>
                         Si vives en México puedes ganar
                     </p>
-                    <h3 style={{...styles.prize, ...styles.button}}>$120.000 pesos</h3>
+                    <h3 style={{...styles.prize, ...styles.button}}>$150.000 pesos</h3>
                 </div>
                 <Link href="/buy" passHref>
                     <button style={styles.buttonClick}>Comprar Quiniela</button>
@@ -73,11 +87,8 @@ const HomePage = () => {
             </div>
             <div style={styles.contentTwo}>
                 <h2 style={styles.sectionTitle}>Ganadores Recientes</h2>
-
                 <div style={styles.playersCard}>
-                    <p style={styles.playersDescription}>Jugadores de Estados Unidos y México participando en nuestras
-                        quinielas.</p>
-                    <p style={styles.playersName}>22,000</p>
+                    <p style={styles.playersDescription}>Jugadores de Estados Unidos y México</p>
                 </div>
                 <FantasyScoreList scores={fantasyScores}/>
             </div>
@@ -89,6 +100,17 @@ const HomePage = () => {
                     <p style={styles.playersDescription}>Liga BBVA MX Standings 2024-25</p>
                 </div>
                 <TeamStandingsTable teams={teams}/>
+            </div>
+
+            <div style={styles.contentTwo}>
+                <h2 style={styles.sectionTitle}>Usuarios Activos</h2>
+
+                <div style={styles.playersCard}>
+                    <p style={styles.playersDescription}>Jugadores de Estados Unidos y México participando en nuestras
+                        quinielas.</p>
+                    <p style={styles.playersName}>22,000</p>
+                </div>
+                <UsersParticipatingTable users={users}/>
             </div>
 
             <div style={styles.content}>
@@ -113,67 +135,6 @@ const HomePage = () => {
                     "Participar en las quinielas es muy divertido y emocionante. ¡Recomiendo a todos los aficionados!" -
                     María López
                 </p>
-            </div>
-
-            <div style={styles.teamsSection}>
-                <h2 style={styles.sectionTitle}>Liga Mexicana BBVA MX Equipos 2024-2025</h2>
-                <div style={styles.winnerGrid}>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>América</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Atlas</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Atlético de San Luis</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Tijuana</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Cruz Azul</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Guadalajara</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>FC Juarez</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>León</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Mazatlán FC</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Monterrey</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Necaxa</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Pachuca</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Puebla</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Pumas UNAM</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Querétaro</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Santos</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Tigres UANL</p>
-                    </div>
-                    <div style={styles.teamsCard}>
-                        <p style={styles.teamName}>Toluca</p>
-                    </div>
-
-                </div>
             </div>
 
             <div style={styles.teamsSection}>
@@ -258,7 +219,7 @@ const styles = {
         transition: 'background 0.3s ease',
     },
     buttonClick: {
-        fontSize: '1.25rem',
+        fontSize: '1.65rem',
         padding: '15px 30px',
         background: 'linear-gradient(45deg, #0077b6, #00b4d8)',
         color: '#ffffff',
@@ -266,6 +227,7 @@ const styles = {
         borderRadius: '5px',
         cursor: 'pointer',
         transition: 'background 0.3s ease',
+        margin: '10px auto 10px auto'
     },
     buttonClickMessage: {
         fontSize: '1.25rem',

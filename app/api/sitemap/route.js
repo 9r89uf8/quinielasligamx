@@ -1,11 +1,7 @@
 // pages/api/sitemap.xml.js
 import { format } from 'date-fns';
 
-export default async function handler(req, res) {
-    if (req.method !== 'GET' && req.method !== 'POST') {
-        res.setHeader('Allow', ['GET', 'POST']);
-        return res.status(405).end(`Method ${req.method} Not Allowed`);
-    }
+export async function POST() {
 
     const BASE_URL = 'https://www.quinielaligamx.com';
 
@@ -32,8 +28,10 @@ export default async function handler(req, res) {
             ${urlElements.join('')}
         </urlset>`;
 
-    res.setHeader('Content-Type', 'application/xml');
-    res.status(200).end(sitemap);
+    return new Response(sitemap, {
+        status: 200,
+        headers: { 'Content-Type': 'application/xml' },
+    });
 }
 
 

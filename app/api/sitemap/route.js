@@ -2,6 +2,11 @@
 import { format } from 'date-fns';
 
 export default async function handler(req, res) {
+    if (req.method !== 'GET' && req.method !== 'POST') {
+        res.setHeader('Allow', ['GET', 'POST']);
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
+    }
+
     const BASE_URL = 'https://www.quinielaligamx.com';
 
     // Sample static paths - replace with your actual paths
@@ -10,7 +15,7 @@ export default async function handler(req, res) {
     ];
 
     const urlElements = staticPaths.map((path) => {
-        const lastmod = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"); // Current timestamp
+        const lastmod = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx");
 
         return `
             <url>
@@ -22,14 +27,13 @@ export default async function handler(req, res) {
         `;
     });
 
-    // Generate XML string
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
             ${urlElements.join('')}
         </urlset>`;
 
-    // Set the response header and return XML
     res.setHeader('Content-Type', 'application/xml');
     res.status(200).end(sitemap);
 }
+
 

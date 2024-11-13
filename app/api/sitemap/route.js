@@ -1,7 +1,7 @@
 // pages/api/sitemap.xml.js
 import { format } from 'date-fns';
 
-export async function GET() {
+export default async function handler(req, res) {
     const BASE_URL = 'https://www.quinielaligamx.com';
 
     // Sample static paths - replace with your actual paths
@@ -9,7 +9,7 @@ export async function GET() {
         { loc: '/', changefreq: 'daily', priority: '1.0' }
     ];
 
-    const urlElements = [...staticPaths].map((path) => {
+    const urlElements = staticPaths.map((path) => {
         const lastmod = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"); // Current timestamp
 
         return `
@@ -28,8 +28,8 @@ export async function GET() {
             ${urlElements.join('')}
         </urlset>`;
 
-    return new Response(JSON.stringify(sitemap), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-    });
+    // Set the response header and return XML
+    res.setHeader('Content-Type', 'application/xml');
+    res.status(200).end(sitemap);
 }
+

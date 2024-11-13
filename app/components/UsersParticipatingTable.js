@@ -1,15 +1,48 @@
 import React from 'react';
 
 const UsersParticipatingTable = ({ users }) => {
+    const generateSchemaMarkup = () => {
+        const userEntries = users.map((user, index) => ({
+            "@type": "Person",
+            "name": user.username,
+            "url": `https://www.quinielaligamx.com/user/${user.username}`, // Assuming a profile page for each user
+            "address": {
+                "@type": "Country",
+                "name": user.country
+            },
+            "owns": {
+                "@type": "Product",
+                "name": "Quiniela Liga MX 2015",
+                "purchaseQuantity": user.purchase
+            }
+        }));
+
+        const schemaData = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Participantes en la Quiniela Liga MX 2015",
+            "itemListElement": userEntries.map((user, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": user
+            }))
+        };
+
+        return { __html: JSON.stringify(schemaData) };
+    };
+
     return (
         <div style={styles.container}>
+            {/* Schema Markup */}
+            <script type="application/ld+json" dangerouslySetInnerHTML={generateSchemaMarkup()} />
+
+            {/* Table rendering */}
             <table style={styles.table}>
                 <thead>
                 <tr>
                     <th style={styles.th}>Username</th>
                     <th style={styles.th}>Pais</th>
                     <th style={styles.th}>Quinielas Compradas</th>
-
                 </tr>
                 </thead>
                 <tbody>

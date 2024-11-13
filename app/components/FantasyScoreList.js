@@ -1,34 +1,68 @@
 import React from 'react';
 
 const FantasyScoreList = ({ scores }) => {
+    const generateSchemaMarkup = () => {
+        const itemListElements = scores.map((score, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "Person",
+                "name": score.user,
+                "url": "https://www.quinielaligamx.com/user/" + score.user, // Assume each user has a unique profile link
+                "description": `${score.gameName} - ${score.gameYear}`,
+                "award": `${score.prize} ${score.currency}`,
+                "country": score.country,
+                "points": score.points
+            }
+        }));
+
+        const schemaData = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Quiniela liga mx 2025 Ganadores",
+            "itemListElement": itemListElements
+        };
+
+        return { __html: JSON.stringify(schemaData) };
+    };
+
     return (
-        <ul style={styles.list}>
-            {scores.map((score, index) => (
-                <li
-                    key={index}
-                    style={{
-                        ...styles.listItem,
-                        background: getGradientBackground(index),
-                    }}
-                >
-                    <div style={styles.place}>{score.place}</div>
-                    <div style={styles.userInfo}>
-                        <h3 style={styles.username}>{score.user}</h3>
-                        <p style={styles.gameName}>{score.gameName}</p>
-                        <p style={styles.gameYear}>{score.gameYear}</p>
-                        <p style={styles.gamePoints}>Puntos: {score.points}</p>
-                        <p style={styles.gameCountry}>País: {score.country}</p>
-                    </div>
-                    <div style={styles.prizeContainer}>
-                        <span style={styles.prizeLabel}>Premio</span>
-                        <button style={styles.prizeButton}>{score.prize}</button>
-                        <span style={styles.currency}>{score.currency}</span>
-                    </div>
-                </li>
-            ))}
-        </ul>
+        <div>
+            {/* Schema Markup */}
+            <script type="application/ld+json" dangerouslySetInnerHTML={generateSchemaMarkup()} />
+
+            {/* List rendering */}
+            <ul style={styles.list}>
+                {scores.map((score, index) => (
+                    <li
+                        key={index}
+                        style={{
+                            ...styles.listItem,
+                            background: getGradientBackground(index),
+                        }}
+                    >
+                        <div style={styles.place}>{score.place}</div>
+                        <div style={styles.userInfo}>
+                            <h3 style={styles.username}>{score.user}</h3>
+                            <p style={styles.gameName}>{score.gameName}</p>
+                            <p style={styles.gameYear}>{score.gameYear}</p>
+                            <p style={styles.gamePoints}>Puntos: {score.points}</p>
+                            <p style={styles.gameCountry}>País: {score.country}</p>
+                        </div>
+                        <div style={styles.prizeContainer}>
+                            <span style={styles.prizeLabel}>Premio</span>
+                            <button style={styles.prizeButton}>{score.prize}</button>
+                            <span style={styles.currency}>{score.currency}</span>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
 };
+
+// Remaining styles and helper functions are unchanged
+
 
 const getGradientBackground = (index) => {
     const gradients = [

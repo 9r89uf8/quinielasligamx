@@ -51,9 +51,9 @@ const HomePage = () => {
     return (
         <div style={styles.container}>
             <div style={styles.header}>
-                <h1 style={styles.mainTitle}>Quiniela Liga MX 2024-2025</h1>
+                <h1 style={styles.mainTitle}>Quiniela Liga MX 2025</h1>
                 <p style={styles.description}>
-                    ¡Participa en la mejor quiniela de la Liga MX 2024-2025 y gana dinero real! ¿Eres un experto en
+                    ¡Participa en la mejor quiniela de la Liga MX 2025 y gana dinero real! ¿Eres un experto en
                     fútbol de la liga BBVA MX y tienes un
                     don para predecir los resultados? Demuestra tu conocimiento en nuestras quiniela de
                     la Liga MX. Tenemos lo que necesitas para poner a prueba tus habilidades y
@@ -97,7 +97,7 @@ const HomePage = () => {
                 <h2 style={styles.sectionTitle}>Tabla General</h2>
 
                 <div style={styles.playersCard}>
-                    <p style={styles.playersDescription}>Liga BBVA MX Standings 2024-25</p>
+                    <p style={styles.playersDescription}>Liga BBVA MX Standings 2025</p>
                 </div>
                 <TeamStandingsTable teams={teams}/>
             </div>
@@ -138,8 +138,7 @@ const HomePage = () => {
             </div>
 
             <div style={styles.teamsSection}>
-                <p style={styles.footer}>© 2024 - Todos los Derechos Reservados LIGA MX. Quiniela liga mx
-                    2024-2025.</p>
+                <p style={styles.footer}>© 2025 - Todos los Derechos Reservados LIGA MX. Quiniela liga mx 2025.</p>
             </div>
         </div>
     );

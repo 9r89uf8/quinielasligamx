@@ -1,8 +1,7 @@
-// pages/api/sitemap.xml.js
+// app/api/sitemap/route.js
 import { format } from 'date-fns';
 
-export async function POST() {
-
+export async function GET(req) {
     const BASE_URL = 'https://www.quinielaligamx.com';
 
     // Sample static paths - replace with your actual paths
@@ -11,7 +10,7 @@ export async function POST() {
     ];
 
     const urlElements = staticPaths.map((path) => {
-        const lastmod = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx");
+        const lastmod = format(new Date(), "yyyy-MM-dd'T'HH:mm:ssxxx"); // Current timestamp
 
         return `
             <url>
@@ -33,5 +32,10 @@ export async function POST() {
         headers: { 'Content-Type': 'application/xml' },
     });
 }
+
+export async function POST(req) {
+    return GET(req); // Reuse the GET handler for POST requests, if needed for cron jobs
+}
+
 
 

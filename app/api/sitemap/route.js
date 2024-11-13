@@ -1,7 +1,7 @@
 // pages/api/sitemap.xml.js
 import { format } from 'date-fns';
 
-export default async function handler(req, res) {
+export async function GET() {
     const BASE_URL = 'https://www.quinielaligamx.com';
 
     // Sample static paths - replace with your actual paths
@@ -28,7 +28,8 @@ export default async function handler(req, res) {
             ${urlElements.join('')}
         </urlset>`;
 
-    // Set headers for XML response
-    res.setHeader('Content-Type', 'application/xml');
-    res.status(200).end(sitemap);
+    return new Response(JSON.stringify(sitemap), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+    });
 }

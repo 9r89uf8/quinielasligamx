@@ -5,22 +5,18 @@ const UsersParticipatingTable = ({ users }) => {
         const userEntries = users.map((user, index) => ({
             "@type": "Person",
             "name": user.username,
-            "url": `https://www.quinielaligamx.com/user/${user.username}`, // Assuming a profile page for each user
+            "url": `https://www.quinielaligamx.com/user/${user.username}`,
             "address": {
                 "@type": "Country",
                 "name": user.country
             },
-            "owns": {
-                "@type": "Product",
-                "name": "Quiniela Liga MX 2015",
-                "purchaseQuantity": user.purchase
-            }
+            // Removed 'owns' property to fix the error
         }));
 
         const schemaData = {
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Participantes en la Quiniela Liga MX 2015",
+            "name": "Participantes en la Quiniela Liga MX 2025",
             "itemListElement": userEntries.map((user, index) => ({
                 "@type": "ListItem",
                 "position": index + 1,

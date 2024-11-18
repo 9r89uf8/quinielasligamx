@@ -19,54 +19,6 @@ function generateSchemaMarkup() {
         }
     };
 
-    const organizationSchema = {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Quiniela Liga MX",
-        "url": "https://www.quinielaligamx.com",
-        "logo": "https://www.quinielaligamx.com/logo.png",
-        "sameAs": [
-            "https://facebook.com/quinielaligamx",
-            "https://twitter.com/quinielaligamx",
-            "https://instagram.com/quinielaligamx"
-        ]
-    };
-
-    const gameSchema = {
-        "@context": "https://schema.org",
-        "@type": "Game",
-        "name": "Quiniela Liga MX 2025",
-        "description": "Juego de predicción de resultados del fútbol mexicano con premios en efectivo",
-        "gameItem": {
-            "@type": "Thing",
-            "name": "Predicciones Liga MX"
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-        },
-        "award": [
-            {
-                "@type": "MonetaryAmount",
-                "currency": "USD",
-                "value": "10000",
-                "description": "Premio para participantes de Estados Unidos"
-            },
-            {
-                "@type": "MonetaryAmount",
-                "currency": "MXN",
-                "value": "150000",
-                "description": "Premio para participantes de México"
-            }
-        ],
-        "provider": {
-            "@type": "Organization",
-            "name": "Quiniela Liga MX",
-            "url": "https://www.quinielaligamx.com"
-        }
-    };
 
     const faqSchema = {
         "@context": "https://schema.org",

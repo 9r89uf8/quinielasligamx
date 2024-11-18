@@ -2,25 +2,24 @@ import React from 'react';
 
 const UsersParticipatingTable = ({ users }) => {
     const generateSchemaMarkup = () => {
-        const userEntries = users.map((user, index) => ({
-            "@type": "Person",
-            "name": user.username,
-            "url": `https://www.quinielaligamx.com/user/${user.username}`,
-            "address": {
-                "@type": "Country",
-                "name": user.country
-            },
-            // Removed 'owns' property to fix the error
-        }));
-
         const schemaData = {
             "@context": "https://schema.org",
             "@type": "ItemList",
             "name": "Participantes en la Quiniela Liga MX 2025",
-            "itemListElement": userEntries.map((user, index) => ({
+            "description": "Lista de participantes activos en la Quiniela Liga MX temporada 2025",
+            "numberOfItems": users.length,
+            "itemListElement": users.map((user, index) => ({
                 "@type": "ListItem",
                 "position": index + 1,
-                "item": user
+                "item": {
+                    "@type": "Person",
+                    "name": user.username,
+                    "url": `https://www.quinielaligamx.com/user/${user.username}`,
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressCountry": user.country
+                    }
+                }
             }))
         };
 

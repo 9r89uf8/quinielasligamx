@@ -52,7 +52,7 @@ function generateSchemaMarkup() {
     };
 
     return {
-        __html: JSON.stringify([schemaData, organizationSchema, gameSchema, faqSchema])
+        __html: JSON.stringify([schemaData, faqSchema])
     };
 }
 

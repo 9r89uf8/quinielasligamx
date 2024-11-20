@@ -136,70 +136,95 @@ export default function HomePage() {
                         Quiniela Liga MX 2025
                     </Typography>
 
-                    {/*current year*/}
                     {/* Selectors inside a gradient box */}
                     <Box
                         sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: 2,
+                            width: '100%', // Make the box full width
                             background: 'linear-gradient(45deg, #36d1dc, #5b86e5)',
-                            padding: 2,
+                            padding: 3,
                             borderRadius: 2,
                             mb: 3,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
                         }}
                     >
-                        <FormControl variant="outlined" sx={{ minWidth: 120 }}>
-                            <InputLabel sx={{ color: 'white' }}>Año</InputLabel>
-                            <Select
-                                defaultValue={2025}
-                                label="Año"
-                                sx={{
-                                    color: 'white',
-                                    '.MuiOutlinedInput-notchedOutline': {
-                                        borderColor: 'white',
-                                    },
-                                    '.MuiSvgIcon-root': {
+                        {/* Row for the selectors */}
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                gap: 2,
+                            }}
+                        >
+                            {/* Year Selector */}
+                            <FormControl variant="outlined" sx={{ minWidth: 120 }}>
+                                <InputLabel sx={{ color: 'white' }}>Año</InputLabel>
+                                <Select
+                                    defaultValue={2025}
+                                    label="Año"
+                                    sx={{
                                         color: 'white',
-                                    },
-                                }}
-                                inputProps={{
-                                    sx: { color: 'white' },
-                                }}
-                            >
-                                <MenuItem value={2023}>2023</MenuItem>
-                                <MenuItem value={2024}>2024</MenuItem>
-                                <MenuItem value={2025}>2025</MenuItem>
-                            </Select>
-                        </FormControl>
+                                        '.MuiOutlinedInput-notchedOutline': {
+                                            borderColor: 'white',
+                                        },
+                                        '.MuiSvgIcon-root': {
+                                            color: 'white',
+                                        },
+                                    }}
+                                    inputProps={{
+                                        sx: { color: 'white' },
+                                    }}
+                                >
+                                    <MenuItem value={2023}>2023</MenuItem>
+                                    <MenuItem value={2024}>2024</MenuItem>
+                                    <MenuItem value={2025}>2025</MenuItem>
+                                </Select>
+                            </FormControl>
 
-                        <FormControl variant="outlined" sx={{ minWidth: 140 }}>
-                            <InputLabel sx={{ color: 'white' }}>Jornada</InputLabel>
-                            <Select
-                                defaultValue={1}
-                                label="Jornada"
-                                sx={{
-                                    color: 'white',
-                                    '.MuiOutlinedInput-notchedOutline': {
-                                        borderColor: 'white',
-                                    },
-                                    '.MuiSvgIcon-root': {
+                            {/* Jornada Selector */}
+                            <FormControl variant="outlined" sx={{ minWidth: 140 }}>
+                                <InputLabel sx={{ color: 'white' }}>Jornada</InputLabel>
+                                <Select
+                                    defaultValue={1}
+                                    label="Jornada"
+                                    sx={{
                                         color: 'white',
-                                    },
-                                }}
-                                inputProps={{
-                                    sx: { color: 'white' },
-                                }}
-                            >
-                                {Array.from({ length: 17 }, (_, i) => (
-                                    <MenuItem key={i + 1} value={i + 1}>
-                                        Jornada {i + 1}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                                        '.MuiOutlinedInput-notchedOutline': {
+                                            borderColor: 'white',
+                                        },
+                                        '.MuiSvgIcon-root': {
+                                            color: 'white',
+                                        },
+                                    }}
+                                    inputProps={{
+                                        sx: { color: 'white' },
+                                    }}
+                                >
+                                    {Array.from({ length: 17 }, (_, i) => (
+                                        <MenuItem key={i + 1} value={i + 1}>
+                                            Jornada {i + 1}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Box>
+
+                        {/* Centered Current Date */}
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                color: 'common.white',
+                                mt: 2,
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            {formattedDate}
+                        </Typography>
                     </Box>
+
+
 
                     <Typography
                         variant="h4"

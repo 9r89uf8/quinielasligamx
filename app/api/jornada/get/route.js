@@ -1,9 +1,9 @@
 // app/api/posts/route.js
 import { adminDb } from '@/app/utils/firebaseAdmin';
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export async function GET() {
     try {
-
 
         // Assuming 'startDate' is a timestamp field and 'isActive' is a boolean field
         // First, order by 'startDate' in descending order to get the most recent first
@@ -37,7 +37,7 @@ export async function GET() {
     } catch (error) {
         return new Response(JSON.stringify({ error: error.message }), {
             status: 500,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json','Cache-Control': 'no-store, max-age=0' },
         });
     }
 }

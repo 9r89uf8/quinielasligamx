@@ -32,6 +32,31 @@ export const fetchQuinielas = async (formData) => {
     }
 };
 
+export const fetchQuinielasServer = async (formData) => {
+    try {
+        console.log(formData);
+        const baseUrl = process.env.NODE_ENV==='testing'? 'http://localhost:3000': 'https://www.quinielaligamx.com'
+        const response = await fetch(`${baseUrl}/api/quinielas/get`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+            const quinielas = await response.json();
+            return quinielas;
+        } else {
+            throw new Error('Failed to fetch quinielas');
+        }
+    } catch (error) {
+        console.error('Error fetching quinielas:', error);
+        return [];
+    } finally {
+    }
+};
+
 // Fetch quinielas by points from the API
 export const fetchQuinielasByPoints = async (formData) => {
     const setQuinielas = useStore.getState().setQuinielas;

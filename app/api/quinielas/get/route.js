@@ -1,6 +1,7 @@
 // app/api/posts/route.js
 import { adminDb } from '@/app/utils/firebaseAdmin';
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 export async function POST(req) {
     try {
         const { jornada } = await req.json();
@@ -11,12 +12,11 @@ export async function POST(req) {
             .get();
 
         const quinielas = quinielasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log(quinielas.length)
 
 
         return new Response(JSON.stringify(quinielas), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json','Cache-Control': 'no-store, max-age=0' },
         });
     } catch (error) {
         console.log(error.message)

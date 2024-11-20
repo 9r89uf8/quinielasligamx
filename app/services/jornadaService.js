@@ -6,7 +6,9 @@ export const fetchLatestJornada = async () => {
     const setBuyJornada = useStore.getState().setBuyJornada;
 
     try {
-        const response = await fetch('/api/jornada/get');
+        const response = await fetch(`/api/jornada/get`, {
+            method: 'GET'
+        });
         if (response.ok) {
             const data = await response.json();
             const { active, buy } = data;
@@ -17,7 +19,25 @@ export const fetchLatestJornada = async () => {
             throw new Error('Failed to fetch the latest jornada');
         }
     } catch (error) {
-        console.error('Error fetching the latest jornada:', error);
+        console.error('Error fetching the latest jornada:', error.message);
+        return null;
+    }
+};
+
+export const fetchLatestJornadaServer = async () => {
+    try {
+        const baseUrl = process.env.NODE_ENV==='testing'? 'http://localhost:3000': 'https://www.quinielaligamx.com'
+        const response = await fetch(`${baseUrl}/api/jornada/get`, {
+            method: 'GET',
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            throw new Error('Failed to fetch the latest jornada');
+        }
+    } catch (error) {
+        console.error('Error fetching the latest jornada:', error.message);
         return null;
     }
 };

@@ -1,159 +1,239 @@
-// WinningsReceptionMethods.js
-import React from 'react';
-import { Typography, Grid, Accordion, AccordionSummary, AccordionDetails, Divider, Box, Button } from '@mui/material';
+// JornadaInfo.js (Server Component)
+import {
+    Grid,
+    Typography,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Box,
+    Button,
+    Paper, Divider,
+} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import Link from "next/link";
+import React from "react";
 
-const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-    background: '#ffffff',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-    borderRadius: theme.shape.borderRadius,
-    marginTop: theme.spacing(3),
-}));
+const PrizeCard = ({ country, children }) => {
+    let background;
+    let flagColors;
 
-const StyledButton = styled(Button)(({ theme }) => ({
-    backgroundImage: 'linear-gradient(45deg, #403d39, #252422)',
-    color: 'white',
-    padding: '10px 20px',
-    fontSize: '22px',
-    marginBottom: 12,
-    borderRadius: '20px',
-    fontWeight: 'bold',
-}));
+    if (country === 'USA') {
+        background = 'linear-gradient(135deg, #495057, #343a40)';
+        flagColors = ['#00509d', '#FFFFFF', '#d90429']; // Blue, White, Red stripes
+    } else if (country === 'México') {
+        background = 'linear-gradient(135deg, #495057, #343a40)';
+        flagColors = ['#006847', '#FFFFFF', '#CE1126']; // Green, White, Red stripes
+    } else {
+        background = '#f1f1f1';
+        flagColors = [];
+    }
 
-const CustomAccordion = styled(Accordion)(({ theme }) => ({
-    background: "linear-gradient(45deg, #667eea 30%, #764ba2 90%)",
-    color: theme.palette.common.white,
-    margin: theme.spacing(1, 0),
-    '&:before': {
-        backgroundColor: 'transparent',
-    },
-}));
-
-const PrizeHighlight = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: "linear-gradient(45deg, #f8f9fa 30%, #e9ecef 90%)",
-    color: 'black',
-    padding: theme.spacing(1),
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-    marginTop: theme.spacing(1)
-}));
-
-const JornadaInfo = ({ jornada }) => {
     return (
-        <Item elevation={6}>
+        <Paper
+            sx={{
+                background,
+                padding: 2.5,
+                borderRadius: 2,
+                boxShadow: 2,
+                marginBottom: 2.5,
+                textAlign: 'center',
+                overflow: 'hidden',
+                position: 'relative',
+            }}
+        >
+            {/* Content with some padding to avoid overlapping the flag bar */}
+            <Box sx={{ mt: 2 }}>
+                {children}
+            </Box>
+        </Paper>
+    );
+};
+
+const Item = ({ children, ...props }) => (
+    <Paper
+        {...props}
+        sx={{
+            background: 'linear-gradient(135deg, #343a40, #212529)',
+            padding: '20px',
+            borderRadius: 2,
+            boxShadow: 4,
+            textAlign: 'center',
+            marginBottom: 4,
+            position: 'relative',
+            width: '100%',
+        }}
+    >
+        {children}
+    </Paper>
+);
+
+const StyledButton = ({ children, ...props }) => (
+    <Button
+        {...props}
+        sx={{
+            backgroundImage: 'linear-gradient(45deg, #403d39, #252422)',
+            color: 'white',
+            padding: '10px 20px',
+            fontSize: '22px',
+            marginBottom: '12px',
+            borderRadius: '20px',
+            fontWeight: 'bold',
+        }}
+    >
+        {children}
+    </Button>
+);
+
+const CustomAccordion = ({ children, ...props }) => (
+    <Accordion
+        {...props}
+        sx={{
+            background: 'linear-gradient(45deg, #667eea 30%, #764ba2 90%)',
+            color: 'common.white',
+            my: 1,
+            '&:before': {
+                backgroundColor: 'transparent',
+            },
+        }}
+    >
+        {children}
+    </Accordion>
+);
+
+const PrizeHighlight = ({ children, ...props }) => (
+    <Box
+        {...props}
+        sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'linear-gradient(45deg, #f8f9fa 30%, #e9ecef 90%)',
+            color: 'black',
+            p: 1,
+            borderRadius: 1,
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+            mt: 1,
+        }}
+    >
+        {children}
+    </Box>
+);
+
+export default async function JornadaInfo({jornada}) {
+
+
+    return (
+        <Item elevation={3}>
             <Grid container spacing={2} justifyContent="center">
                 <Grid item xs={12}>
-                    <Typography variant="h4" component="h2" gutterBottom style={{ color: '#333', fontFamily: '"Roboto", sans-serif' }}>
-                        Quiniela Liga Mx
+                    <Typography
+                        variant="h1"
+                        sx={{
+                            color: 'common.white',
+                            fontSize: {xs: '2.0rem', md: '4rem'},
+                            fontWeight: 900,
+                            mb: 2,
+                        }}
+                    >
+                        Quiniela Liga MX
                     </Typography>
-                    <Divider style={{ marginBottom: 16 }}><SportsSoccerIcon /></Divider>
+                    <Typography variant="h4" gutterBottom sx={{ color: 'white' }}>
+                        Jornada {jornada.jornadaNum}
+                    </Typography>
+                    <Typography variant="h5" gutterBottom sx={{ color: '#f8f8f8' }}>
+                        Termina el {jornada.endDate}
+                    </Typography>
                 </Grid>
-                {jornada && (
-                    <>
-                        <Grid item xs={12}>
-                            <Typography variant="h4" gutterBottom>
-                                Jornada {jornada.jornadaNum}
+                <Grid item xs={12}>
+                    <PrizeCard country="México">
+                        <Typography variant="h5" gutterBottom style={{color: 'white'}}>
+                            Si vives en México ganas
+                        </Typography>
+                        <Divider sx={{my: 1}}/>
+                        <Typography
+                            variant="h3"
+                            component="h3"
+                            sx={{
+                                fontWeight: 700,
+                                color: '#06d6a0',
+                                mb: 1,
+                            }}
+                        >
+                            ${jornada.prize*15}
+                        </Typography>
+                        <Typography
+                            variant="h4"
+                            sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
+                        >
+                            pesos
+                        </Typography>
+                        <Divider sx={{my: 1}}/>
+                        <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
+                            1 quiniela cuesta $45 pesos
+                        </Typography>
+                    </PrizeCard>
+                </Grid>
+                <Grid item xs={12}>
+                    <PrizeCard country="USA">
+                        <Typography variant="h5" gutterBottom style={{color: 'white'}}>
+                            Si vives en Estados Unidos ganas
+                        </Typography>
+                        <Divider sx={{my: 1}}/>
+                        <Typography
+                            variant="h3"
+                            component="h3"
+                            sx={{
+                                fontWeight: 700,
+                                color: '#06d6a0',
+                                mb: 1,
+                            }}
+                        >
+                            ${jornada.prize}
+                        </Typography>
+                        <Typography
+                            variant="h4"
+                            sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
+                        >
+                            dólares
+                        </Typography>
+                        <Divider sx={{my: 1}}/>
+                        <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
+                            1 quiniela cuesta $3 dólares
+                        </Typography>
+                    </PrizeCard>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <CustomAccordion>
+                        <AccordionSummary
+                            expandIcon={
+                                <ExpandMoreIcon sx={{ color: 'white', fontSize: 43 }} />
+                            }
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography variant="h6">
+                                Necesitas 9 puntos para ganar
                             </Typography>
-                            <Typography variant="h5" gutterBottom style={{ color: '#555' }}>
-                                Termina el {jornada.endDate}
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography variant="h6" gutterBottom>
+                                Necesitas hacer 9 puntos en una quiniela para ganar los $
+                                {jornada.prize} dólares o ${jornada.prize * 15} pesos
+                                automáticamente.
                             </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <PrizeHighlight>
-                                <Box display="flex" alignItems="center" justifyContent="center" width="100%">
-                                    <Box display="flex" flexDirection="column" alignItems="center" style={{ marginLeft: 8 }}>
-                                        <Typography variant="h5" component="div" style={{ fontWeight: 'bold', textAlign: 'center', marginBottom: 12 }}>
-                                            Premio
-                                        </Typography>
-                                        <StyledButton>
-                                            ${jornada.prize} Dólares
-                                        </StyledButton>
-                                        <Typography variant="h5" component="div" style={{ fontWeight: 'bold', textAlign: 'center' }}>
-                                             si vives en USA
-                                        </Typography>
-                                        <MoreHorizIcon fontSize="large" style={{margin: 8, color: '#adb5bd'}}/>
-                                        <StyledButton>
-                                            ${jornada.prize*15} Pesos
-                                        </StyledButton>
-                                        <Typography variant="h5" component="div" style={{ fontWeight: 'bold', textAlign: 'center' }}>
-                                             si vives en México
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                            </PrizeHighlight>
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <CustomAccordion>
-                                <AccordionSummary expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize:43 }} />} aria-controls="panel1a-content" id="panel1a-header">
-                                    <Typography variant="h6">Necitas 9 puntos para ganar</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Typography variant="h6" gutterBottom>
-                                        Necesitas hacer 9 puntos en una quiniela para ganar los ${jornada.prize} dolares o ${jornada.prize*15} Pesos automaticamente.
-                                    </Typography>
-                                    <Typography variant="h6">
-                                        Cada persona con 9 puntos gana ${jornada.prize} dolares o ${jornada.prize*15} pesos sin importar la cantidad de ganadores.
-                                    </Typography>
-                                </AccordionDetails>
-                            </CustomAccordion>
-                            {/*<CustomAccordion>*/}
-                            {/*    <AccordionSummary expandIcon={<ExpandMoreIcon style={{ color: "white" }} />} aria-controls="panel1a-content" id="panel1a-header">*/}
-                            {/*        <Typography variant="subtitle1">$2.00 Dolares por Quiniela</Typography>*/}
-                            {/*    </AccordionSummary>*/}
-                            {/*    <AccordionDetails>*/}
-                            {/*        <Typography variant="body1" gutterBottom>*/}
-                            {/*            Cada quiniela cuesta $2.00 Dolares*/}
-                            {/*        </Typography>*/}
-                            {/*        <Typography variant="body1">*/}
-                            {/*            Puedes pagar con tarjeta de credito o Paypal.*/}
-                            {/*        </Typography>*/}
-                            {/*    </AccordionDetails>*/}
-                            {/*</CustomAccordion>*/}
-                        </Grid>
-
-                        {/*<Grid item xs={12}>*/}
-                        {/*    <PrizeHighlight>*/}
-                        {/*        <Box display="flex" alignItems="center" justifyContent="center" width="100%">*/}
-                        {/*            <Box display="flex" flexDirection="column" alignItems="center" style={{ marginLeft: 8 }}>*/}
-                        {/*                <Typography variant="h5" component="div" style={{ fontWeight: 'bold', textAlign: 'center', marginBottom: 12 }}>*/}
-                        {/*                    Precio*/}
-                        {/*                </Typography>*/}
-                        {/*                <StyledButton>*/}
-                        {/*                    $3 Dólares por Quiniela*/}
-                        {/*                </StyledButton>*/}
-                        {/*                <Typography variant="h5" component="div" style={{ fontWeight: 'bold', textAlign: 'center' }}>*/}
-                        {/*                    si vives en USA*/}
-                        {/*                </Typography>*/}
-                        {/*                <MoreHorizIcon fontSize="large" style={{margin: 8, color: '#adb5bd'}}/>*/}
-                        {/*                <StyledButton>*/}
-                        {/*                    $50 Pesos por Quiniela*/}
-                        {/*                </StyledButton>*/}
-                        {/*                <Typography variant="h5" component="div" style={{ fontWeight: 'bold', textAlign: 'center' }}>*/}
-                        {/*                    si vives en México*/}
-                        {/*                </Typography>*/}
-                        {/*            </Box>*/}
-                        {/*        </Box>*/}
-                        {/*    </PrizeHighlight>*/}
-                        {/*</Grid>*/}
-
-                    </>
-                )}
+                            <Typography variant="h6">
+                                Cada persona con 9 puntos gana ${jornada.prize} dólares o $
+                                {jornada.prize * 15} pesos sin importar la cantidad de
+                                ganadores.
+                            </Typography>
+                        </AccordionDetails>
+                    </CustomAccordion>
+                </Grid>
             </Grid>
         </Item>
     );
 };
 
-export default JornadaInfo;
+

@@ -24,7 +24,7 @@ const Item = ({ children, ...props }) => (
     <Paper
         {...props}
         sx={{
-            padding: '8px',
+            padding: '2px',
             textAlign: 'center',
             color: 'text.secondary',
             margin: '-5px auto 9px auto',
@@ -205,19 +205,19 @@ const SingleQuiniela = ({
                                     {quiniela.userName}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1 }}>
+                            <Grid item xs={6}>
                                     <UserStatsChip
                                         icon={<EmojiEventsIcon />}
                                         label="Puntos"
                                         value={quiniela.points || 0}
                                     />
-                                    <UserStatsChip
-                                        icon={<CalendarTodayIcon />}
-                                        label="Jornada"
-                                        value={quiniela.jornadaNum}
-                                    />
-                                </Box>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <UserStatsChip
+                                    icon={<CalendarTodayIcon />}
+                                    label="Jornada"
+                                    value={quiniela.jornadaNum}
+                                />
                             </Grid>
                         </Grid>
                     </Item>

@@ -73,12 +73,13 @@ const GradientHeader = ({ children }) => (
         elevation={3}
         sx={{
             background: 'linear-gradient(135deg, #343a40, #212529)',
-            padding: 5,
+            padding: 2,
             borderRadius: 2,
             boxShadow: 4,
             textAlign: 'center',
             marginBottom: 4,
             position: 'relative',
+            width: '100%', // Ensure the Paper is full width
         }}
     >
         {children}
@@ -139,7 +140,8 @@ export default function HomePage() {
                     {/* Selectors inside a gradient box */}
                     <Box
                         sx={{
-                            width: '100%', // Make the box full width
+                            width: '100%', // Full width of parent
+                            maxWidth: 'none', // Remove any max-width constraints
                             background: 'linear-gradient(45deg, #36d1dc, #5b86e5)',
                             padding: 3,
                             borderRadius: 2,
@@ -147,6 +149,7 @@ export default function HomePage() {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            mx: 0, // Remove horizontal margins
                         }}
                     >
                         {/* Row for the selectors */}
@@ -156,6 +159,7 @@ export default function HomePage() {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 gap: 2,
+                                width: '100%', // Make this box full width too
                             }}
                         >
                             {/* Year Selector */}

@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import DehazeIcon from '@mui/icons-material/Dehaze';
-import { logoutUser } from '../services/authService'; // Ensure this path is correct
-import { useStore } from '../store/store'; // Ensure this path is correct according to your structure
+import { logoutUser } from '../../services/authService'; // Ensure this path is correct
+import { useStore } from '../../store/store'; // Ensure this path is correct according to your structure
 
 const NavbarClient = () => {
     const user = useStore((state) => state.user);

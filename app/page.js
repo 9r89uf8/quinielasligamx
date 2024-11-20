@@ -20,10 +20,10 @@ const PrizeCard = ({ country, children }) => {
     let flagColors;
 
     if (country === 'USA') {
-        background = 'linear-gradient(45deg, #ffffff, #f8f9fa)';
+        background = 'linear-gradient(135deg, #343a40, #212529)';
         flagColors = ['#00509d', '#FFFFFF', '#d90429']; // Blue, White, Red stripes
     } else if (country === 'México') {
-        background = 'linear-gradient(45deg, #ffffff, #f8f9fa)';
+        background = 'linear-gradient(135deg, #343a40, #212529)';
         flagColors = ['#006847', '#FFFFFF', '#CE1126']; // Green, White, Red stripes
     } else {
         background = '#f1f1f1';
@@ -142,7 +142,7 @@ export default function HomePage() {
                         sx={{
                             width: '100%', // Full width of parent
                             maxWidth: 'none', // Remove any max-width constraints
-                            background: 'linear-gradient(45deg, #36d1dc, #5b86e5)',
+                            background: 'linear-gradient(45deg, #495057, #343a40)',
                             padding: 3,
                             borderRadius: 2,
                             mb: 3,
@@ -308,7 +308,7 @@ export default function HomePage() {
 
                 {/* PrizeCards with Dividers */}
                 <PrizeCard country="USA">
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" gutterBottom style={{color: 'white'}}>
                         Si vives en Estados Unidos ganas
                     </Typography>
                     <Divider sx={{my: 1}}/>
@@ -317,7 +317,7 @@ export default function HomePage() {
                         component="h3"
                         sx={{
                             fontWeight: 700,
-                            color: '#1e3c72',
+                            color: '#06d6a0',
                             mb: 1,
                         }}
                     >
@@ -325,12 +325,12 @@ export default function HomePage() {
                     </Typography>
                     <Typography
                         variant="h4"
-                        sx={{fontWeight: 500, color: '#1e3c72', mb: 2}}
+                        sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
                     >
                         dólares
                     </Typography>
                     <Divider sx={{my: 1}}/>
-                    <Typography variant="h5" sx={{mb: 2}}>
+                    <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
                         1 quiniela cuesta $3 dólares
                     </Typography>
                     <Button
@@ -338,7 +338,7 @@ export default function HomePage() {
                         href="/buy"
                         variant="contained"
                         sx={{
-                            background: 'linear-gradient(135deg, #343a40, #212529)',
+                            background: 'linear-gradient(135deg, #06d6a0, #118ab2)',
                             fontSize: {xs: '1.1rem', md: '1.5rem'},
                             py: 1.5,
                             px: 3,
@@ -354,7 +354,7 @@ export default function HomePage() {
                 </PrizeCard>
 
                 <PrizeCard country="México">
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h5" gutterBottom style={{color: 'white'}}>
                         Si vives en México ganas
                     </Typography>
                     <Divider sx={{my: 1}}/>
@@ -363,7 +363,7 @@ export default function HomePage() {
                         component="h3"
                         sx={{
                             fontWeight: 700,
-                            color: '#1e3c72',
+                            color: '#06d6a0',
                             mb: 1,
                         }}
                     >
@@ -371,12 +371,12 @@ export default function HomePage() {
                     </Typography>
                     <Typography
                         variant="h4"
-                        sx={{fontWeight: 500, color: '#1e3c72', mb: 2}}
+                        sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
                     >
                         pesos
                     </Typography>
                     <Divider sx={{my: 1}}/>
-                    <Typography variant="h5" sx={{mb: 2}}>
+                    <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
                         1 quiniela cuesta $45 pesos
                     </Typography>
                     <Button
@@ -384,7 +384,7 @@ export default function HomePage() {
                         href="/buy"
                         variant="contained"
                         sx={{
-                            background: 'linear-gradient(135deg, #343a40, #212529)',
+                            background: 'linear-gradient(135deg, #06d6a0, #118ab2)',
                             fontSize: {xs: '1.1rem', md: '1.5rem'},
                             py: 1.5,
                             px: 3,

@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from "@/app/components/Navbar";
-import FloatingNavbar from "@/app/components/FloatingNavbar";
+import Navbar from "@/app/components/nab/Navbar";
+import FloatingNavbar from "@/app/components/nab/FloatingNavbar";
 import Notifications from "@/app/components/Notifications";
 import './styles/globals.css';
 

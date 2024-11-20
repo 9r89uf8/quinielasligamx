@@ -7,8 +7,18 @@ import NavbarClient from './NavbarClient';
 const Navbar = async () => {
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#161a1d' }}>
-            <Toolbar>
+        <AppBar position="relative"
+               sx={{
+                   background: 'linear-gradient(135deg, #343a40, #212529)',
+                   backdropFilter: 'blur(10px)',
+                   margin: '16px auto',
+                   borderRadius: '8px',
+                   boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.16)',
+                   width: 'calc(100% - 32px)',
+                   maxWidth: '1200px',
+                   overflow: 'visible',
+               }}>
+            <Toolbar  sx={{ minHeight: '64px', position: 'relative' }}>
                 <Box display="flex" alignItems="center" flexGrow={1}>
                     <img
                         src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/Quinielas+(2).png"

@@ -205,22 +205,24 @@ const SingleQuiniela = ({
                                     {quiniela.userName}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={6}>
-                                    <UserStatsChip
-                                        icon={<EmojiEventsIcon />}
-                                        label="Puntos"
-                                        value={quiniela.points || 0}
-                                    />
-                            </Grid>
-                            <Grid item xs={6}>
-                                <UserStatsChip
-                                    icon={<CalendarTodayIcon />}
-                                    label="Jornada"
-                                    value={quiniela.jornadaNum}
-                                />
-                            </Grid>
                         </Grid>
                     </Item>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item xs={6}>
+                            <UserStatsChip
+                                icon={<EmojiEventsIcon />}
+                                label="Puntos"
+                                value={quiniela.points || 0}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <UserStatsChip
+                                icon={<CalendarTodayIcon />}
+                                label="Jornada"
+                                value={quiniela.jornadaNum}
+                            />
+                        </Grid>
+                    </Grid>
                     {list}
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'center', display: 'flex' }}>

@@ -51,8 +51,32 @@ function generateSchemaMarkup() {
         ]
     };
 
+    const scores = [
+        { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150.000', currency: 'pesos'},
+        { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'Estados Unidos', prize: '10,000', currency: 'dólares'},
+        { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150.000', currency: 'pesos'},
+        { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150.000', currency: 'pesos'},
+        { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'Estados Unidos', prize: '10,000', currency: 'dólares'},
+    ];
+    const itemListElements = scores.map((score, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+            "@type": "Person",
+            "name": score.user,
+            "points": score.points
+        }
+    }));
+
+    const usersSchema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Quiniela liga MX 2025 Ganadores",
+        "itemListElement": itemListElements
+    };
+
     return {
-        __html: JSON.stringify([schemaData, faqSchema])
+        __html: JSON.stringify([schemaData, faqSchema, usersSchema])
     };
 }
 
@@ -97,7 +121,7 @@ const Layout = ({ children }) => {
         <body>
         <Navbar/>
         <Notifications/>
-        <main style={{paddingBottom: '90px'}}>{children}</main>
+        <main style={{paddingBottom: 'var(--floating-navbar-height, 0px)'}}>{children}</main>
         <FloatingNavbar/>
         </body>
         </html>

@@ -5,8 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
-import MessageIcon from "@/app/components/nab/MessageIcon";
-import ChatIcon from '@mui/icons-material/Chat';
+import MessageIcon from '@/app/components/nab/MessageIcon';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import { alpha, styled } from '@mui/material/styles';
@@ -26,9 +25,9 @@ const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) 
     },
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    color: 'rgba(255, 255, 255, 0.7)', // Slightly transparent white for icons
+    color: 'rgba(0, 0, 0, 0.7)', // Dark icons for better contrast
     '&.Mui-selected': {
-        color: 'rgba(255, 255, 255, 1)', // Fully opaque white for selected icons
+        color: 'rgba(0, 0, 0, 0.9)', // Darker color for selected icons
     },
 }));
 
@@ -39,8 +38,11 @@ const FloatingBottomNavigation = styled(BottomNavigation)`
     right: 16px;
     z-index: 999;
     border-radius: 8px;
-    background: linear-gradient(135deg, #343a40, #212529);
-    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     height: ${NAVBAR_HEIGHT};
     max-width: 1200px;
     margin: 0 auto;
@@ -60,7 +62,7 @@ export default function FloatingNavbar() {
     const routes = [
         { name: 'HOME', path: '/quiniela-liga-mx-2025', icon: <VideoLibraryIcon fontSize='large' /> },
         { name: 'TOP', path: '/buy', icon: <MessageIcon /> },
-        { name: 'USER', path: '/quinielas/dashboard', icon: <AccountCircleIcon fontSize='large' /> }
+        { name: 'USER', path: '/quinielas/dashboard', icon: <AccountCircleIcon fontSize='large' /> },
     ];
 
     return (
@@ -81,4 +83,5 @@ export default function FloatingNavbar() {
         </FloatingBottomNavigation>
     );
 }
+
 

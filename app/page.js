@@ -72,19 +72,26 @@ const GradientHeader = ({ children }) => (
     <Paper
         elevation={3}
         sx={{
-            background: 'linear-gradient(135deg, #343a40, #212529)',
+            background: 'rgba(255, 255, 255, 0.25)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)', // For Safari support
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             padding: 2,
             borderRadius: 2,
-            boxShadow: 4,
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
             textAlign: 'center',
             marginBottom: 4,
             position: 'relative',
-            width: '100%', // Ensure the Paper is full width
+            width: '100%',
         }}
     >
         {children}
     </Paper>
 );
+
+
+
+
 
 const MessageCard = ({ children }) => (
     <Paper
@@ -121,7 +128,7 @@ export default function HomePage() {
     const formattedDate = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(currentDate);
 
     return (
-        <Box sx={{ bgcolor: '#f9fafb', minHeight: '100vh', py: 3, overflowX: 'hidden' }}>
+        <Box sx={{ minHeight: '100vh', py: 3, overflowX: 'hidden' }}>
             <Container maxWidth="md">
                 <GradientHeader>
                     <Typography

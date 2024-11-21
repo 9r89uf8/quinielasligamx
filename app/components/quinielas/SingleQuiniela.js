@@ -1,5 +1,6 @@
 // SingleQuiniela.js
 import React from 'react';
+import MatchDisplay from "@/app/components/quinielas/MatchDisplay";
 import {
     Box,
     Button,
@@ -104,88 +105,11 @@ const SingleQuiniela = ({
         await getCart({ jornada: buyJornada, user: user });
     };
 
+// Update the list mapping in SingleQuiniela
     const list = quiniela.games.map((item, idx) => (
         <Grid key={idx} container spacing={1} justifyContent="center">
-            <Grid item sm={4} lg={11} xs={9}>
-                <Grid container spacing={1} justifyContent="center">
-                    <Grid item xs={12} sm={12}>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                margin: '5px auto',
-                                padding: '10px',
-                                borderRadius: '8px',
-                                background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
-                                color: '#FFFFFF',
-                                maxWidth: '960px',
-                                width: '100%',
-                            }}
-                        >
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img
-                                    src={item.team1.logo}
-                                    alt={item.team1.name}
-                                    style={{ width: '30px', height: '30px', marginRight: '8px' }}
-                                />
-                                <Typography variant="body1" sx={{ fontSize: '18px' }}>
-                                    {item.team1.name}
-                                </Typography>
-                            </Box>
-                            {item.gameCancelled ? (
-                                <Box sx={{ display: 'flex', alignItems: 'center', color: 'red' }}>
-                                    Cancelado
-                                </Box>
-                            ) : (
-                                <>
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <Typography>{item.team1.score}</Typography>
-                                    </Box>
-                                    <Typography>vs</Typography>
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <Typography>{item.team2.score}</Typography>
-                                    </Box>
-                                </>
-                            )}
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <Typography variant="body1" sx={{ fontSize: '18px' }}>
-                                    {item.team2.name}
-                                </Typography>
-                                <img
-                                    src={item.team2.logo}
-                                    alt={item.team2.name}
-                                    style={{ width: '30px', height: '30px', marginLeft: '8px' }}
-                                />
-                            </Box>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <Grid item sm={1} lg={11} xs={3}>
-                <Grid container spacing={1} justifyContent="center">
-                    <Grid item sm={4} lg={11} xs={6}>
-                        <Box
-                            sx={{
-                                textAlign: 'center',
-                                margin: '5px',
-                                padding: '10px',
-                                borderRadius: '8px',
-                                background: item.correct
-                                    ? 'linear-gradient(to right, #0096c7, #0077b6, #023e8a)'
-                                    : !item.correct && item.gamePlayed
-                                        ? 'linear-gradient(to right, #f48c06, #e85d04, #dc2f02)'
-                                        : 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
-                                color: '#f6f0f0',
-                                maxWidth: '960px',
-                                width: '100%',
-                            }}
-                        >
-                            {item.guess}
-                        </Box>
-                    </Grid>
-                </Grid>
+            <Grid item xs={12}>
+                <MatchDisplay match={item} />
             </Grid>
         </Grid>
     ));

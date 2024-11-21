@@ -115,6 +115,7 @@ export async function POST(req) {
         let updatedGames = games;
 
         if (req.user.uid !== 'uEDHdyfIFzcjHDZpHrokDBTmQFC2') {
+            console.log('error')
             return new Response(JSON.stringify({ error: 'Authentication required' }), {
                 status: 401,
                 headers: { 'Content-Type': 'application/json' },
@@ -134,6 +135,7 @@ export async function POST(req) {
         const jornadaDoc = await adminDb.firestore().collection('jornada').doc(jornada.id).get();
         let jornadaData = jornadaDoc.data();
         jornadaData.id = jornadaDoc.id;
+        console.log('done')
 
         return new Response(JSON.stringify(jornadaData), {
             status: 200,

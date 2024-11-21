@@ -60,7 +60,7 @@ export default function FloatingNavbar() {
     const routes = [
         { name: 'HOME', path: '/quiniela-liga-mx-2025', icon: <VideoLibraryIcon fontSize='large' /> },
         { name: 'TOP', path: '/buy', icon: <MessageIcon /> },
-        { name: 'USER', path: '/quinielas/user', icon: <AccountCircleIcon fontSize='large' /> }
+        { name: 'USER', path: '/quinielas/dashboard', icon: <AccountCircleIcon fontSize='large' /> }
     ];
 
     return (

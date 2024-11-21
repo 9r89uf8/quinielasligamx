@@ -20,6 +20,7 @@ import { styled } from '@mui/material/styles';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SavingsIcon from '@mui/icons-material/Savings';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+import SingleQuiniela from "@/app/components/quinielas/SingleQuiniela";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -128,7 +129,7 @@ const Dashboard = () => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box padding={2}>
             <Grid container spacing={1} justifyContent="center">
                 <InfoWon user={user} />
 
@@ -148,6 +149,20 @@ const Dashboard = () => {
 
                 {!loading && quinielas && (
                     <WinnersList quinielas={quinielas} jornada={jornada} />
+                )}
+
+                {user && userQuinielas && userQuinielas.length > 0 && (
+                    <Grid container spacing={2} justifyContent="center">
+                        {userQuinielas.map((post, index) => (
+                            <SingleQuiniela
+                                key={index}
+                                quiniela={post}
+                                index={index}
+                                showDelete={false}
+                                showScore={false}
+                            />
+                        ))}
+                    </Grid>
                 )}
             </Grid>
         </Box>

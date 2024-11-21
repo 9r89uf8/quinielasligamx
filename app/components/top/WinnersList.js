@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    margin:'12px auto 2px auto'
+    margin:'12px auto 30px auto'
 }));
 const WinnersList = ({ quinielas, jornada }) => {
     let winnersList = quinielas.map((item, i) => {

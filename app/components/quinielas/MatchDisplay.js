@@ -5,8 +5,10 @@ import {
     Grid,
     Paper,
 } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-const MatchDisplay = ({ match, prediction }) => {
+const MatchDisplay = ({ match }) => {
     const getPredictionColor = (correct, gamePlayed) => {
         if (gamePlayed) {
             return correct ? '#0077b6' : '#dc2f02';
@@ -29,7 +31,7 @@ const MatchDisplay = ({ match, prediction }) => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                width: '120px', // Fixed width for consistent layout
+                width: '120px',
                 textAlign: 'center',
             }}
         >
@@ -44,7 +46,7 @@ const MatchDisplay = ({ match, prediction }) => {
             />
             <Typography
                 sx={{
-                    fontSize: '14px',
+                    fontSize: '17px',
                     fontWeight: 500,
                     maxWidth: '100%',
                     overflow: 'hidden',
@@ -56,6 +58,28 @@ const MatchDisplay = ({ match, prediction }) => {
             </Typography>
         </Box>
     );
+
+    const ResultIcon = ({ correct, gamePlayed }) => {
+        if (!gamePlayed) return null;
+
+        return correct ? (
+            <CheckCircleIcon
+                sx={{
+                    color: '#4caf50',
+                    fontSize: '24px',
+                    marginTop: '4px'
+                }}
+            />
+        ) : (
+            <CancelIcon
+                sx={{
+                    color: '#f44336',
+                    fontSize: '24px',
+                    marginTop: '4px'
+                }}
+            />
+        );
+    };
 
     return (
         <Paper
@@ -112,21 +136,32 @@ const MatchDisplay = ({ match, prediction }) => {
                     )}
 
                     {/* Prediction Box */}
-                    <Paper
+                    <Box
                         sx={{
-                            marginTop: '8px',
-                            padding: '4px 16px',
-                            background: getPredictionColor(match.correct, match.gamePlayed),
-                            color: 'white',
-                            borderRadius: '16px',
-                            minWidth: '80px',
-                            textAlign: 'center',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
                         }}
                     >
-                        <Typography sx={{ fontSize: '21px', fontWeight: 500 }}>
-                            {getPredictionLabel(match.guess)}
-                        </Typography>
-                    </Paper>
+                        <Paper
+                            sx={{
+                                marginTop: '8px',
+                                padding: '4px 16px',
+                                background: getPredictionColor(match.correct, match.gamePlayed),
+                                color: 'white',
+                                borderRadius: '16px',
+                                minWidth: '80px',
+                                textAlign: 'center',
+                            }}
+                        >
+                            <Typography sx={{ fontSize: '21px', fontWeight: 500 }}>
+                                {getPredictionLabel(match.guess)}
+                            </Typography>
+                        </Paper>
+
+                        {/* Result Icon */}
+                        <ResultIcon correct={match.correct} gamePlayed={match.gamePlayed} />
+                    </Box>
                 </Box>
 
                 {/* Away Team */}

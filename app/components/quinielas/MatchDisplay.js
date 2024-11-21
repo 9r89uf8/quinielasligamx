@@ -23,6 +23,40 @@ const MatchDisplay = ({ match, prediction }) => {
         }
     };
 
+    const TeamDisplay = ({ team, alignItems = 'center' }) => (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '120px', // Fixed width for consistent layout
+                textAlign: 'center',
+            }}
+        >
+            <img
+                src={team.logo}
+                alt={team.name}
+                style={{
+                    width: '40px',
+                    height: '40px',
+                    marginBottom: '8px'
+                }}
+            />
+            <Typography
+                sx={{
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    maxWidth: '100%',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                }}
+            >
+                {team.name}
+            </Typography>
+        </Box>
+    );
+
     return (
         <Paper
             elevation={3}
@@ -36,29 +70,14 @@ const MatchDisplay = ({ match, prediction }) => {
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '12px',
+                    justifyContent: 'space-between',
+                    padding: '16px',
                     background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
                     color: '#FFFFFF',
                 }}
             >
                 {/* Home Team */}
-                <Box
-                    sx={{
-                        flex: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                    }}
-                >
-                    <Typography sx={{ fontSize: '16px', fontWeight: 500, marginRight: '8px' }}>
-                        {match.team1.name}
-                    </Typography>
-                    <img
-                        src={match.team1.logo}
-                        alt={match.team1.name}
-                        style={{ width: '32px', height: '32px' }}
-                    />
-                </Box>
+                <TeamDisplay team={match.team1} />
 
                 {/* Score & Prediction */}
                 <Box
@@ -66,7 +85,7 @@ const MatchDisplay = ({ match, prediction }) => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        margin: '0 16px',
+                        margin: '0 12px',
                         minWidth: '120px',
                     }}
                 >
@@ -82,11 +101,11 @@ const MatchDisplay = ({ match, prediction }) => {
                         </Typography>
                     ) : (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>
                                 {match.team1.score}
                             </Typography>
-                            <Typography sx={{ fontSize: '16px', color: '#adb5bd' }}>-</Typography>
-                            <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+                            <Typography sx={{ fontSize: '20px', color: '#adb5bd' }}>-</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold' }}>
                                 {match.team2.score}
                             </Typography>
                         </Box>
@@ -96,7 +115,7 @@ const MatchDisplay = ({ match, prediction }) => {
                     <Paper
                         sx={{
                             marginTop: '8px',
-                            padding: '4px 12px',
+                            padding: '4px 16px',
                             background: getPredictionColor(match.correct, match.gamePlayed),
                             color: 'white',
                             borderRadius: '16px',
@@ -104,33 +123,17 @@ const MatchDisplay = ({ match, prediction }) => {
                             textAlign: 'center',
                         }}
                     >
-                        <Typography sx={{ fontSize: '19px', fontWeight: 500 }}>
+                        <Typography sx={{ fontSize: '21px', fontWeight: 500 }}>
                             {getPredictionLabel(match.guess)}
                         </Typography>
                     </Paper>
                 </Box>
 
                 {/* Away Team */}
-                <Box
-                    sx={{
-                        flex: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                    }}
-                >
-                    <img
-                        src={match.team2.logo}
-                        alt={match.team2.name}
-                        style={{ width: '32px', height: '32px' }}
-                    />
-                    <Typography sx={{ fontSize: '16px', fontWeight: 500, marginLeft: '8px' }}>
-                        {match.team2.name}
-                    </Typography>
-                </Box>
+                <TeamDisplay team={match.team2} />
             </Box>
         </Paper>
     );
 };
-
 
 export default MatchDisplay;

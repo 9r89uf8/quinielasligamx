@@ -34,7 +34,6 @@ export const fetchQuinielas = async (formData) => {
 
 export const fetchQuinielasServer = async (formData) => {
     try {
-        console.log(formData);
         const baseUrl = process.env.NODE_ENV==='testing'? 'http://localhost:3000': 'https://www.quinielaligamx.com'
         const response = await fetch(`${baseUrl}/api/quinielas/get`, {
             method: 'POST',

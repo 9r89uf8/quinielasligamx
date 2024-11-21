@@ -66,7 +66,7 @@ const MatchDisplay = ({ match }) => {
             <CheckCircleIcon
                 sx={{
                     color: '#4caf50',
-                    fontSize: '24px',
+                    fontSize: '28px',
                     marginTop: '4px'
                 }}
             />
@@ -74,7 +74,7 @@ const MatchDisplay = ({ match }) => {
             <CancelIcon
                 sx={{
                     color: '#f44336',
-                    fontSize: '24px',
+                    fontSize: '28px',
                     marginTop: '4px'
                 }}
             />

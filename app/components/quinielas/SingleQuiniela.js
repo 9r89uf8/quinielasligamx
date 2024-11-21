@@ -1,4 +1,3 @@
-// SingleQuiniela.js
 import React from 'react';
 import MatchDisplay from "@/app/components/quinielas/MatchDisplay";
 import {
@@ -10,17 +9,11 @@ import {
     Card,
     CardContent,
     CardActions,
-    Chip,
-    Avatar
 } from '@mui/material';
-import FaceIcon from '@mui/icons-material/Face';
+import PersonIcon from '@mui/icons-material/Person';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import ScoreIcon from '@mui/icons-material/Score';
-import { deleteQuiniela } from '@/app/services/quinielasService';
-import { getCart } from '@/app/services/cartService';
 
-// Functional components using sx prop without functions
 const Item = ({ children, ...props }) => (
     <Paper
         {...props}
@@ -35,37 +28,12 @@ const Item = ({ children, ...props }) => (
     </Paper>
 );
 
-const UserStatsChip = ({ icon, label, value }) => (
-    <Chip
-        icon={icon}
-        label={
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography variant="body2" color="text.secondary">
-                    {label}:
-                </Typography>
-                <Typography variant="body1" fontWeight="bold">
-                    {value}
-                </Typography>
-            </Box>
-        }
-        sx={{
-            margin: '4px',
-            padding: '8px',
-            height: 'auto',
-            '& .MuiChip-icon': {
-                color: 'primary.main',
-            },
-        }}
-    />
-);
-
 const StyledCard = ({ children, ...props }) => (
     <Card
         {...props}
         sx={{
             background: 'linear-gradient(45deg, #f8f9fa 30%, #e9ecef 90%)',
             borderRadius: '12px',
-            boxShadow: '0 3px 5px 2px rgba(11, 82, 91, 0.5)',
             marginBottom: '15px',
         }}
     >
@@ -73,23 +41,39 @@ const StyledCard = ({ children, ...props }) => (
     </Card>
 );
 
-const StyledTextFour = ({ children, ...props }) => (
-    <Typography
-        {...props}
+const StatBox = ({ value, label, icon }) => (
+    <Box
         sx={{
-            background: 'linear-gradient(to right, #0f2027, #203a43, #2c5364)',
-            border: 0,
-            borderRadius: '12px',
-            boxShadow: '0 3px 5px 2px rgba(11, 82, 91, 0.5)',
-            color: 'white',
-            padding: '5px',
-            fontSize: '18px',
-            textAlign: 'center',
-            margin: '-10px auto 2px auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '8px',
+            width: '50%',
         }}
     >
-        {children}
-    </Typography>
+        {icon}
+        <Typography
+            variant="h4"
+            component="div"
+            sx={{
+                fontWeight: 'bold',
+                fontSize: '28px',
+                marginBottom: '4px'
+            }}
+        >
+            {value}
+        </Typography>
+        <Typography
+            variant="body1"
+            sx={{
+                color: 'text.secondary',
+                fontSize: '16px'
+            }}
+        >
+            {label}
+        </Typography>
+    </Box>
 );
 
 const SingleQuiniela = ({
@@ -105,7 +89,6 @@ const SingleQuiniela = ({
         await getCart({ jornada: buyJornada, user: user });
     };
 
-// Update the list mapping in SingleQuiniela
     const list = quiniela.games.map((item, idx) => (
         <Grid key={idx} container spacing={1} justifyContent="center">
             <Grid item xs={12}>
@@ -115,45 +98,50 @@ const SingleQuiniela = ({
     ));
 
     return (
-        <Grid item xs={11} sm={6} key={index} sx={{ position: 'relative' }}>
+        <Grid item xs={12} sm={6} key={index} sx={{ position: 'relative' }}>
             <StyledCard>
                 <CardContent>
                     <Item>
-                        <Grid container spacing={2} justifyContent="center">
-                            <Grid item xs={12}>
-                                <Typography
-                                    variant="h5"
-                                    component="div"
-                                    sx={{ mt: 1, fontWeight: 'bold' }}
-                                >
-                                    {quiniela.userName}
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 1
+                            }}
+                        >
+                            <PersonIcon sx={{ color: 'primary.main', fontSize: '28px' }} />
+                            <Typography
+                                variant="h5"
+                                component="div"
+                                sx={{ fontWeight: 'bold' }}
+                            >
+                                {quiniela.userName}
+                            </Typography>
+                        </Box>
                     </Item>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={6}>
-                            <UserStatsChip
-                                icon={<EmojiEventsIcon />}
-                                label="Puntos"
-                                value={quiniela.correctAmount || 0}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <UserStatsChip
-                                icon={<CalendarTodayIcon />}
-                                label="Jornada"
-                                value={quiniela.jornadaNum}
-                            />
-                        </Grid>
-                    </Grid>
+
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <StatBox
+                            value={quiniela.correctAmount}
+                            label="Puntos"
+                        />
+                        <StatBox
+                            value={quiniela.jornadaNum}
+                            label="Jornada"
+                        />
+                    </Box>
+
                     {list}
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'center', display: 'flex' }}>
-                    {showScore && quiniela.quinielaStarted ? (
-                        <StyledTextFour>Puntos: {quiniela.correctAmount}</StyledTextFour>
-                    ) : null}
-                    {showDelete ? (
+                    {showDelete && (
                         <Button
                             onClick={() => handleDelete(quiniela.id)}
                             variant="contained"
@@ -161,7 +149,7 @@ const SingleQuiniela = ({
                         >
                             Borrar
                         </Button>
-                    ) : null}
+                    )}
                 </CardActions>
             </StyledCard>
         </Grid>

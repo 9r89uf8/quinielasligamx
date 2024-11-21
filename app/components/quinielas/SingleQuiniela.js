@@ -136,7 +136,7 @@ const SingleQuiniela = ({
                             <UserStatsChip
                                 icon={<EmojiEventsIcon />}
                                 label="Puntos"
-                                value={quiniela.points || 0}
+                                value={quiniela.correctAmount || 0}
                             />
                         </Grid>
                         <Grid item xs={6}>

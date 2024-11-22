@@ -32,10 +32,10 @@ const PrizeCard = ({ country, children }) => {
     return (
         <Paper
             sx={{
-                background,
-                padding: 2.5,
+                background: 'linear-gradient(135deg, #343a40, #212529)', // Dark background
+                padding: 2,
+                border: '8px solid #343a40', // Gold border
                 borderRadius: 2,
-                boxShadow: 2,
                 marginBottom: 2.5,
                 textAlign: 'center',
                 overflow: 'hidden',
@@ -54,10 +54,11 @@ const Item = ({ children, ...props }) => (
     <Paper
         {...props}
         sx={{
-            background: 'linear-gradient(135deg, #343a40, #212529)',
-            padding: '20px',
+            background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            padding: 2,
             borderRadius: 2,
-            boxShadow: 4,
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
             textAlign: 'center',
             marginBottom: 4,
             position: 'relative',
@@ -130,7 +131,7 @@ export default async function JornadaInfo({jornada}) {
                     <Typography
                         variant="h1"
                         sx={{
-                            color: 'common.white',
+                            color: '#222222',
                             fontSize: {xs: '2.0rem', md: '4rem'},
                             fontWeight: 900,
                             mb: 2,
@@ -138,10 +139,10 @@ export default async function JornadaInfo({jornada}) {
                     >
                         Quiniela Liga MX
                     </Typography>
-                    <Typography variant="h4" gutterBottom sx={{ color: 'white' }}>
+                    <Typography variant="h4" gutterBottom sx={{ color: '#343a40' }}>
                         Jornada {jornada.jornadaNum}
                     </Typography>
-                    <Typography variant="h5" gutterBottom sx={{ color: '#f8f8f8' }}>
+                    <Typography variant="h5" gutterBottom sx={{ color: '#343a40' }}>
                         Termina el {jornada.endDate}
                     </Typography>
                 </Grid>
@@ -150,7 +151,7 @@ export default async function JornadaInfo({jornada}) {
                         <Typography variant="h5" gutterBottom style={{color: 'white'}}>
                             Si vives en México ganas
                         </Typography>
-                        <Divider sx={{my: 1}}/>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
                         <Typography
                             variant="h3"
                             component="h3"
@@ -168,7 +169,7 @@ export default async function JornadaInfo({jornada}) {
                         >
                             pesos
                         </Typography>
-                        <Divider sx={{my: 1}}/>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
                         <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
                             1 quiniela cuesta $45 pesos
                         </Typography>
@@ -179,7 +180,7 @@ export default async function JornadaInfo({jornada}) {
                         <Typography variant="h5" gutterBottom style={{color: 'white'}}>
                             Si vives en Estados Unidos ganas
                         </Typography>
-                        <Divider sx={{my: 1}}/>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
                         <Typography
                             variant="h3"
                             component="h3"
@@ -197,7 +198,7 @@ export default async function JornadaInfo({jornada}) {
                         >
                             dólares
                         </Typography>
-                        <Divider sx={{my: 1}}/>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
                         <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
                             1 quiniela cuesta $3 dólares
                         </Typography>

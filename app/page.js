@@ -72,9 +72,7 @@ const GradientHeader = ({ children }) => (
     <Paper
         elevation={3}
         sx={{
-            background: 'rgba(255, 255, 255, 0.25)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)', // For Safari support
+            background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
             border: '1px solid rgba(255, 255, 255, 0.3)',
             padding: 2,
             borderRadius: 2,
@@ -96,13 +94,10 @@ const GradientHeader = ({ children }) => (
 const MessageCard = ({ children }) => (
     <Paper
         sx={{
-            background: 'rgba(1, 73, 124, 0.15)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
+            background: 'linear-gradient(135deg, #e9ecef, #dee2e6)',
+            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
             padding: 2.5,
             borderRadius: 2,
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
             marginTop: 2.5,
             marginBottom: 2.5,
             textAlign: 'center',
@@ -139,7 +134,7 @@ export default function HomePage() {
                         variant="h1"
                         component="h1"
                         sx={{
-                            color: '#f8f9fa',
+                            color: '#222222',
                             fontSize: {xs: '2.8rem', md: '4rem'},
                             fontWeight: 900,
                             mb: 2,
@@ -152,10 +147,8 @@ export default function HomePage() {
                     <Box
                         sx={{
                             width: '100%',
-                            background: 'rgba(1, 73, 124, 0.15)',
-                            backdropFilter: 'blur(5px)',
-                            WebkitBackdropFilter: 'blur(5px)',
-                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            background: 'linear-gradient(135deg, #e9ecef, #dee2e6)',
+                            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
                             padding: 3,
                             borderRadius: 2,
                             mb: 3,
@@ -246,7 +239,7 @@ export default function HomePage() {
                     <Typography
                         variant="h4"
                         sx={{
-                            color: '#f8f9fa',
+                            color: '#3a3a3a',
                             mb: 3,
                             fontSize: {xs: '1.5rem', md: '2rem'},
                             fontWeight: 'bold',
@@ -258,7 +251,7 @@ export default function HomePage() {
                     <Typography
                         variant="h6"
                         sx={{
-                            color: '#f8f9fa',
+                            color: '#3a3a3a',
                             mb: 4,
                             fontSize: {xs: '1.2rem', md: '1.5rem'},
                         }}

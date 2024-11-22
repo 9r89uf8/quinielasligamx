@@ -29,36 +29,17 @@ const PrizeCard = ({ country, children }) => {
     return (
         <Paper
             sx={{
-                background: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                padding: 2.5,
+                background: 'linear-gradient(135deg, #343a40, #212529)', // Dark background
+                border: '1px solid #02c39a', // Gold border
+                padding: 2,
                 borderRadius: 2,
-                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                boxShadow: '0 4px 15px rgba(22, 138, 173, 0.3)', // Subtle gold shadow
                 marginBottom: 2.5,
                 textAlign: 'center',
                 overflow: 'hidden',
                 position: 'relative',
             }}
         >
-            {/* Flag bar */}
-            <Box
-                sx={{
-                    display: 'flex',
-                    height: 10,
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    overflow: 'hidden',
-                }}
-            >
-                {flagColors.map((color, index) => (
-                    <Box key={index} sx={{ flex: 1, backgroundColor: color }} />
-                ))}
-            </Box>
-
             {/* Content with some padding to avoid overlapping the flag bar */}
             <Box sx={{ mt: 2 }}>
                 {children}
@@ -314,16 +295,16 @@ export default function HomePage() {
 
                 {/* PrizeCards with Dividers */}
                 <PrizeCard country="USA">
-                    <Typography variant="h5" gutterBottom style={{color: 'white'}}>
+                    <Typography variant="h5" gutterBottom sx={{ color: '#efefef' }}>
                         Si vives en Estados Unidos ganas
                     </Typography>
-                    <Divider sx={{my: 1}}/>
+                    <Divider sx={{ my: 1, borderColor: '#595959' }} />
                     <Typography
                         variant="h3"
                         component="h3"
                         sx={{
                             fontWeight: 700,
-                            color: '#373636',
+                            color: '#02c39a',
                             mb: 1,
                         }}
                     >
@@ -331,12 +312,12 @@ export default function HomePage() {
                     </Typography>
                     <Typography
                         variant="h4"
-                        sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
+                        sx={{ fontWeight: 500, color: '#FFFFFF', mb: 2 }}
                     >
                         dólares
                     </Typography>
-                    <Divider sx={{my: 1}}/>
-                    <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
+                    <Divider sx={{ my: 1, borderColor: '#595959' }} />
+                    <Typography variant="h5" sx={{ mb: 2, color: '#efefef' }}>
                         1 quiniela cuesta $3 dólares
                     </Typography>
                     <Button
@@ -344,14 +325,15 @@ export default function HomePage() {
                         href="/buy"
                         variant="contained"
                         sx={{
-                            background: 'linear-gradient(45deg, #014f86, #012a4a)',
-                            fontSize: {xs: '1.1rem', md: '1.5rem'},
+                            background: 'linear-gradient(45deg, #ffffff, #e0e1dd)',
+                            color: '#4b3832',
+                            fontSize: { xs: '1.1rem', md: '1.5rem' },
                             py: 1.5,
                             px: 3,
                             mt: 1,
-                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.7)',
+                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                             '&:hover': {
-                                boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)',
+                                boxShadow: '0 6px 8px rgba(255, 215, 0, 0.7)',
                             },
                         }}
                     >
@@ -359,17 +341,19 @@ export default function HomePage() {
                     </Button>
                 </PrizeCard>
 
+
+
                 <PrizeCard country="México">
                     <Typography variant="h5" gutterBottom style={{color: 'white'}}>
                         Si vives en México ganas
                     </Typography>
-                    <Divider sx={{my: 1}}/>
+                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
                     <Typography
                         variant="h3"
                         component="h3"
                         sx={{
                             fontWeight: 700,
-                            color: '#373636',
+                            color: '#02c39a',
                             mb: 1,
                         }}
                     >
@@ -381,7 +365,7 @@ export default function HomePage() {
                     >
                         pesos
                     </Typography>
-                    <Divider sx={{my: 1}}/>
+                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
                     <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
                         1 quiniela cuesta $45 pesos
                     </Typography>
@@ -390,12 +374,13 @@ export default function HomePage() {
                         href="/buy"
                         variant="contained"
                         sx={{
-                            background: 'linear-gradient(45deg, #014f86, #012a4a)',
-                            fontSize: {xs: '1.1rem', md: '1.5rem'},
+                            background: 'linear-gradient(45deg, #ffffff, #e0e1dd)',
+                            color: '#4b3832',
+                            fontSize: { xs: '1.1rem', md: '1.5rem' },
                             py: 1.5,
                             px: 3,
                             mt: 1,
-                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.7)',
+                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                             '&:hover': {
                                 boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)',
                             },
@@ -413,15 +398,14 @@ export default function HomePage() {
                 <Paper
                     elevation={3}
                     sx={{
-                        background: 'rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
+                        background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
                         border: '1px solid rgba(255, 255, 255, 0.3)',
+                        padding: 2,
+                        borderRadius: 2,
+                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                         textAlign: 'center',
                         p: 2.5,
                         mt: 5,
-                        borderRadius: 2,
-                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                         marginBottom: 9,
                     }}
                 >

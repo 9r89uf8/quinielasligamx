@@ -38,6 +38,8 @@ const HowToParticipate = () => {
     return (
         <Paper
             sx={{
+                background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
                 padding: 4,
                 marginTop: 4,
                 marginBottom: 4,

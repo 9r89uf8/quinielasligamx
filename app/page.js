@@ -30,11 +30,11 @@ const PrizeCard = ({ country, children }) => {
         <Paper
             sx={{
                 background: 'linear-gradient(135deg, #343a40, #212529)', // Dark background
-                border: '1px solid #02c39a', // Gold border
+                border: '8px solid #343a40', // Gold border
                 padding: 2,
                 borderRadius: 2,
-                boxShadow: '0 4px 15px rgba(22, 138, 173, 0.3)', // Subtle gold shadow
-                marginBottom: 2.5,
+                boxShadow: '-4px 0 15px rgba(255, 255, 255, 0.2)', // Subtle white shadow
+                marginBottom: 5.5,
                 textAlign: 'center',
                 overflow: 'hidden',
                 position: 'relative',

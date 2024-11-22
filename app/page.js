@@ -16,27 +16,26 @@ import FantasyScoreList from "@/app/components/FantasyScoreList";
 import HowToParticipate from '@/app/components/HowToParticipate';
 
 const PrizeCard = ({ country, children }) => {
-    let background;
     let flagColors;
 
     if (country === 'USA') {
-        background = 'linear-gradient(135deg, #343a40, #212529)';
         flagColors = ['#00509d', '#FFFFFF', '#d90429']; // Blue, White, Red stripes
     } else if (country === 'México') {
-        background = 'linear-gradient(135deg, #343a40, #212529)';
         flagColors = ['#006847', '#FFFFFF', '#CE1126']; // Green, White, Red stripes
     } else {
-        background = '#f1f1f1';
         flagColors = [];
     }
 
     return (
         <Paper
             sx={{
-                background,
+                background: 'rgba(255, 255, 255, 0.25)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
                 padding: 2.5,
                 borderRadius: 2,
-                boxShadow: 2,
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                 marginBottom: 2.5,
                 textAlign: 'center',
                 overflow: 'hidden',
@@ -68,6 +67,7 @@ const PrizeCard = ({ country, children }) => {
     );
 };
 
+
 const GradientHeader = ({ children }) => (
     <Paper
         elevation={3}
@@ -96,10 +96,13 @@ const GradientHeader = ({ children }) => (
 const MessageCard = ({ children }) => (
     <Paper
         sx={{
-            background: '#ffffff',
+            background: 'rgba(1, 73, 124, 0.15)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
             padding: 2.5,
             borderRadius: 2,
-            boxShadow: 2,
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
             marginTop: 2.5,
             marginBottom: 2.5,
             textAlign: 'center',
@@ -108,6 +111,7 @@ const MessageCard = ({ children }) => (
         {children}
     </Paper>
 );
+
 
 const teams = [
     { name: "CAZ", logo: "https://chicagocarhelp.s3.us-east-2.amazonaws.com/cruz.avif", size: '70px' },
@@ -135,7 +139,7 @@ export default function HomePage() {
                         variant="h1"
                         component="h1"
                         sx={{
-                            color: 'common.white',
+                            color: '#f8f9fa',
                             fontSize: {xs: '2.8rem', md: '4rem'},
                             fontWeight: 900,
                             mb: 2,
@@ -147,16 +151,18 @@ export default function HomePage() {
                     {/* Selectors inside a gradient box */}
                     <Box
                         sx={{
-                            width: '100%', // Full width of parent
-                            maxWidth: 'none', // Remove any max-width constraints
-                            background: 'linear-gradient(45deg, #495057, #343a40)',
+                            width: '100%',
+                            background: 'rgba(1, 73, 124, 0.15)',
+                            backdropFilter: 'blur(5px)',
+                            WebkitBackdropFilter: 'blur(5px)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
                             padding: 3,
                             borderRadius: 2,
                             mb: 3,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            mx: 0, // Remove horizontal margins
+                            mx: 0,
                         }}
                     >
                         {/* Row for the selectors */}
@@ -171,21 +177,21 @@ export default function HomePage() {
                         >
                             {/* Year Selector */}
                             <FormControl variant="outlined" sx={{ minWidth: 120 }}>
-                                <InputLabel sx={{ color: 'white' }}>Año</InputLabel>
+                                <InputLabel sx={{ color: 'black' }}>Año</InputLabel>
                                 <Select
                                     defaultValue={2025}
                                     label="Año"
                                     sx={{
-                                        color: 'white',
+                                        color: 'black',
                                         '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: 'white',
+                                            borderColor: 'black',
                                         },
                                         '.MuiSvgIcon-root': {
-                                            color: 'white',
+                                            color: 'black',
                                         },
                                     }}
                                     inputProps={{
-                                        sx: { color: 'white' },
+                                        sx: { color: 'black' },
                                     }}
                                 >
                                     <MenuItem value={2023}>2023</MenuItem>
@@ -196,21 +202,21 @@ export default function HomePage() {
 
                             {/* Jornada Selector */}
                             <FormControl variant="outlined" sx={{ minWidth: 140 }}>
-                                <InputLabel sx={{ color: 'white' }}>Jornada</InputLabel>
+                                <InputLabel sx={{ color: 'black' }}>Jornada</InputLabel>
                                 <Select
                                     defaultValue={1}
                                     label="Jornada"
                                     sx={{
-                                        color: 'white',
+                                        color: 'black',
                                         '.MuiOutlinedInput-notchedOutline': {
-                                            borderColor: 'white',
+                                            borderColor: 'black',
                                         },
                                         '.MuiSvgIcon-root': {
-                                            color: 'white',
+                                            color: 'black',
                                         },
                                     }}
                                     inputProps={{
-                                        sx: { color: 'white' },
+                                        sx: { color: 'black' },
                                     }}
                                 >
                                     {Array.from({ length: 17 }, (_, i) => (
@@ -226,7 +232,7 @@ export default function HomePage() {
                         <Typography
                             variant="h6"
                             sx={{
-                                color: 'common.white',
+                                color: '#343a40',
                                 mt: 2,
                                 fontWeight: 'bold',
                             }}
@@ -240,7 +246,7 @@ export default function HomePage() {
                     <Typography
                         variant="h4"
                         sx={{
-                            color: 'common.white',
+                            color: '#f8f9fa',
                             mb: 3,
                             fontSize: {xs: '1.5rem', md: '2rem'},
                             fontWeight: 'bold',
@@ -252,7 +258,7 @@ export default function HomePage() {
                     <Typography
                         variant="h6"
                         sx={{
-                            color: 'common.white',
+                            color: '#f8f9fa',
                             mb: 4,
                             fontSize: {xs: '1.2rem', md: '1.5rem'},
                         }}
@@ -261,7 +267,7 @@ export default function HomePage() {
                     </Typography>
 
                     <MessageCard>
-                        <Typography variant="h5" gutterBottom>
+                        <Typography variant="h5" gutterBottom style={{color: '#343a40'}}>
                             ¿Tiene alguna pregunta?
                         </Typography>
                         <Button
@@ -269,7 +275,7 @@ export default function HomePage() {
                             href="/chat"
                             variant="contained"
                             sx={{
-                                background: 'linear-gradient(45deg, #36d1dc, #5b86e5)',
+                                background: 'linear-gradient(45deg, #014f86, #012a4a)',
                                 fontSize: '1.25rem',
                                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.5)',
                                 '&:hover': {
@@ -324,7 +330,7 @@ export default function HomePage() {
                         component="h3"
                         sx={{
                             fontWeight: 700,
-                            color: '#06d6a0',
+                            color: '#373636',
                             mb: 1,
                         }}
                     >
@@ -345,7 +351,7 @@ export default function HomePage() {
                         href="/buy"
                         variant="contained"
                         sx={{
-                            background: 'linear-gradient(135deg, #06d6a0, #118ab2)',
+                            background: 'linear-gradient(45deg, #014f86, #012a4a)',
                             fontSize: {xs: '1.1rem', md: '1.5rem'},
                             py: 1.5,
                             px: 3,
@@ -370,7 +376,7 @@ export default function HomePage() {
                         component="h3"
                         sx={{
                             fontWeight: 700,
-                            color: '#06d6a0',
+                            color: '#373636',
                             mb: 1,
                         }}
                     >
@@ -391,7 +397,7 @@ export default function HomePage() {
                         href="/buy"
                         variant="contained"
                         sx={{
-                            background: 'linear-gradient(135deg, #06d6a0, #118ab2)',
+                            background: 'linear-gradient(45deg, #014f86, #012a4a)',
                             fontSize: {xs: '1.1rem', md: '1.5rem'},
                             py: 1.5,
                             px: 3,
@@ -414,17 +420,23 @@ export default function HomePage() {
                 <Paper
                     elevation={3}
                     sx={{
+                        background: 'rgba(255, 255, 255, 0.25)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
                         textAlign: 'center',
                         p: 2.5,
                         mt: 5,
-                        backgroundColor: '#ffffff',
+                        borderRadius: 2,
+                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
                         marginBottom: 9,
                     }}
                 >
-                    <Typography variant="h6" color="text.secondary">
+                    <Typography variant="h6" sx={{ color: 'black' }}>
                         © 2025 - Todos los Derechos Reservados LIGA BBVA MX 2025. quinielaligamx.com.
                     </Typography>
                 </Paper>
+
             </Container>
         </Box>
     );

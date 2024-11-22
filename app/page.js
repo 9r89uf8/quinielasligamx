@@ -33,7 +33,6 @@ const PrizeCard = ({ country, children }) => {
                 border: '8px solid #343a40', // Gold border
                 padding: 2,
                 borderRadius: 2,
-                boxShadow: '-4px 0 15px rgba(255, 255, 255, 0.2)', // Subtle white shadow
                 marginBottom: 5.5,
                 textAlign: 'center',
                 overflow: 'hidden',

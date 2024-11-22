@@ -9,9 +9,7 @@ const Navbar = async () => {
     return (
         <AppBar position="relative"
                sx={{
-                   background: 'rgba(255, 255, 255, 0.25)',
-                   backdropFilter: 'blur(10px)',
-                   WebkitBackdropFilter: 'blur(10px)', // For Safari support
+                   background: 'linear-gradient(135deg, #000814, #212529)',
                    border: '1px solid rgba(255, 255, 255, 0.3)',
                    margin: '16px auto',
                    borderRadius: '8px',

@@ -15,15 +15,16 @@ import {
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
     marginTop: 15,
     marginBottom: 30,
-    color: '#ffffff',
-    background: 'linear-gradient(45deg, #343a40, #001219)',
-    backdropFilter: 'blur(10px)',
-    borderRadius: 10,
-    border: `1px solid ${alpha('#ffffff', 0.2)}`,
+    color: '#222222',
+    background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
+    border: '1px solid rgba(255, 255, 255, 0.3)',
+    padding: 2,
+    borderRadius: 2,
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    textAlign: 'center',
+    backdropFilter: 'blur(10px)'
 }));
 
 const generateRandomUserId = () => {
@@ -73,7 +74,7 @@ const Chat = () => {
 
             {conversationHistory && conversationHistory.length <= 0 && (
                 <Item elevation={6}>
-                    <Typography variant="h5" component="h2" gutterBottom style={{ color: 'white' }}>
+                    <Typography variant="h5" component="h2" gutterBottom style={{ }}>
                         Escribe tu pregunta y te respondemos al instante.
                     </Typography>
                 </Item>

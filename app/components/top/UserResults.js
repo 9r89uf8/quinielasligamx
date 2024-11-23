@@ -63,27 +63,25 @@ const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuini
                     <Typography variant="h6" component="div">
                         Selecciona Jornada
                     </Typography>
-                    {jornadas && jornadas.length > 0 && (
-                        <FormControl fullWidth variant="outlined" sx={{ mt: 1 }}>
-                            <Select
-                                displayEmpty
-                                value={currentJornadaId}
-                                onChange={handleChange}
-                                inputProps={{ 'aria-label': 'Without label' }}
-                                sx={{
-                                    color: '#ffffff',
-                                    '.MuiSelect-icon': { color: '#ffffff' },
-                                    '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                                }}
-                            >
-                                {jornadas.map((jornada) => (
-                                    <MenuItem key={jornada.id} value={jornada.id}>
-                                        {jornada.jornadaNum}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    )}
+                    <FormControl fullWidth variant="outlined" sx={{ mt: 1 }}>
+                        <Select
+                            displayEmpty
+                            value={currentJornadaId}
+                            onChange={handleChange}
+                            inputProps={{ 'aria-label': 'Without label' }}
+                            sx={{
+                                color: '#ffffff',
+                                '.MuiSelect-icon': { color: '#ffffff' },
+                                '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                            }}
+                        >
+                            {jornadas && jornadas.length > 0&&jornadas.map((jornada) => (
+                                <MenuItem key={jornada.id} value={jornada.id}>
+                                    {jornada.jornadaNum}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Grid>
             </Grid>
             {userQuinielas && userQuinielas.length > 0 ? (

@@ -97,9 +97,6 @@ const Dashboard = () => {
                         const userQuinielasData = await fetchUserQuinielasByJornadaId({ id: latestJornada.active.id, user });
                     }
 
-                    if (!quinielas || quinielas.length === 0) {
-                        await fetchQuinielas({ jornada: latestJornada.active });
-                    }
                 }else {
                     setCurrentJornadaId(jornada.id);
                     if (user ) {
@@ -135,19 +132,19 @@ const Dashboard = () => {
                     <BalanceDisplay/>
                 </Grid>
 
-                {!loading && (
-                    <Grid item sm={11} lg={10} xs={11}>
-                        <UserResults
-                            currentJornadaId={currentJornadaId}
-                            handleChange={handleChange}
-                            jornadas={jornadas}
-                            user={user}
-                            userQuinielas={userQuinielas}
-                            jornada={jornada}
-                            quinielas={quinielas}
-                        />
-                    </Grid>
-                )}
+
+                <Grid item sm={11} lg={10} xs={11}>
+                    <UserResults
+                        currentJornadaId={currentJornadaId}
+                        handleChange={handleChange}
+                        jornadas={jornadas}
+                        user={user}
+                        userQuinielas={userQuinielas}
+                        jornada={jornada}
+                        quinielas={quinielas}
+                    />
+                </Grid>
+
 
                 {!loading && user && userQuinielas && userQuinielas.length > 0 && (
                     <Grid container spacing={2} justifyContent="center">

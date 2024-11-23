@@ -2,7 +2,7 @@
 import React from 'react';
 import {fetchLatestJornadaServer} from "@/app/services/jornadaService";
 import {fetchQuinielasServer} from "@/app/services/quinielasService";
-import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import {Box, Grid, Typography} from '@mui/material';
 import SingleQuiniela from '@/app/components/quinielas/SingleQuiniela';
 
 import JornadaInfo from "@/app/components/JornadaInfo";

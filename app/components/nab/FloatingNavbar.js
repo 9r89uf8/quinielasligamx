@@ -56,24 +56,25 @@ const FloatingBottomNavigation = styled(BottomNavigation)`
 
 const StyledPopover = styled(Popover)(({ theme }) => ({
     '& .MuiPaper-root': {
-        backgroundColor: '#f0f0f0',
-        borderRadius: '8px',
-        padding: theme.spacing(2),
+        background: 'linear-gradient(to right, #333333, #555555)', // Dark gradient background
+        borderRadius: '12px',
+        padding: theme.spacing(1),
         boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        minWidth: '200px',
+        maxWidth: 'none', // Remove maxWidth constraint
     },
 }));
 
-const StyledButton = styled(Button)(({ theme }) => ({
+const StyledButton = styled(Button)(({ theme, gradient }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     textTransform: 'none',
-    color: '#000',
-    backgroundColor: '#fff',
+    color: '#fff',
+    backgroundImage: gradient,
     borderRadius: '8px',
     minWidth: '30px',
     '&:hover': {
-        backgroundColor: '#e0e0e0',
+        backgroundImage: gradient,
+        filter: 'brightness(1.1)',
     },
 }));
 
@@ -122,16 +123,19 @@ export default function FloatingNavbar() {
             label: 'Mensaje',
             icon: <ChatIcon fontSize="large" />,
             path: '/chat',
+            gradient: 'linear-gradient(to right, #ff7e5f, #feb47b)', // Example gradient
         },
         {
             label: 'Comprar',
             icon: <ShoppingCartIcon fontSize="large" />,
             path: '/buy',
+            gradient: 'linear-gradient(to right, #6a11cb, #2575fc)', // Example gradient
         },
         {
             label: 'Ganadores',
             icon: <EmojiEventsIcon fontSize="large" />,
             path: '/winners',
+            gradient: 'linear-gradient(to right, #43cea2, #185a9d)', // Example gradient
         },
     ];
 
@@ -165,6 +169,7 @@ export default function FloatingNavbar() {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
+                disableScrollLock={true} // Prevents scrolling issue
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -178,6 +183,7 @@ export default function FloatingNavbar() {
                     {menuOptions.map((option, index) => (
                         <Grid item key={index}>
                             <StyledButton
+                                gradient={option.gradient}
                                 onClick={() => {
                                     handleMenuClose();
                                     router.push(option.path);
@@ -193,6 +199,7 @@ export default function FloatingNavbar() {
         </>
     );
 }
+
 
 
 

@@ -25,7 +25,7 @@ const InfoWon = ({ user }) => {
     const [showForm, setShowForm] = useState(false);
     return (
         <Grid item sm={12} lg={10} xs={12}>
-            <BalanceDisplay amount={user?user.amountWon:0} currency={user?user.country:'US'} phoneNumber={user?user.phone:null}/>
+            <BalanceDisplay/>
         </Grid>
     );
 };

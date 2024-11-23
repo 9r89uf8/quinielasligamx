@@ -131,7 +131,7 @@ const Dashboard = () => {
     return (
         <Box padding={2}>
             <Grid container spacing={1} justifyContent="center">
-                <InfoWon user={user} />
+                <InfoWon/>
 
                 {!loading && (
                     <Grid item sm={11} lg={10} xs={11}>

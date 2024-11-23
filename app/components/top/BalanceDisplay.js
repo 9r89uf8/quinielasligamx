@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useStore } from '@/app/store/store';
+import {editUser} from "@/app/services/authService";
 import {
     Box,
     Paper,
@@ -11,6 +13,10 @@ import {
     DialogActions,
     TextField,
     Alert,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel,
 } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
@@ -24,7 +30,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
     border: '1px solid rgba(255, 255, 255, 0.3)',
     borderRadius: 5,
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
 }));
 
 const BalanceContainer = styled(Box)(({ theme }) => ({
@@ -60,14 +66,34 @@ const WithdrawalOption = styled(Box)(({ theme }) => ({
     },
 }));
 
-const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
+const BalanceDisplay = () => {
+    const user = useStore((state) => state.user);
     const [openDialog, setOpenDialog] = useState(false);
     const [withdrawalMethod, setWithdrawalMethod] = useState('');
     const [formData, setFormData] = useState({
         fullName: '',
-        phoneNumber: phoneNumber || '',
+        phoneNumber: '',
+        bankAccountNumber: '',
+        country: 'México',
     });
     const [showForm, setShowForm] = useState(false);
+
+    // Determine if the user is authorized
+    const isAuthorized = !!(user && user.uid);
+
+    // Update formData when user data is loaded
+    useEffect(() => {
+        if (user) {
+            setFormData((prevData) => ({
+                ...prevData,
+                fullName: user.fullName || '',
+                phoneNumber: user.phone || '',
+                bankAccountNumber: user.bank || '',
+                country: user.country || 'MX',
+                // Do not pre-fill bankAccountNumber for security reasons
+            }));
+        }
+    }, [user]);
 
     const handleWithdrawalClick = () => {
         setOpenDialog(true);
@@ -77,6 +103,12 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
         setOpenDialog(false);
         setWithdrawalMethod('');
         setShowForm(false);
+        setFormData({
+            fullName: user?.fullName || '',
+            phoneNumber: user?.phone || '',
+            bankAccountNumber: user.bank || '',
+            country: user?.country || 'MX',
+        });
     };
 
     const handleMethodSelect = (method) => {
@@ -84,14 +116,9 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
         setShowForm(true);
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log('Withdrawal details:', {
-            method: withdrawalMethod,
-            ...formData,
-        });
-        // Add your API call here
+        await editUser({fullName: formData.fullName, email: user.email, uid: user.uid, phone: formData.phoneNumber, bank: formData.bankAccountNumber, country: formData.country});
         handleClose();
     };
 
@@ -112,6 +139,28 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
                     required
                     fullWidth
                 />
+                {withdrawalMethod === 'bank' && (
+                    <TextField
+                        label="Número de Cuenta Bancaria"
+                        value={formData.bankAccountNumber}
+                        onChange={(e) => setFormData({ ...formData, bankAccountNumber: e.target.value })}
+                        required
+                        fullWidth
+                    />
+                )}
+                {withdrawalMethod === 'cash' && (
+                    <FormControl fullWidth required>
+                        <InputLabel>País</InputLabel>
+                        <Select
+                            value={formData.country}
+                            onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                            label="País"
+                        >
+                            <MenuItem value="MX">México</MenuItem>
+                            <MenuItem value="US">Estados Unidos</MenuItem>
+                        </Select>
+                    </FormControl>
+                )}
                 <Alert severity="info">
                     Nos pondremos en contacto con usted una vez que gane para verificar la información o responder cualquier pregunta que tenga.
                 </Alert>
@@ -123,13 +172,23 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
                             <br />
                             2. Le proporcionaremos un número de control de transferencia de dinero (MTCN).
                             <br />
-                            3. Visite cualquier sucursal de Western Union con su identificación y el MTCN para recoger su dinero.
+                            3. Visite cualquier sucursal de Western Union en {formData.country} con su identificación y el MTCN para recoger su dinero.
                         </Typography>
                     </Box>
                 )}
-                <Button type="submit" variant="contained" color="primary">
-                    Enviar Solicitud
-                </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                    <Button variant="outlined" onClick={handleClose}>
+                        Cancelar
+                    </Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={!isAuthorized}
+                    >
+                        {isAuthorized ? 'Guardar' : 'Guardar'}
+                    </Button>
+                </Box>
             </Box>
         </form>
     );
@@ -158,9 +217,11 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
                                 color: 'text.primary',
                             }}
                         >
-                            ${amount?.toLocaleString()} {currency === 'US' ? 'Dólares' : 'Pesos'}
+                            ${user && user.amountWon ? user.amountWon.toLocaleString() : '0'}{' '}
+                            {user ? (user.country === 'US' ? 'Dólares' : 'Pesos') : 'Dólares'}
                         </Typography>
                     </AmountContainer>
+
 
                     <ButtonContainer>
                         <Button
@@ -194,7 +255,7 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
                                     <LocalAtmIcon color="primary" />
                                     <Box>
                                         <Typography variant="h5">Retiro en Efectivo</Typography>
-                                        <Typography variant="h6" color="text.secondary">
+                                        <Typography variant="body2" color="text.secondary">
                                             Sucursales de Western Union en México/Estados Unidos
                                         </Typography>
                                     </Box>
@@ -206,7 +267,7 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
                                     <AccountBalanceIcon color="primary" />
                                     <Box>
                                         <Typography variant="h5">Depósito Bancario</Typography>
-                                        <Typography variant="h6" color="text.secondary">
+                                        <Typography variant="body2" color="text.secondary">
                                             Reciba el dinero directamente en su cuenta bancaria
                                         </Typography>
                                     </Box>
@@ -228,3 +289,5 @@ const BalanceDisplay = ({ amount, currency = 'US', phoneNumber }) => {
 };
 
 export default BalanceDisplay;
+
+

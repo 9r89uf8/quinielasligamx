@@ -2,22 +2,18 @@
 import { adminAuth, adminDb } from '@/app/utils/firebaseAdmin';
 
 export async function PUT(req) {
-    const { email, name, phone, id } = await req.json();
+    const {fullName, phone, uid, bank, country } = await req.json();
 
 
     try {
-        // Update the user's email in Firebase Authentication
-        await adminAuth.updateUser(id, { email });
-
-
-
         // Update the user's information in Firestore
-        const userRef = adminDb.firestore().collection('users').doc(id);
+        const userRef = adminDb.firestore().collection('users').doc(uid);
 
         const updatedData = {
-            email,
-            name,
-            phone
+            fullName: fullName,
+            phone,
+            bank: bank?bank:'',
+            country
         };
 
 

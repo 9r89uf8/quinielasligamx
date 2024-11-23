@@ -71,8 +71,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     color: '#000',
     backgroundColor: '#fff',
     borderRadius: '8px',
-    padding: theme.spacing(2),
-    minWidth: '80px',
+    minWidth: '30px',
     '&:hover': {
         backgroundColor: '#e0e0e0',
     },
@@ -175,7 +174,7 @@ export default function FloatingNavbar() {
                     horizontal: 'center',
                 }}
             >
-                <Grid container spacing={2} justifyContent="center">
+                <Grid container spacing={1} justifyContent="center">
                     {menuOptions.map((option, index) => (
                         <Grid item key={index}>
                             <StyledButton

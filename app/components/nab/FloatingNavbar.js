@@ -189,7 +189,7 @@ export default function FloatingNavbar() {
                                     router.push(option.path);
                                 }}
                             >
-                                <Box sx={{ fontSize: '1rem', marginBottom: '8px' }}>{option.label}</Box>
+                                <Box sx={{ fontSize: '1.2rem', marginBottom: '8px' }}>{option.label}</Box>
                                 {React.cloneElement(option.icon, { fontSize: 'large' })}
                             </StyledButton>
                         </Grid>

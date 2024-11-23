@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import InfoWon from '@/app/components/top/InfoWon';
 import WinnersList from '@/app/components/top/WinnersList';
 import UserResults from '@/app/components/top/UserResults';
 import { useStore } from '@/app/store/store';
@@ -21,6 +20,7 @@ import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SavingsIcon from '@mui/icons-material/Savings';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import SingleQuiniela from "@/app/components/quinielas/SingleQuiniela";
+import BalanceDisplay from "@/app/components/top/BalanceDisplay";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -131,7 +131,9 @@ const Dashboard = () => {
     return (
         <Box padding={2}>
             <Grid container spacing={1} justifyContent="center">
-                <InfoWon/>
+                <Grid item sm={12} lg={10} xs={12}>
+                    <BalanceDisplay/>
+                </Grid>
 
                 {!loading && (
                     <Grid item sm={11} lg={10} xs={11}>
@@ -147,11 +149,7 @@ const Dashboard = () => {
                     </Grid>
                 )}
 
-                {!loading && quinielas && (
-                    <WinnersList quinielas={quinielas} jornada={jornada} />
-                )}
-
-                {user && userQuinielas && userQuinielas.length > 0 && (
+                {!loading && user && userQuinielas && userQuinielas.length > 0 && (
                     <Grid container spacing={2} justifyContent="center">
                         {userQuinielas.map((post, index) => (
                             <SingleQuiniela

@@ -3,54 +3,81 @@ import { Grid, Typography, Divider, FormControl, Select, MenuItem } from '@mui/m
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+import Box from '@mui/material/Box';
 
-const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    margin: '12px auto 2px auto'
+const GradientBackground = styled(Box)(({ theme }) => ({
+    background: "linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%)",
+    borderRadius: theme.spacing(2),
+    padding: theme.spacing(4),
+    marginTop: 15,
+    marginBottom: 25,
+    color: '#ffffff',
 }));
 
-const StyledTextTwo = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    background: "linear-gradient(45deg, #3d52d5 8%, #090c9b 80%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
-    color: 'white',
-    padding: 10,
-    fontSize: 18,
+const GreetingText = styled(Typography)(({ theme }) => ({
+    fontWeight: 'bold',
+    fontSize: '1.8rem',
+}));
+
+const SubtitleText = styled(Typography)(({ theme }) => ({
+    fontSize: '1.4rem',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
+}));
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(2),
     textAlign: 'center',
-    margin: '10px 10px 10px 10px'
+    color: '#292929',
+    marginTop: 15
+}));
+
+const QuinielaNumber = styled(Typography)(({ theme }) => ({
+    fontSize: '1.25rem',
+    fontWeight: 'bold',
+}));
+
+const PointsText = styled(Typography)(({ theme }) => ({
+    fontSize: '1rem',
+}));
+
+const StatusText = styled(Typography)(({ theme }) => ({
+    fontSize: '1rem',
+    marginTop: theme.spacing(1),
 }));
 
 const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuinielas, jornada, quinielas }) => {
     return (
-        <Item elevation={6}>
-            <Grid container spacing={1} justifyContent="center">
-                <Grid item sm={10} lg={10} xs={10}>
-                    <Typography variant="h5" component="h2" gutterBottom style={{ color: '#333', fontFamily: '"Roboto", sans-serif' }}>
-                        Mis Resultados
-                    </Typography>
-                    <Divider>
-                        <SportsSoccerIcon />
-                    </Divider>
-                    <Typography variant="h5" component="div" gutterBottom style={{ color: 'blue' }}>
-                        Jornada
+        <GradientBackground>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <GreetingText>
+                        Hola {user && user.name ? user.name : 'Usuario'}
+                    </GreetingText>
+                    <SubtitleText>
+                        Aquí están tus resultados de las quinielas que compraste
+                    </SubtitleText>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Typography variant="h6" component="div">
+                        Selecciona Jornada
                     </Typography>
                     {jornadas && jornadas.length > 0 && (
-                        <FormControl fullWidth>
+                        <FormControl fullWidth variant="outlined" sx={{ mt: 1 }}>
                             <Select
                                 displayEmpty
                                 value={currentJornadaId}
                                 onChange={handleChange}
                                 inputProps={{ 'aria-label': 'Without label' }}
-                                id="demo-simple-select"
-                                sx={{ fontSize: '1.25rem' }}
+                                sx={{
+                                    color: '#ffffff',
+                                    '.MuiSelect-icon': { color: '#ffffff' },
+                                    '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                                }}
                             >
                                 {jornadas.map((jornada) => (
-                                    <MenuItem key={jornada.id} value={jornada.id} sx={{ fontSize: '1.5rem' }}>
+                                    <MenuItem key={jornada.id} value={jornada.id}>
                                         {jornada.jornadaNum}
                                     </MenuItem>
                                 ))}
@@ -58,47 +85,45 @@ const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuini
                         </FormControl>
                     )}
                 </Grid>
-                <Grid item sm={10} lg={10} xs={10}>
-                    {user && (
-                        <Typography variant="h5" component="div" gutterBottom style={{ color: '#004e98' }}>
-                            {user.name}
-                        </Typography>
-                    )}
-                </Grid>
             </Grid>
             {userQuinielas && userQuinielas.length > 0 ? (
                 userQuinielas.map((item, i) => (
-                    <StyledTextTwo key={item.id}>
-                        <Grid container spacing={1} justifyContent="center">
-                            <Grid item sm={4} lg={4} xs={4}>
-                                Quiniela #{i + 1}
+                    <StyledPaper key={item.id} elevation={6}>
+                        <Grid container direction="column" alignItems="center">
+                            <Grid item>
+                                <QuinielaNumber>
+                                    Quiniela #{i + 1}
+                                </QuinielaNumber>
                             </Grid>
-                            <Grid item sm={4} lg={4} xs={4}>
-                                Puntos: {item.correctAmount}
+                            <Grid item>
+                                <PointsText>
+                                    {item.correctAmount} Puntos
+                                </PointsText>
                             </Grid>
-                            <Grid item sm={4} lg={4} xs={4}>
+                            <Grid item>
                                 {item.winner ? (
-                                    <span style={{ color: 'greenyellow' }}>Ganaste</span>
+                                    <StatusText sx={{ color: 'greenyellow' }}>¡Ganaste!</StatusText>
                                 ) : !jornada.played ? (
-                                    <span style={{ color: 'coral' }}>Jornada sin terminar</span>
+                                    <StatusText sx={{ color: 'coral' }}>Jornada sin terminar</StatusText>
                                 ) : jornada.jornadaNum !== item.jornadaNum ? (
-                                    <span style={{ color: 'coral' }}>Jornada sin jugar</span>
+                                    <StatusText sx={{ color: 'coral' }}>Jornada sin jugar</StatusText>
                                 ) : (
-                                    <span style={{ color: 'coral' }}>No ganaste</span>
+                                    <StatusText sx={{ color: 'coral' }}>No ganaste</StatusText>
                                 )}
                             </Grid>
                         </Grid>
-                    </StyledTextTwo>
+                    </StyledPaper>
                 ))
             ) : (
-                <Typography variant="h5" component="div" gutterBottom style={{ color: 'blue' }}>
-                    No Tienes Quinielas
+                <Typography variant="h5" component="div" gutterBottom sx={{ color: '#ffffff', mt: 3 }}>
+                    No tienes quinielas
                 </Typography>
             )}
-        </Item>
+        </GradientBackground>
     );
 };
 
 export default UserResults;
+
 
 

@@ -14,6 +14,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { styled } from '@mui/material/styles';
+import HomeIcon from '@mui/icons-material/Home';
 import Box from '@mui/material/Box';
 
 const NAVBAR_HEIGHT = '64px'; // Adjusted to match the top bar height
@@ -103,7 +104,7 @@ export default function FloatingNavbar() {
         {
             name: 'HOME',
             path: '/quiniela-liga-mx-2025',
-            icon: <VideoLibraryIcon fontSize="large" />,
+            icon: <HomeIcon fontSize="large" />,
         },
         {
             name: 'OPTIONS',

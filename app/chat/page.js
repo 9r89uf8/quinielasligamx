@@ -82,12 +82,12 @@ const Chat = () => {
             <Paper
                 elevation={4}
                 component="form"
-                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 5 }}
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', borderRadius: 5, marginBottom: 5 }}
                 onSubmit={handleSubmit}
             >
                 <InputBase
                     sx={{ ml: 1, flex: 1, padding: 2 }}
-                    placeholder={messageSent ? 'Escribiendo...' : 'Escribe algo...'}
+                    placeholder={messageSent ? 'Escribiendo...' : 'Escribe tu pregunta...'}
                     multiline
                     required
                     minRows={1}

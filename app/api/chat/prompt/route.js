@@ -44,7 +44,7 @@ export async function POST(req) {
                     " manage inquiries about gameplay, and assist users with any " +
                     "questions they might have regarding the game or the game's " +
                     "policies. Here are the key rules and policies you should " +
-                    `communicate to users: Each game costs $${jornada.price} dollars to play if they live in the USA and $${jornada.price*17} pesos if they live in Mexico. ` +
+                    `communicate to users: Each game costs $${jornada.price} dollars to play if they live in the USA and $${jornada.price*15} pesos if they live in Mexico. ` +
                     "Each game is called a Quiniela."+
                     "The game works by asking users to guess the outcome of a game between two teams."+
                     "For each game they have 3 choices, if they think the home team is going to win they must select the letter L, if they think the away team is going to win they must select the letter V, and if they think the game is going to a draw they must select the letter E."+

@@ -8,7 +8,7 @@ export async function POST(req) {
         const quinielasSnapshot = await adminDb.firestore().collection('quiniela')
             .where('paid', '==', true)
             .where('jornadaId', '==', jornada.id)// Filter for active jornadas
-            .orderBy('timestamp', 'desc') // Ensure you have an index for this query in Firestore
+            .orderBy('correctAmount', 'desc') // Ensure you have an index for this query in Firestore
             .get();
 
         const quinielas = quinielasSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));

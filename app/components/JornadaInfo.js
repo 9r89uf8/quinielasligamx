@@ -124,6 +124,7 @@ const PrizeHighlight = ({ children, ...props }) => (
 export default async function JornadaInfo({jornada}) {
 
 
+    let prizeM = jornada.prize*15
     return (
         <Item elevation={3}>
             <Grid container spacing={2} justifyContent="center">
@@ -161,7 +162,7 @@ export default async function JornadaInfo({jornada}) {
                                 mb: 1,
                             }}
                         >
-                            ${jornada.prize*15}
+                            ${prizeM.toLocaleString()}
                         </Typography>
                         <Typography
                             variant="h4"
@@ -190,7 +191,7 @@ export default async function JornadaInfo({jornada}) {
                                 mb: 1,
                             }}
                         >
-                            ${jornada.prize}
+                            ${jornada.prize.toLocaleString()}
                         </Typography>
                         <Typography
                             variant="h4"

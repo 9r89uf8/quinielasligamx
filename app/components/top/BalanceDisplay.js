@@ -106,7 +106,7 @@ const BalanceDisplay = () => {
         setFormData({
             fullName: user?.fullName || '',
             phoneNumber: user?.phone || '',
-            bankAccountNumber: user.bank || '',
+            bankAccountNumber: user?.bank || '',
             country: user?.country || 'MX',
         });
     };

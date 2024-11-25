@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import FantasyScoreList from "@/app/components/FantasyScoreList";
 import HowToParticipate from '@/app/components/HowToParticipate';
+import PrizeDisplay from "@/app/components/PrizeDisplay";
 
 const PrizeCard = ({ country, children }) => {
     let flagColors;
@@ -109,6 +110,7 @@ export default function HomePage() {
     return (
         <Box sx={{ minHeight: '100vh', py: 3, overflowX: 'hidden' }}>
             <Container maxWidth="md">
+                <PrizeDisplay/>
                 <GradientHeader>
                     <Typography
                         variant="h1"
@@ -149,8 +151,8 @@ export default function HomePage() {
                             }}
                         >
                             {/* Year Selector */}
-                            <FormControl variant="outlined" sx={{ minWidth: 120 }}>
-                                <InputLabel sx={{ color: 'black' }}>Año</InputLabel>
+                            <FormControl variant="outlined" sx={{minWidth: 120}}>
+                                <InputLabel sx={{color: 'black'}}>Año</InputLabel>
                                 <Select
                                     defaultValue={2025}
                                     label="Año"
@@ -164,7 +166,7 @@ export default function HomePage() {
                                         },
                                     }}
                                     inputProps={{
-                                        sx: { color: 'black' },
+                                        sx: {color: 'black'},
                                     }}
                                 >
                                     <MenuItem value={2023}>2023</MenuItem>
@@ -174,8 +176,8 @@ export default function HomePage() {
                             </FormControl>
 
                             {/* Jornada Selector */}
-                            <FormControl variant="outlined" sx={{ minWidth: 140 }}>
-                                <InputLabel sx={{ color: 'black' }}>Jornada</InputLabel>
+                            <FormControl variant="outlined" sx={{minWidth: 140}}>
+                                <InputLabel sx={{color: 'black'}}>Jornada</InputLabel>
                                 <Select
                                     defaultValue={1}
                                     label="Jornada"
@@ -189,10 +191,10 @@ export default function HomePage() {
                                         },
                                     }}
                                     inputProps={{
-                                        sx: { color: 'black' },
+                                        sx: {color: 'black'},
                                     }}
                                 >
-                                    {Array.from({ length: 17 }, (_, i) => (
+                                    {Array.from({length: 17}, (_, i) => (
                                         <MenuItem key={i + 1} value={i + 1}>
                                             Jornada {i + 1}
                                         </MenuItem>
@@ -213,7 +215,6 @@ export default function HomePage() {
                             {formattedDate}
                         </Typography>
                     </Box>
-
 
 
                     <Typography
@@ -294,10 +295,10 @@ export default function HomePage() {
 
                 {/* PrizeCards with Dividers */}
                 <PrizeCard country="USA">
-                    <Typography variant="h5" gutterBottom sx={{ color: '#efefef' }}>
+                    <Typography variant="h5" gutterBottom sx={{color: '#efefef'}}>
                         Si vives en Estados Unidos ganas
                     </Typography>
-                    <Divider sx={{ my: 1, borderColor: '#595959' }} />
+                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
                     <Typography
                         variant="h3"
                         component="h3"
@@ -311,12 +312,12 @@ export default function HomePage() {
                     </Typography>
                     <Typography
                         variant="h4"
-                        sx={{ fontWeight: 500, color: '#FFFFFF', mb: 2 }}
+                        sx={{fontWeight: 500, color: '#FFFFFF', mb: 2}}
                     >
                         dólares
                     </Typography>
-                    <Divider sx={{ my: 1, borderColor: '#595959' }} />
-                    <Typography variant="h5" sx={{ mb: 2, color: '#efefef' }}>
+                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
+                    <Typography variant="h5" sx={{mb: 2, color: '#efefef'}}>
                         1 quiniela cuesta $3 dólares
                     </Typography>
                     <Button
@@ -326,7 +327,7 @@ export default function HomePage() {
                         sx={{
                             background: 'linear-gradient(45deg, #ffffff, #e0e1dd)',
                             color: '#4b3832',
-                            fontSize: { xs: '1.1rem', md: '1.5rem' },
+                            fontSize: {xs: '1.1rem', md: '1.5rem'},
                             py: 1.5,
                             px: 3,
                             mt: 1,
@@ -339,7 +340,6 @@ export default function HomePage() {
                         Comprar Quiniela
                     </Button>
                 </PrizeCard>
-
 
 
                 <PrizeCard country="México">
@@ -375,7 +375,7 @@ export default function HomePage() {
                         sx={{
                             background: 'linear-gradient(45deg, #ffffff, #e0e1dd)',
                             color: '#4b3832',
-                            fontSize: { xs: '1.1rem', md: '1.5rem' },
+                            fontSize: {xs: '1.1rem', md: '1.5rem'},
                             py: 1.5,
                             px: 3,
                             mt: 1,
@@ -389,9 +389,9 @@ export default function HomePage() {
                     </Button>
                 </PrizeCard>
 
-                <FantasyScoreList scores={fantasyScores} />
+                <FantasyScoreList scores={fantasyScores}/>
 
-                <HowToParticipate />
+                <HowToParticipate/>
 
                 {/* Footer */}
                 <Paper
@@ -408,7 +408,7 @@ export default function HomePage() {
                         marginBottom: 9,
                     }}
                 >
-                    <Typography variant="h6" sx={{ color: 'black' }}>
+                    <Typography variant="h6" sx={{color: 'black'}}>
                         © 2025 - Todos los Derechos Reservados LIGA BBVA MX 2025. quinielaligamx.com.
                     </Typography>
                 </Paper>

@@ -5,13 +5,15 @@ import {
     CardContent,
     Typography,
     Container,
-    Grid
+    Grid,
+    Button,
+    Stack
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import Link from "next/link";
 
 const PrizeCard = ({ country, amount, currency }) => {
-
     return (
         <Card
             sx={{
@@ -41,53 +43,101 @@ const PrizeCard = ({ country, amount, currency }) => {
 
 const PrizeDisplay = () => {
     return (
-            <Box
+        <Box
+            sx={{
+                background: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)',
+                borderRadius: 2,
+                p: 4,
+                color: 'white',
+                boxShadow: 16,
+                marginBottom: 5
+            }}
+        >
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={12}>
+                    <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', textAlign: 'center', marginBottom: 4 }}>
+                        Con 9 puntos ganas
+                    </Typography>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                    <PrizeCard
+                        country="México"
+                        amount={150000}
+                        currency="pesos"
+                    />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <PrizeCard
+                        country="Estados Unidos"
+                        amount={10000}
+                        currency="dólares"
+                    />
+                </Grid>
+            </Grid>
+
+            <Typography
+                variant="caption"
                 sx={{
-                    background: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)',
-                    borderRadius: 2,
-                    p: 4,
-                    color: 'white',
-                    boxShadow: 16,
-                    marginBottom: 5
+                    display: 'block',
+                    textAlign: 'center',
+                    mt: 3,
+                    opacity: 0.8
                 }}
             >
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={12}>
-                        <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', textAlign: 'center', marginBottom: 4 }}>
-                            Con 9 puntos ganas
-                        </Typography>
-                    </Grid>
-                </Grid>
+                *Los montos pueden variar según la región específica
+            </Typography>
 
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
-                        <PrizeCard
-                            country="México"
-                            amount={150000}
-                            currency="pesos"
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <PrizeCard
-                            country="Estados Unidos"
-                            amount={10000}
-                            currency="dólares"
-                        />
-                    </Grid>
-                </Grid>
-
-                <Typography
-                    variant="caption"
+            {/* Added Button Stack */}
+            <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                    justifyContent: 'center',
+                    mt: 4
+                }}
+            >
+                <Button
+                    variant="contained"
+                    component={Link}
+                    href="/buy"
                     sx={{
-                        display: 'block',
-                        textAlign: 'center',
-                        mt: 3,
-                        opacity: 0.8
+                        color: 'black',
+                        fontWeight: '700',
+                        bgcolor: 'rgb(255,255,255)',
+                        backdropFilter: 'blur(2px)',
+                        '&:hover': {
+                            bgcolor: 'rgba(255, 255, 255, 0.2)',
+                        },
+                        px: 4,
+                        py: 1
                     }}
                 >
-                    *Los montos pueden variar según la región específica
-                </Typography>
-            </Box>
+                    Comprar
+                </Button>
+                <Button
+                    variant="contained"
+                    component={Link}
+                    href="/login"
+                    sx={{
+                        color: 'black',
+                        textAlign: 'center',
+                        fontWeight: '700',
+                        bgcolor: 'rgb(255,255,255)',
+                        backdropFilter: 'blur(2px)',
+                        '&:hover': {
+                            bgcolor: 'rgba(255, 255, 255, 0.2)',
+                        },
+                        px: 4,
+                        py: 1
+                    }}
+                >
+                    Mi Cuenta
+                </Button>
+            </Stack>
+        </Box>
     );
 };
 

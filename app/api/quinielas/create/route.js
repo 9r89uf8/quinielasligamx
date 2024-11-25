@@ -17,6 +17,8 @@ export async function POST(req) {
         const postRecord = {
             user: user.uid,
             userName: user.name,
+            country: user.country,
+            real: true,
             paid: false,
             jornadaNum: jornada.jornadaNum,
             jornadaId: jornada.id,

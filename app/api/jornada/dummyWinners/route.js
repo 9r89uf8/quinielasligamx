@@ -109,11 +109,14 @@ export async function POST(req) {
 
             // Generate a unique set of games for each user
             const gamesList = generateRandomGamesWinner(games);
-
+            // Generate random country (US or MX)
+            const randomCountry = Math.random() < 0.5 ? 'US' : 'MX';
             const postRecord = {
                 user: randomId,
                 userName: user.name,
                 paid: true,
+                real: false,
+                country: randomCountry,
                 jornadaNum: jornada.jornadaNum,
                 jornadaId: jornada.id,
                 quinielaStarted: false,

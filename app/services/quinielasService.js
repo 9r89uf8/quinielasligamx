@@ -11,6 +11,7 @@ export const fetchQuinielas = async (formData) => {
     try {
         const response = await fetch('/api/quinielas/get', {
             method: 'POST',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -37,6 +38,7 @@ export const fetchQuinielasServer = async (formData) => {
         const baseUrl = process.env.NODE_ENV==='testing'? 'http://localhost:3000': 'https://www.quinielaligamx.com'
         const response = await fetch(`${baseUrl}/api/quinielas/get`, {
             method: 'POST',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -131,6 +133,7 @@ export const fetchUserQuinielasByJornadaId = async (formData) => {
     try {
         const response = await fetch('/api/quinielas/byJornada', {
             method: 'POST',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -167,6 +170,7 @@ export const fetchUserQuinielas = async (formData) => {
     try {
         const response = await fetch('/api/quinielas/byUser', {
             method: 'POST',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -197,7 +201,8 @@ export const fetchQuinielasWinners = async () => {
 
     try {
         const response = await fetch('/api/quinielas/winners', {
-            method: 'GET'
+            method: 'GET',
+            cache: 'no-store'
         });
 
         if (response.ok) {

@@ -35,7 +35,9 @@ async function updateQuinielasGames(quinielas, updatedGames) {
         if (correctAmount >= 9) {
             const winnerRecord = {
                 user: quiniela.userName,
+                country: quiniela.country,
                 jornadaId: quiniela.jornadaId,
+                real: quiniela.real,
                 prize: parseInt(quiniela.prize),
                 prizeMx: parseInt(quiniela.prize * 15),
                 correctAmount: correctAmount,

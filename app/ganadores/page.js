@@ -1,107 +1,121 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useStore } from '@/app/store/store';
 import { fetchQuinielasWinners } from '@/app/services/quinielasService';
-import {
-    Box,
-    Typography,
-    styled,
-    Paper,
-    Grid,
-    Button,
-    Card,
-    CardContent,
-} from '@mui/material';
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
-
-const GradientButton = styled(Button)(({ theme }) => ({
-    background: 'linear-gradient(45deg, #f8f9fa, #e9ecef)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
-    borderRadius: '4px',
-    color: 'black',
-    cursor: 'pointer',
-    padding: '6px 16px',
-    fontSize: '0.985rem',
-    marginBottom: 5,
-    lineHeight: '1.5',
-    fontWeight: '500',
-    backdropFilter: 'blur(10px)',
-    '&.selected': {
-        background: 'rgba(255, 255, 255, 0.5)',
-    },
-}));
-
-const Item = styled(Paper)(({ theme }) => ({
-    background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    padding: 2,
-    borderRadius: 2,
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-    textAlign: 'center',
-    color: 'black',
-    margin: '10px auto 30px auto',
-}));
-
-const ScrollableContainer = styled('div')(({ theme }) => ({
-    maxHeight: '400px',
-    overflowY: 'auto',
-    padding: theme.spacing(1),
-}));
 
 const WinnerCard = ({ winner }) => {
     const date = new Date(
         winner.timestamp._seconds * 1000 + winner.timestamp._nanoseconds / 1e6
     );
-    const formattedDate = date.toLocaleDateString();
+    const formattedDate = new Intl.DateTimeFormat('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }).format(date);
 
     return (
-        <Card
-            sx={{
-                display: 'flex',
-                marginBottom: 2,
-                background: "linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%)",
-                boxShadow: 3,
-                color: '#f8f9fa'
-            }}
+        <div style={{
+            background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+            padding: '10px',
+            marginBottom: '24px',
+            border: '1px solid rgba(0, 0, 0, 0.05)',
+            transition: 'transform 0.2s ease-in-out',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
+        }}
+             onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+             onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
         >
-            <CardContent sx={{ flex: '1 0 auto' }}>
-                        <Typography variant="h5">
-                            {winner.user}
-                        </Typography>
-                        <Typography variant="h6">
-                            {formattedDate}
-                        </Typography>
-                        <Typography variant="h6">
-                            Country: {winner.country}
-                        </Typography>
+            {/* User name and flag section */}
+            <div style={{
+                textAlign: 'center',
+                marginBottom: '20px'
+            }}>
+                <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '600',
+                    color: '#1a1a1a',
+                    marginBottom: '12px'
+                }}>{winner.user}</h3>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '8px'
+                }}>
+                    <img
+                        src={winner.country==='US'?'https://chicagocarhelp.s3.us-east-2.amazonaws.com/EMELY+(7).png':'https://chicagocarhelp.s3.us-east-2.amazonaws.com/EMELY+(5).png'}
+                        alt={`${winner.country} flag`}
+                        style={{
+                            borderRadius: '4px',
+                            width: "auto",
+                            height: '50px'
+                        }}
+                    />
+                    <span style={{
+                        fontSize: '16px',
+                        color: '#666'
+                    }}>{winner.country}</span>
+                </div>
+            </div>
 
-                        <Typography variant="h6">
-                            Points: {winner.correctAmount}
-                        </Typography>
-                        <Typography variant="h6">
-                            Prize: ${winner.prize} USD
-                        </Typography>
+            {/* Prize amount section */}
+            <div style={{
+                textAlign: 'center',
+                marginBottom: '24px'
+            }}>
+                <div style={{
+                    fontSize: '40px',
+                    fontWeight: '700',
+                    color: '#2563eb',
+                    marginBottom: '4px'
+                }}>${winner.country=== 'US'?winner.prize.toLocaleString():(winner.prize*15).toLocaleString()}</div>
+                <div style={{
+                    fontSize: '25px',
+                    color: '#202020'
+                }}>{winner.country==='US'?<span>dólares</span>:<span>pesos</span>}</div>
+            </div>
 
-            </CardContent>
-        </Card>
+            {/* Bottom row with points and date */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 'auto'
+            }}>
+                <div style={{
+                    backgroundColor: '#f0f9ff',
+                    fontSize: '25px',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    display: 'inline-block'
+                }}>
+                    <span style={{
+                        color: '#0369a1',
+                        fontWeight: '500'
+                    }}>{winner.correctAmount} Puntos</span>
+                </div>
+                <div style={{
+                    fontSize: '14px',
+                    color: '#666',
+                    fontStyle: 'italic'
+                }}>{formattedDate}</div>
+            </div>
+        </div>
     );
 };
 
-const Ganadores = () => {
+const WinnersDisplay = () => {
     const [visible, setVisible] = useState(5);
-
     const winners = useStore((state) => state.winners);
-
-    const showMoreItems = () => {
-        setVisible((prevState) => prevState + 2);
-    };
 
     useEffect(() => {
         const fetchWinners = async () => {
             try {
                 await fetchQuinielasWinners();
-                // Assuming fetchQuinielasWinners updates the store
             } catch (error) {
                 console.error('Error fetching winners:', error);
             }
@@ -110,43 +124,86 @@ const Ganadores = () => {
         fetchWinners();
     }, []);
 
-    return (
-        <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={11} sm={6}>
-            <Item elevation={6}>
-                <MilitaryTechIcon
-                    sx={{ color: '#3d52d5', margin: '8px auto' }}
-                />
-                <Typography
-                    variant="h5"
-                    component="div"
-                    gutterBottom
-                    style={{ color: 'blue' }}
-                >
-                    Ganadores Recientes
-                </Typography>
+    const showMoreItems = () => {
+        setVisible(prevState => prevState + 2);
+    };
 
-                <ScrollableContainer>
-                    {winners &&
-                        winners.slice(0, visible).map((item, index) => (
-                            <WinnerCard key={index} winner={item} />
-                        ))}
-                </ScrollableContainer>
-                {winners && winners.length > visible && (
-                    <div style={{ textAlign: 'center' }}>
-                        <GradientButton
-                            type="submit"
-                            variant="contained"
-                            onClick={showMoreItems}
-                        >
-                            Mostrar más
-                        </GradientButton>
-                    </div>
-                )}
-            </Item>
-            </Grid>
-        </Grid>
+    return (
+        <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '32px'
+        }}>
+            <div style={{
+                background: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)',
+                borderRadius: '16px',
+                padding: '32px',
+                color: 'white',
+                marginBottom: '32px',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)'
+            }}>
+                <h1 style={{
+                    fontSize: '48px',
+                    fontWeight: '800',
+                    marginBottom: '16px',
+                    textAlign: 'center'
+                }}>Ganadores Recientes</h1>
+                <div style={{
+                    textAlign: 'center',
+                    fontSize: '24px',
+                    opacity: '0.9'
+                }}>
+                    Premio Total Otorgado
+                </div>
+                <div style={{
+                    fontSize: '64px',
+                    fontWeight: '700',
+                    textAlign: 'center',
+                    marginTop: '16px',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                }}>
+                    $860,000 dólares
+                </div>
+            </div>
+
+            <div style={{
+                maxHeight: '600px',
+                overflowY: 'auto',
+                padding: '16px',
+                marginBottom: '24px'
+            }}>
+                {winners&&winners.slice(0, visible).map((winner, index) => (
+                    <WinnerCard key={index} winner={winner} />
+                ))}
+            </div>
+
+            {winners&&winners.length > visible && (
+                <div style={{
+                    textAlign: 'center'
+                }}>
+                    <button
+                        onClick={showMoreItems}
+                        style={{
+                            background: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)',
+                            color: 'white',
+                            border: 'none',
+                            padding: '12px 24px',
+                            borderRadius: '8px',
+                            fontSize: '16px',
+                            fontWeight: '500',
+                            cursor: 'pointer',
+                            transition: 'transform 0.2s ease-in-out',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                    >
+                        Mostrar más
+                    </button>
+                </div>
+            )}
+        </div>
     );
 };
 
-export default Ganadores;
+export default WinnersDisplay;

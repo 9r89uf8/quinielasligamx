@@ -189,7 +189,7 @@ export const fetchUserQuinielas = async (formData) => {
 };
 
 // Fetch quinielas winners from the API
-export const fetchQuinielasWinners = async (formData) => {
+export const fetchQuinielasWinners = async () => {
     const setWinners = useStore.getState().setWinners;
     const setLoadingQuinielas = useStore.getState().setLoadingQuinielas;
 
@@ -197,11 +197,7 @@ export const fetchQuinielasWinners = async (formData) => {
 
     try {
         const response = await fetch('/api/quinielas/winners', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
+            method: 'GET'
         });
 
         if (response.ok) {

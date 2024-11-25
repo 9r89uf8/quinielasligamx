@@ -1,12 +1,13 @@
 // app/api/posts/route.js
 import { adminDb } from '@/app/utils/firebaseAdmin';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-export async function POST(req) {
+export async function GET() {
     try {
-        const { id } = await req.json();
+
 
         const quinielasSnapshot = await adminDb.firestore().collection('winners')
-            .where('jornadaId', '==', id)
             .orderBy('timestamp', 'desc') // Ensure you have an index for this query in Firestore
             .get();
 
@@ -16,7 +17,7 @@ export async function POST(req) {
 
         return new Response(JSON.stringify(quinielas), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json','Cache-Control': 'no-store, max-age=0' },
         });
     } catch (error) {
         console.log(error.message)

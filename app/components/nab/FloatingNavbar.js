@@ -135,7 +135,7 @@ export default function FloatingNavbar() {
         {
             label: 'Ganadores',
             icon: <EmojiEventsIcon fontSize="large" />,
-            path: '/winners',
+            path: '/ganadores',
             gradient: 'linear-gradient(to right, #43cea2, #185a9d)', // Example gradient
         },
     ];

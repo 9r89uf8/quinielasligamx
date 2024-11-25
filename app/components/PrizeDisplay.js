@@ -158,7 +158,7 @@ const PrizeDisplay = () => {
                     alignItems: 'center',
                     gap: 2
                 }}>
-                    <Typography variant="h6" component="h6" sx={{ fontWeight: 'bold' }}>
+                    <Typography variant="h5" component="h5" sx={{ fontWeight: 'bold' }}>
                         ¿Tienes dudas sobre los premios o el proceso? ¡Pregúntanos!
                     </Typography>
                     <Button

@@ -239,27 +239,6 @@ export default function HomePage() {
                     >
                         ¿Eres un experto en fútbol de la Liga BBVA MX y tienes un don para predecir los resultados?
                     </Typography>
-
-                    <MessageCard>
-                        <Typography variant="h5" gutterBottom style={{color: '#343a40'}}>
-                            ¿Tiene alguna pregunta?
-                        </Typography>
-                        <Button
-                            component={Link}
-                            href="/chat"
-                            variant="contained"
-                            sx={{
-                                background: 'linear-gradient(45deg, #014f86, #012a4a)',
-                                fontSize: '1.25rem',
-                                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.5)',
-                                '&:hover': {
-                                    boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)',
-                                },
-                            }}
-                        >
-                            Mandar Mensaje
-                        </Button>
-                    </MessageCard>
                 </GradientHeader>
 
                 {/* Team Logos Section */}

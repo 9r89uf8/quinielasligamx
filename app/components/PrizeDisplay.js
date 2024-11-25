@@ -7,10 +7,12 @@ import {
     Container,
     Grid,
     Button,
-    Stack
+    Stack,
+    Tooltip
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Link from "next/link";
 
 const PrizeCard = ({ country, amount, currency }) => {
@@ -137,6 +139,49 @@ const PrizeDisplay = () => {
                     Mi Cuenta
                 </Button>
             </Stack>
+
+            {/* Help Section with PrizeCard style */}
+            <Card
+                sx={{
+                    bgcolor: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(8px)',
+                    color: 'white',
+                    mt: 4,
+                    maxWidth: '600px',
+                    mx: 'auto'
+                }}
+            >
+                <CardContent sx={{
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 2
+                }}>
+                    <Typography variant="h6" component="h6" sx={{ fontWeight: 'bold' }}>
+                        ¿Tienes dudas sobre los premios o el proceso? ¡Pregúntanos!
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        component={Link}
+                        href="/chat"
+                        sx={{
+                            color: 'black',
+                            textAlign: 'center',
+                            fontWeight: '700',
+                            bgcolor: 'rgb(255,255,255)',
+                            backdropFilter: 'blur(2px)',
+                            '&:hover': {
+                                bgcolor: 'rgba(255, 255, 255, 0.2)',
+                            },
+                            px: 4,
+                            py: 1
+                        }}
+                    >
+                        Mensaje
+                    </Button>
+                </CardContent>
+            </Card>
         </Box>
     );
 };

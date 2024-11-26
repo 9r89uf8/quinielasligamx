@@ -29,8 +29,7 @@ export const fetchLatestJornadaServer = async () => {
     try {
         const baseUrl = process.env.NODE_ENV==='testing'? 'http://localhost:3000': 'https://www.quinielaligamx.com'
         const response = await fetch(`${baseUrl}/api/jornada/get`, {
-            method: 'GET',
-            cache: 'no-store'
+            method: 'GET'
         });
         if (response.ok) {
             const data = await response.json();

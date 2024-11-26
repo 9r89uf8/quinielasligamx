@@ -17,10 +17,10 @@ export const fetchLatestJornada = async () => {
             setBuyJornada(buy);
             return data;
         } else {
-            throw new Error('Failed to fetch the latest jornada');
+            throw new Error('Failed to fetch the latest jornada/no/server');
         }
     } catch (error) {
-        console.error('Error fetching the latest jornada:', error.message);
+        console.error('Error fetching the latest jornada/no/server:', error.message);
         return null;
     }
 };
@@ -36,10 +36,10 @@ export const fetchLatestJornadaServer = async () => {
             const data = await response.json();
             return data;
         } else {
-            throw new Error('Failed to fetch the latest jornada');
+            throw new Error('Failed to fetch the latest jornada/server');
         }
     } catch (error) {
-        console.error('Error fetching the latest jornada:', error.message);
+        console.error('Error fetching the latest jornada/server', error.message);
         return null;
     }
 };

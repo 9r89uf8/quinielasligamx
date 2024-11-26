@@ -4,7 +4,6 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export async function GET() {
     try {
-
         // Assuming 'startDate' is a timestamp field and 'isActive' is a boolean field
         // First, order by 'startDate' in descending order to get the most recent first
         // Then, filter by 'isActive' to only include active jornadas

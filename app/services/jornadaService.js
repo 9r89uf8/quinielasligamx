@@ -7,7 +7,8 @@ export const fetchLatestJornada = async () => {
 
     try {
         const response = await fetch(`/api/jornada/get`, {
-            method: 'GET'
+            method: 'GET',
+            cache: 'no-store'
         });
         if (response.ok) {
             const data = await response.json();
@@ -29,6 +30,7 @@ export const fetchLatestJornadaServer = async () => {
         const baseUrl = process.env.NODE_ENV==='testing'? 'http://localhost:3000': 'https://www.quinielaligamx.com'
         const response = await fetch(`${baseUrl}/api/jornada/get`, {
             method: 'GET',
+            cache: 'no-store'
         });
         if (response.ok) {
             const data = await response.json();
@@ -46,7 +48,10 @@ export const fetchAllJornadas = async () => {
     const setJornadas = useStore.getState().setJornadas;
 
     try {
-        const response = await fetch('/api/jornada/all');
+        const response = await fetch('/api/jornada/all', {
+            method: 'GET',
+            cache: 'no-store'
+        });
         if (response.ok) {
             const jornadas = await response.json();
             setJornadas(jornadas);

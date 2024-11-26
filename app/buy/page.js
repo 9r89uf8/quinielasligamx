@@ -3,51 +3,49 @@
 
 import React, { Fragment, useState, useEffect } from "react";
 import { useStore } from '@/app/store/store';
-import {createQuiniela, fetchQuinielas, fetchUserQuinielasByJornadaId} from '@/app/services/quinielasService';
+import { createQuiniela } from '@/app/services/quinielasService';
+import {fetchLatestJornada} from "@/app/services/jornadaService";
 import { useRouter } from 'next/navigation';
 // Material UI imports for styling
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Grid from "@mui/material/Grid";
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Typography from '@mui/material/Typography';
+import {
+    FormControl,
+    InputLabel,
+    Grid,
+    Button,
+    MenuItem,
+    Select,
+    Typography,
+    Box,
+    Paper,
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Divider,
+} from "@mui/material";
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Badge from '@mui/material/Badge';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { Accordion, AccordionDetails, AccordionSummary, Divider } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
-import {fetchLatestJornada} from "@/app/services/jornadaService";
 
 const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    marginTop: 15,
+    padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    background: '#fdfffc'
+    background: '#fdfffc',
+    marginTop: theme.spacing(2),
 }));
 
 const StyledText = styled(Typography)(({ theme }) => ({
-    ...theme.typography.body2,
     background: '#11468F',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
     color: 'white',
-    padding: 5,
+    padding: theme.spacing(0.5),
     fontSize: 18,
     textAlign: 'center',
+    borderRadius: theme.shape.borderRadius,
 }));
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
     background: "linear-gradient(45deg, #0077b6 30%, #023e8a 90%)",
     color: theme.palette.common.white,
-    margin: theme.spacing(1),
+    margin: theme.spacing(1, 0),
     boxShadow: theme.shadows[3],
     '&:before': {
         backgroundColor: 'transparent',
@@ -61,7 +59,7 @@ const Buy = () => {
     const [formData, setFormData] = useState({});
     const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
 
-    useEffect(()  => {
+    useEffect(() => {
         const getLatestJornada = async () => {
             if (!jornada) {
                 const latestJornada = await fetchLatestJornada();
@@ -75,7 +73,7 @@ const Buy = () => {
                     };
                 });
                 setFormData(initialGames);
-            }else {
+            } else {
                 if (jornada && jornada.games) {
                     const initialGames = {};
                     jornada.games.forEach((game, index) => {
@@ -114,7 +112,7 @@ const Buy = () => {
         if (!user) {
             setShowRegisterPrompt(true);
         } else {
-            onSubmit();
+            onSubmit(e);
         }
     };
 
@@ -142,39 +140,41 @@ const Buy = () => {
     let list;
     if (jornada && jornada.games) {
         list = jornada.games.map((item, index) => (
-            <Fragment key={index}>
-                <Grid item xs={4} sm={6} md={4} lg={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <img src={item.team1.logo} alt={item.team1.name} style={{ width: '40px', marginRight: '10px' }} />
-                    <StyledText>{item.team1.name}</StyledText>
-                </Grid>
-
-                <Grid item xs={4} sm={6} md={4} lg={3}>
-                    <FormControl fullWidth>
-                        {(!formData[index]?.guess || formData[index].guess === 'DEFAULT_VALUE') && (
-                            <InputLabel id={`select-outcome-${index}`} sx={{ fontSize: '1.25rem' }}>Elige</InputLabel>
-                        )}
-                        <Select
-                            labelId={`select-outcome-${index}`}
-                            id={`select-outcome-${item.gameName}`}
-                            value={formData[index]?.guess || ''}
-                            name={item.gameName}
-                            onChange={e => onChange(e, index)}
-                            required
-                            sx={{ fontSize: '1.5rem' }}
-                            label={!formData[index]?.guess || formData[index]?.guess === 'DEFAULT_VALUE' ? 'Elige' : ''}
-                        >
-                            <MenuItem value="L" sx={{ fontSize: '1.5rem' }}>L</MenuItem>
-                            <MenuItem value="E" sx={{ fontSize: '1.5rem' }}>E</MenuItem>
-                            <MenuItem value="V" sx={{ fontSize: '1.5rem' }}>V</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-
-                <Grid item xs={4} sm={6} md={4} lg={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <StyledText>{item.team2.name}</StyledText>
-                    <img src={item.team2.logo} alt={item.team2.name} style={{ width: '40px', marginLeft: '10px' }} />
-                </Grid>
-            </Fragment>
+            <Grid item xs={12} md={6} lg={4} key={index}>
+                <Paper elevation={3} style={{ padding: '5px', margin: '5px' }}>
+                    <Grid container spacing={2} alignItems="center" justifyContent="center">
+                        <Grid item xs={4} style={{ textAlign: 'center' }}>
+                            <img src={item.team1.logo} alt={item.team1.name} style={{ width: '60px', marginBottom: '10px' }} />
+                            <StyledText>{item.team1.name}</StyledText>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl fullWidth>
+                                {(!formData[index]?.guess || formData[index].guess === 'DEFAULT_VALUE') && (
+                                    <InputLabel id={`select-outcome-${index}`} sx={{ fontSize: '1.25rem' }}>Elige</InputLabel>
+                                )}
+                                <Select
+                                    labelId={`select-outcome-${index}`}
+                                    id={`select-outcome-${item.gameName}`}
+                                    value={formData[index]?.guess || ''}
+                                    name={item.gameName}
+                                    onChange={e => onChange(e, index)}
+                                    required
+                                    sx={{ fontSize: '1.5rem' }}
+                                    label={!formData[index]?.guess || formData[index]?.guess === 'DEFAULT_VALUE' ? 'Elige' : ''}
+                                >
+                                    <MenuItem value="L" sx={{ fontSize: '1.5rem' }}>L</MenuItem>
+                                    <MenuItem value="E" sx={{ fontSize: '1.5rem' }}>E</MenuItem>
+                                    <MenuItem value="V" sx={{ fontSize: '1.5rem' }}>V</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={4} style={{ textAlign: 'center' }}>
+                            <img src={item.team2.logo} alt={item.team2.name} style={{ width: '60px', marginBottom: '10px' }} />
+                            <StyledText>{item.team2.name}</StyledText>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </Grid>
         ));
     }
 
@@ -182,67 +182,85 @@ const Buy = () => {
         return (
             <Fragment>
                 <Box sx={{ flexGrow: 1 }} style={{ minHeight: '100vh' }}>
-                    <Item elevation={6}>
-                        <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                            Premio
-                        </Typography>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={11}>
+                                <Item elevation={6}>
+                                    <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                                        Premio
+                                    </Typography>
 
-                        <StyledAccordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize: 43 }} />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>${jornada.prize * 15} Pesos</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Box display="flex" alignItems="center" justifyContent="center" width="100%">
-                                    <Box display="flex" flexDirection="column" alignItems="center" style={{ marginLeft: 8 }}>
-                                        <Typography variant="h5" component="div" style={{ textAlign: 'center', marginBottom: 5 }}>
-                                            Solo ganas si haces 9 puntos en 1 Quiniela
-                                        </Typography>
-                                        <Divider style={{ margin: 10 }}><SportsSoccerIcon /></Divider>
-                                        <Typography variant="h5" component="div" style={{ textAlign: 'center' }}>
-                                            Si vives en México ganas ${jornada.prize * 15} Pesos
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                            </AccordionDetails>
-                        </StyledAccordion>
+                                    <StyledAccordion>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize: 43 }} />}
+                                            aria-controls="panel1a-content"
+                                            id="panel1a-header"
+                                        >
+                                            <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                                                ${jornada.prize * 15} Pesos
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Box display="flex" flexDirection="column" alignItems="center" width="100%">
+                                                <Typography variant="h6" component="div" style={{ textAlign: 'center', marginBottom: 5 }}>
+                                                    Solo ganas si haces 9 puntos en 1 Quiniela
+                                                </Typography>
+                                                <Divider style={{ margin: 10 }}><SportsSoccerIcon /></Divider>
+                                                <Typography variant="h6" component="div" style={{ textAlign: 'center' }}>
+                                                    Si vives en México ganas ${jornada.prize * 15} Pesos
+                                                </Typography>
+                                            </Box>
+                                        </AccordionDetails>
+                                    </StyledAccordion>
 
-                        <StyledAccordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize: 43 }} />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>${jornada.prize} Dólares</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Box display="flex" alignItems="center" justifyContent="center" width="100%">
-                                    <Box display="flex" flexDirection="column" alignItems="center" style={{ marginLeft: 8 }}>
-                                        <Typography variant="h5" component="div" style={{ textAlign: 'center', marginBottom: 5 }}>
-                                            Solo ganas si haces 9 puntos en 1 Quiniela
-                                        </Typography>
-                                        <Divider style={{ margin: 10 }}><SportsSoccerIcon /></Divider>
-                                        <Typography variant="h5" component="div" style={{ textAlign: 'center' }}>
-                                            Si vives en USA ganas ${jornada.prize} Dólares
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                            </AccordionDetails>
-                        </StyledAccordion>
-                    </Item>
-                    <form onSubmit={handleBuyClick}>
-                        <Item elevation={6}>
-                            <Grid container spacing={2} justify="center" style={{ marginBottom: '10px' }}>
-                                {list}
+                                    <StyledAccordion>
+                                        <AccordionSummary
+                                            expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize: 43 }} />}
+                                            aria-controls="panel1b-content"
+                                            id="panel1b-header"
+                                        >
+                                            <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                                                ${jornada.prize} Dólares
+                                            </Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                            <Box display="flex" flexDirection="column" alignItems="center" width="100%">
+                                                <Typography variant="h6" component="div" style={{ textAlign: 'center', marginBottom: 5 }}>
+                                                    Solo ganas si haces 9 puntos en 1 Quiniela
+                                                </Typography>
+                                                <Divider style={{ margin: 10 }}><SportsSoccerIcon /></Divider>
+                                                <Typography variant="h6" component="div" style={{ textAlign: 'center' }}>
+                                                    Si vives en USA ganas ${jornada.prize} Dólares
+                                                </Typography>
+                                            </Box>
+                                        </AccordionDetails>
+                                    </StyledAccordion>
+                                </Item>
                             </Grid>
-                            <Button style={{marginTop:20}} type="submit" variant="contained" color="primary" size="large" disabled={showRegisterPrompt}>
-                                Comprar Quiniela
-                            </Button>
-                        </Item>
-                    </form>
+                        </Grid>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item xs={11}>
+                            <Item elevation={6}>
+                                <form onSubmit={handleBuyClick}>
+                                    <Grid container spacing={1} justifyContent="center">
+                                        {list}
+                                    </Grid>
+                                    <Box textAlign="center">
+                                        <Button
+                                            style={{marginTop: 20}}
+                                            type="submit"
+                                            variant="contained"
+                                            color="primary"
+                                            size="large"
+                                            disabled={showRegisterPrompt}
+                                        >
+                                            Comprar Quiniela
+                                        </Button>
+                                    </Box>
+                                </form>
+                            </Item>
+                        </Grid>
+                    </Grid>
+
 
                     {showRegisterPrompt && (
                         <Box mt={2} textAlign="center">
@@ -250,7 +268,7 @@ const Buy = () => {
                                 Por favor regístrate antes de comprar una quiniela.
                             </Typography>
                             <Button variant="contained" color="primary" onClick={handleRegisterClick}>
-                                Registrate Aqui
+                                Registrate Aquí
                             </Button>
                         </Box>
                     )}
@@ -259,13 +277,11 @@ const Buy = () => {
         );
     } else {
         return (
-            <Box sx={{ flexGrow: 1 }} style={{ minHeight: '100vh' }}>
+            <Box sx={{flexGrow: 1}} style={{minHeight: '100vh'}}>
                 <Item elevation={6}>
-                    <Badge badgeContent={<CancelIcon color="secondary" />} color="error" style={{ marginBottom: '30px' }}>
-                        <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                            No hay Quinielas a la venta por el momento.
-                        </Typography>
-                    </Badge>
+                    <Typography variant="h5" component="div" style={{textAlign: 'center', fontWeight: 'bold'}}>
+                        No hay Quinielas a la venta por el momento.
+                    </Typography>
                 </Item>
             </Box>
         );
@@ -273,4 +289,5 @@ const Buy = () => {
 };
 
 export default Buy;
+
 

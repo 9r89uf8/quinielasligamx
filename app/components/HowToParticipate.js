@@ -48,7 +48,7 @@ const HowToParticipate = () => {
             }}
         >
             <Typography variant="h4" align="center" gutterBottom>
-                ¿Cómo participar en la Quiniela Liga MX?
+                ¿Cómo participar en la Quiniela Liga BBVA MX 2025?
             </Typography>
 
             <Box sx={{ width: '100%', mt: 4 }}>

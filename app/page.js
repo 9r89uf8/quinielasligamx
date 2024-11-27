@@ -96,11 +96,11 @@ const teams = [
 ];
 
 const fantasyScores = [
-    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150,000', currency: 'pesos'},
-    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'Estados Unidos', prize: '10,000', currency: 'dólares'},
-    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150,000', currency: 'pesos'},
-    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'México', prize: '150,000', currency: 'pesos'},
-    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'Estados Unidos', prize: '10,000', currency: 'dólares'},
+    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'MX', prize: '150,000', currency: 'pesos'},
+    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'US', prize: '10,000', currency: 'dólares'},
+    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'MX', prize: '150,000', currency: 'pesos'},
+    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'MX', prize: '150,000', currency: 'pesos'},
+    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'US', prize: '10,000', currency: 'dólares'},
 ];
 
 export default function HomePage() {
@@ -271,102 +271,6 @@ export default function HomePage() {
                         </Box>
                     ))}
                 </Box>
-
-                {/* PrizeCards with Dividers */}
-                <PrizeCard country="USA">
-                    <Typography variant="h5" gutterBottom sx={{color: '#efefef'}}>
-                        Si vives en Estados Unidos ganas
-                    </Typography>
-                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
-                    <Typography
-                        variant="h3"
-                        component="h3"
-                        sx={{
-                            fontWeight: 700,
-                            color: '#02c39a',
-                            mb: 1,
-                        }}
-                    >
-                        $10,000
-                    </Typography>
-                    <Typography
-                        variant="h4"
-                        sx={{fontWeight: 500, color: '#FFFFFF', mb: 2}}
-                    >
-                        dólares
-                    </Typography>
-                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
-                    <Typography variant="h5" sx={{mb: 2, color: '#efefef'}}>
-                        1 quiniela cuesta $3 dólares
-                    </Typography>
-                    <Button
-                        component={Link}
-                        href="/buy"
-                        variant="contained"
-                        sx={{
-                            background: 'linear-gradient(45deg, #ffffff, #e0e1dd)',
-                            color: '#4b3832',
-                            fontSize: {xs: '1.1rem', md: '1.5rem'},
-                            py: 1.5,
-                            px: 3,
-                            mt: 1,
-                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                            '&:hover': {
-                                boxShadow: '0 6px 8px rgba(255, 215, 0, 0.7)',
-                            },
-                        }}
-                    >
-                        Comprar Quiniela
-                    </Button>
-                </PrizeCard>
-
-
-                <PrizeCard country="México">
-                    <Typography variant="h5" gutterBottom style={{color: 'white'}}>
-                        Si vives en México ganas
-                    </Typography>
-                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
-                    <Typography
-                        variant="h3"
-                        component="h3"
-                        sx={{
-                            fontWeight: 700,
-                            color: '#02c39a',
-                            mb: 1,
-                        }}
-                    >
-                        $150,000
-                    </Typography>
-                    <Typography
-                        variant="h4"
-                        sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
-                    >
-                        pesos
-                    </Typography>
-                    <Divider sx={{my: 1, borderColor: '#595959'}}/>
-                    <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
-                        1 quiniela cuesta $45 pesos
-                    </Typography>
-                    <Button
-                        component={Link}
-                        href="/buy"
-                        variant="contained"
-                        sx={{
-                            background: 'linear-gradient(45deg, #ffffff, #e0e1dd)',
-                            color: '#4b3832',
-                            fontSize: {xs: '1.1rem', md: '1.5rem'},
-                            py: 1.5,
-                            px: 3,
-                            mt: 1,
-                            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                            '&:hover': {
-                                boxShadow: '0 6px 8px rgba(0, 0, 0, 0.2)',
-                            },
-                        }}
-                    >
-                        Comprar Quiniela
-                    </Button>
-                </PrizeCard>
 
                 <FantasyScoreList scores={fantasyScores}/>
 

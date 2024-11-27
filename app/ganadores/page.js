@@ -80,14 +80,8 @@ const WinnerCard = ({ winner }) => {
             </div>
 
             {/* Bottom row with points and date */}
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: 'auto'
-            }}>
+            <div style={{textAlign: "center"}}>
                 <div style={{
-                    backgroundColor: '#f0f9ff',
                     fontSize: '25px',
                     padding: '8px 16px',
                     borderRadius: '8px',
@@ -98,11 +92,20 @@ const WinnerCard = ({ winner }) => {
                         fontWeight: '500'
                     }}>{winner.correctAmount} Puntos</span>
                 </div>
+            </div>
+            {/* Bottom row with points and date */}
+            <div style={{textAlign: "center"}}>
                 <div style={{
-                    fontSize: '14px',
-                    color: '#666',
-                    fontStyle: 'italic'
-                }}>{formattedDate}</div>
+                    fontSize: '21px',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    display: 'inline-block'
+                }}>
+                    <span style={{
+                        color: '#787878',
+                        fontWeight: '500'
+                    }}>{formattedDate}</span>
+                </div>
             </div>
         </div>
     );
@@ -132,10 +135,10 @@ const WinnersDisplay = () => {
         <div style={{
             maxWidth: '800px',
             margin: '0 auto',
-            padding: '32px'
+            padding: '15px'
         }}>
             <div style={{
-                background: 'linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%)',
+                background: 'linear-gradient(135deg, #02c39a 0%, #1d4ed8 100%)',
                 borderRadius: '16px',
                 padding: '32px',
                 color: 'white',
@@ -153,7 +156,7 @@ const WinnersDisplay = () => {
                     fontSize: '24px',
                     opacity: '0.9'
                 }}>
-                    Premio Total Otorgado
+                    Premios Otorgados en 2024-2025
                 </div>
                 <div style={{
                     fontSize: '64px',

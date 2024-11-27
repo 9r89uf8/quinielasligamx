@@ -1,88 +1,156 @@
-// components/FantasyScoreList.js
 import React from 'react';
-import {
-    Paper,
-    List,
-    ListItem,
-    ListItemAvatar,
-    Avatar,
-    ListItemText,
-    Typography,
-    Divider,
-} from '@mui/material';
-import { EmojiEvents } from '@mui/icons-material';
 
-const FantasyScoreList = ({ scores }) => {
+const ScoreCard = ({ score }) => {
+
     return (
-        <Paper
-            sx={{
-                background: 'linear-gradient(135deg, #f8f9fa, #dee2e6)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                padding: 3,
-                marginTop: 4,
-                marginBottom: 4,
-                borderRadius: 2,
-                boxShadow: 3,
-            }}
+        <div style={{
+            background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+            padding: '20px',
+            marginBottom: '24px',
+            border: '1px solid rgba(0, 0, 0, 0.05)',
+            transition: 'transform 0.2s ease-in-out',
+            cursor: 'pointer',
+            position: 'relative',
+            overflow: 'hidden'
+        }}
         >
-            <Typography variant="h4" align="center" gutterBottom>
-                Ganadores Recientes
-            </Typography>
-            <Typography variant="h6" align="center" color="text.secondary" gutterBottom>
-                Jugadores de Estados Unidos y México
-            </Typography>
+            {/* User name and country section */}
+            <div style={{
+                textAlign: 'center',
+                marginBottom: '20px'
+            }}>
+                <h3 style={{
+                    fontSize: '24px',
+                    fontWeight: '600',
+                    color: '#1a1a1a',
+                    marginBottom: '12px'
+                }}>{score.user}</h3>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '8px'
+                }}>
+                    <img
+                        src={score.country === 'US' ?
+                            'https://chicagocarhelp.s3.us-east-2.amazonaws.com/EMELY+(7).png' :
+                            'https://chicagocarhelp.s3.us-east-2.amazonaws.com/EMELY+(5).png'}
+                        alt={`${score.country} flag`}
+                        style={{
+                            borderRadius: '4px',
+                            height: '50px',
+                            width: 'auto'
+                        }}
+                    />
+                    <span style={{
+                        fontSize: '16px',
+                        color: '#666'
+                    }}>{score.country}</span>
+                </div>
+            </div>
 
-            <List>
+            {/* Prize amount section */}
+            <div style={{
+                textAlign: 'center',
+                marginBottom: '24px'
+            }}>
+                <div style={{
+                    fontSize: '40px',
+                    fontWeight: '700',
+                    color: '#2563eb',
+                    marginBottom: '4px'
+                }}>
+                    ${score.prize}
+                </div>
+                <div style={{
+                    fontSize: '25px',
+                    color: '#202020'
+                }}>
+                    {score.currency}
+                </div>
+            </div>
+
+            {/* Game info and points */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 'auto'
+            }}>
+                <div style={{
+                    fontSize: '25px',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    display: 'inline-block'
+                }}>
+                    <span style={{
+                        color: '#0369a1',
+                        fontWeight: '500'
+                    }}>{score.points} Puntos</span>
+                </div>
+                <div style={{
+                    fontSize: '25px',
+                    color: '#0369a1',
+                    fontWeight: '500'
+                }}>{score.gameName}</div>
+            </div>
+        </div>
+    );
+};
+
+const FantasyScoreList = ({scores = []}) => {
+
+    return (
+        <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '5px'
+        }}>
+            <div style={{
+                background: 'linear-gradient(135deg, #02c39a 0%, #1d4ed8 100%)',
+                borderRadius: '16px',
+                padding: '32px',
+                color: 'white',
+                marginBottom: '32px',
+                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)'
+            }}>
+                <h1 style={{
+                    fontSize: '48px',
+                    fontWeight: '800',
+                    marginBottom: '16px',
+                    textAlign: 'center'
+                }}>Ganadores Recientes</h1>
+                <div style={{
+                    textAlign: 'center',
+                    fontSize: '24px',
+                    opacity: '0.9'
+                }}>
+                    Premios Otorgados en 2024-2025
+                </div>
+                <div style={{
+                    fontSize: '64px',
+                    fontWeight: '700',
+                    textAlign: 'center',
+                    marginTop: '16px',
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                }}>
+                    $860,000 dólares
+                </div>
+            </div>
+
+            <div style={{
+                maxHeight: '600px',
+                overflowY: 'auto',
+                padding: '16px',
+                marginBottom: '24px'
+            }}>
                 {scores.map((score, index) => (
-                    <React.Fragment key={index}>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar sx={{ bgcolor: 'primary.main' }}>
-                                    <EmojiEvents />
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                                        {score.user}
-                                    </Typography>
-                                }
-                                secondary={
-                                    <>
-                                        <Typography
-                                            variant="h6"
-                                            color="text.secondary"
-                                            component="span"
-                                            display="block"
-                                        >
-                                            {score.gameName} - {score.gameYear}
-                                        </Typography>
-                                        <Typography
-                                            variant="h6"
-                                            sx={{ mt: 1 }}
-                                            component="span"
-                                            display="block"
-                                        >
-                                            <strong>Puntos: 9 </strong>
-                                        </Typography>
-                                        <Typography
-                                            variant="h6"
-                                            sx={{ mt: 1 }}
-                                            component="span"
-                                            display="block"
-                                        >
-                                            <strong>Premio:</strong> {score.prize} {score.currency}
-                                        </Typography>
-                                    </>
-                                }
-                                secondaryTypographyProps={{ component: 'div' }}
-                            />
-                        </ListItem>
-                        {index < scores.length - 1 && <Divider variant="inset" component="li" />}
-                    </React.Fragment>
+                    <ScoreCard key={index} score={score} />
                 ))}
-            </List>
-        </Paper>
+            </div>
+        </div>
     );
 };
 

@@ -340,8 +340,10 @@ export const deleteAllQuinielasByJornadaId = async (formData) => {
 };
 // Delete a quiniela
 export const deleteQuiniela = async (id) => {
+    const setLoading = useStore.getState().setLoadingCart;
 
     try {
+        setLoading(true)
         const response = await fetch(`/api/quinielas/delete/${id}`, {
             method: 'DELETE',
             headers: {
@@ -350,11 +352,14 @@ export const deleteQuiniela = async (id) => {
         });
 
         if (response.ok) {
+            setLoading(false)
             return { id };
         } else {
+            setLoading(false)
             throw new Error('Failed to delete quiniela');
         }
     } catch (error) {
+        setLoading(false)
         console.error('Error deleting quiniela:', error);
         return null;
     }

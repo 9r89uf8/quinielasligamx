@@ -28,6 +28,7 @@ export async function POST(req) {
             finished: false,
             wonAmount: 0,
             prize: jornada.prize,
+            price: user.country==='US'?jornada.price:jornada.price*15,
             receivedPrize: false,
             games,
             timestamp: adminDb.firestore.FieldValue.serverTimestamp()

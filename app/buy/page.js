@@ -6,6 +6,8 @@ import { useStore } from '@/app/store/store';
 import { createQuiniela } from '@/app/services/quinielasService';
 import {fetchLatestJornada} from "@/app/services/jornadaService";
 import { useRouter } from 'next/navigation';
+import CartComp from "@/app/components/cart/CartComp";
+import {useRealtimeCart} from "@/app/components/hooks/UseRealtimeCart";
 // Material UI imports for styling
 import {
     FormControl,
@@ -92,6 +94,11 @@ const Buy = () => {
         getLatestJornada();
     }, [jornada]);
 
+    // Add real-time chat subscription
+    useRealtimeCart({
+        userId: user?.uid
+    });
+
     const onChange = (e, index) => {
         const newGuess = e.target.value;
         setFormData(prevFormData => ({
@@ -134,7 +141,7 @@ const Buy = () => {
         });
 
         await createQuiniela({ games: formattedData, user: user, jornada: jornada });
-        router.push('/cart');
+        // router.push('/cart');
     };
 
     let list;
@@ -182,63 +189,9 @@ const Buy = () => {
         return (
             <Fragment>
                 <Box sx={{ flexGrow: 1 }} style={{ minHeight: '100vh' }}>
-                        <Grid container spacing={2} justifyContent="center">
-                            <Grid item xs={11}>
-                                <Item elevation={6}>
-                                    <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                                        Premio
-                                    </Typography>
-
-                                    <StyledAccordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize: 43 }} />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                        >
-                                            <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                                                ${jornada.prize * 15} Pesos
-                                            </Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Box display="flex" flexDirection="column" alignItems="center" width="100%">
-                                                <Typography variant="h6" component="div" style={{ textAlign: 'center', marginBottom: 5 }}>
-                                                    Solo ganas si haces 9 puntos en 1 Quiniela
-                                                </Typography>
-                                                <Divider style={{ margin: 10 }}><SportsSoccerIcon /></Divider>
-                                                <Typography variant="h6" component="div" style={{ textAlign: 'center' }}>
-                                                    Si vives en México ganas ${jornada.prize * 15} Pesos
-                                                </Typography>
-                                            </Box>
-                                        </AccordionDetails>
-                                    </StyledAccordion>
-
-                                    <StyledAccordion>
-                                        <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon style={{ color: "white", fontSize: 43 }} />}
-                                            aria-controls="panel1b-content"
-                                            id="panel1b-header"
-                                        >
-                                            <Typography variant="h5" component="div" style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                                                ${jornada.prize} Dólares
-                                            </Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails>
-                                            <Box display="flex" flexDirection="column" alignItems="center" width="100%">
-                                                <Typography variant="h6" component="div" style={{ textAlign: 'center', marginBottom: 5 }}>
-                                                    Solo ganas si haces 9 puntos en 1 Quiniela
-                                                </Typography>
-                                                <Divider style={{ margin: 10 }}><SportsSoccerIcon /></Divider>
-                                                <Typography variant="h6" component="div" style={{ textAlign: 'center' }}>
-                                                    Si vives en USA ganas ${jornada.prize} Dólares
-                                                </Typography>
-                                            </Box>
-                                        </AccordionDetails>
-                                    </StyledAccordion>
-                                </Item>
-                            </Grid>
-                        </Grid>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={11}>
+                            <CartComp/>
                             <Item elevation={6}>
                                 <form onSubmit={handleBuyClick}>
                                     <Grid container spacing={1} justifyContent="center">

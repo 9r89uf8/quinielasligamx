@@ -144,7 +144,7 @@ const Cart = () => {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Producto</TableCell>
+                                    <TableCell>Quinielas</TableCell>
                                     <TableCell align="right">Precio</TableCell>
                                     <TableCell align="center">Acciones</TableCell>
                                 </TableRow>

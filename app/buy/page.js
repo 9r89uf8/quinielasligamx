@@ -188,7 +188,7 @@ const Buy = () => {
     if (jornada && jornada.openToBuy) {
         return (
             <Fragment>
-                <Box sx={{ flexGrow: 1 }} style={{ minHeight: '100vh' }}>
+                <Box sx={{ marginBottom: 7}}>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={11}>
                             <CartComp/>

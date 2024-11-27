@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ScoreCard = ({ score }) => {
-
     return (
         <div style={{
             background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
@@ -101,7 +100,6 @@ const ScoreCard = ({ score }) => {
 };
 
 const FantasyScoreList = ({scores = []}) => {
-
     return (
         <div style={{
             maxWidth: '800px',
@@ -141,10 +139,7 @@ const FantasyScoreList = ({scores = []}) => {
             </div>
 
             <div style={{
-                maxHeight: '600px',
-                overflowY: 'auto',
-                padding: '16px',
-                marginBottom: '24px'
+                padding: '16px'
             }}>
                 {scores.map((score, index) => (
                     <ScoreCard key={index} score={score} />

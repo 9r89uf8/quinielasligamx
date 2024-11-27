@@ -170,8 +170,6 @@ const WinnersDisplay = () => {
             </div>
 
             <div style={{
-                maxHeight: '600px',
-                overflowY: 'auto',
                 padding: '16px',
                 marginBottom: '24px'
             }}>

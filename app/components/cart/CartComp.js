@@ -86,10 +86,6 @@ const Cart = () => {
                 background: 'linear-gradient(45deg, #0466c8 30%, #2575fc 90%)',
             }}
         >
-            <Typography variant="h4" gutterBottom sx={{ color: 'white' }}>
-                Tu Compra
-            </Typography>
-
             {isCartEmpty || !isUserRegistered ? (
                 <>
                     <PrizeCard country="México">
@@ -111,9 +107,6 @@ const Cart = () => {
                         </Typography>
                     </PrizeCard>
                     <div>
-                        <Typography variant="h5" sx={{ marginTop: '20px', color: 'white' }}>
-                            Total: $0.00
-                        </Typography>
                         {!isUserRegistered && (
                             <>
                                 <Typography variant="h6" sx={{ marginTop: '10px', textAlign: 'center' }}>

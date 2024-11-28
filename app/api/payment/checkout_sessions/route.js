@@ -1,3 +1,4 @@
+//create a session for the stripe payment link
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { adminDb } from '@/app/utils/firebaseAdmin';
@@ -7,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export async function POST(req) {
-    const { userId, country, price, jornadaId } = await req.json();
+    const { userId, country, price, jornadaId, free } = await req.json();
     const origin = process.env.NODE_ENV==='production'?'https://www.quinielaligamx.com':'http://localhost:3000'; // Default to localhost for development
 
     const quinielasRef = adminDb.firestore().collection('quiniela');
@@ -20,7 +21,7 @@ export async function POST(req) {
 
 
     // Calculate quantity
-    const quantity = quinielasSnapshot.size;
+    const quantity = quinielasSnapshot.size-free;
     //set the quantity on the payment by checking how many quinielas the snapshot has
 
     let currency, fPrice, locale;

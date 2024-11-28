@@ -18,15 +18,16 @@ const FreeQuinielasButton = ({country, user, price, jornadaId}) => {
         <Button
             onClick={handleClick}
             style={{
-                backgroundImage: 'linear-gradient(45deg, #0077b6, #023e8a)',
-                color: 'white',
+                backgroundImage: 'linear-gradient(45deg, #edf2fb, #d7e3fc)',
+                color: 'black',
                 padding: '10px 20px',
                 borderRadius: '20px',
                 fontWeight: 'bold',
-                fontSize: 18
+                fontSize: 18,
+                marginTop: 10
             }}
         >
-            Quinielas Gratis
+            Comprar Gratis
         </Button>
     );
 };

@@ -2,13 +2,10 @@
 export const createCartSlice = (set) => ({
     cart: [],
     loadingCart: false,
+    freeQuinielasAmount: 0, // Add this line
+    setUserFreeQuinielasAmount: (amount) => set({ freeQuinielasAmount: amount }), // Add this function
     clearCart: () => set({ cart: [] }),
     setCart: (cart) => set({ cart }),
-    setLoadingCart: (loadingCart) => set({ loadingCart }),
-    addToCart: (item) => set((state) => ({
-        cart: [...state.cart, item]
-    })),
-    removeFromCart: (itemId) => set((state) => ({
-        cart: state.cart.filter(item => item.id !== itemId)
-    }))
+    setLoadingCart: (loadingCart) => set({ loadingCart })
 });
+

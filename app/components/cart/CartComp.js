@@ -1,4 +1,5 @@
 // components/Cart.js
+//next js component that displays the total
 'use client';
 
 import React from 'react';
@@ -17,6 +18,8 @@ import {
 import { useStore } from '@/app/store/store';
 import { deleteQuiniela } from '@/app/services/quinielasService';
 import Link from "next/link";
+import CheckoutButton from "@/app/components/CheckoutButton";
+import FreeQuinielasButton from "@/app/components/FreeQuinielasButton";
 
 const PrizeCard = ({ country, children }) => {
     let background;
@@ -57,11 +60,21 @@ const PrizeCard = ({ country, children }) => {
 const Cart = () => {
     const cart = useStore((state) => state.cart);
     const user = useStore((state) => state.user);
+    const jornada = useStore((state) => state.jornada);
+    const buyJornada = useStore((state) => state.buyJornada);
     const loadingCart = useStore((state) => state.loadingCart);
+    const freeQuinielasAmount = useStore((state) => state.freeQuinielasAmount);
+
+    // Calculate free and paid quinielas
+    const totalQuinielasInCart = cart.length;
+    const freeQuinielasAvailable = freeQuinielasAmount || 0;
+    const freeQuinielasUsed = Math.min(freeQuinielasAvailable, totalQuinielasInCart);
+    const paidQuinielas = totalQuinielasInCart - freeQuinielasUsed;
 
     const calculateTotal = () => {
-        return cart.reduce((sum, item) => sum + item.price, 0);
+        return paidQuinielas * pricePerQuiniela;
     };
+
 
     const handleRemoveFromCart = async (id) => {
         try {
@@ -75,7 +88,7 @@ const Cart = () => {
     const isUserRegistered = user && user.uid;
     const isCartEmpty = !cart || cart.length === 0;
     const country = user && user.country ? user.country : 'MX'; // default to MX
-    const pricePerQuiniela = country === 'US' ? 5 : 100; // Assuming prices
+    const pricePerQuiniela = country === 'US' ? 3 : 45; // Assuming prices
     const currency = country === 'US' ? 'USD' : 'MXN';
 
     return (
@@ -116,7 +129,7 @@ const Cart = () => {
                                     <Button
                                         variant="contained"
                                         component={Link}
-                                        href="/login"
+                                        href="/register"
                                         sx={{
                                             color: 'black',
                                             textAlign: 'center',
@@ -177,14 +190,13 @@ const Cart = () => {
                         <Typography variant="h5" sx={{ color: 'white' }}>
                             Total: ${calculateTotal().toFixed(2)} {currency}
                         </Typography>
-                        <Button
-                            variant="contained"
-                            color="success"
-                            size="large"
-                            sx={{ marginTop: '10px' }}
-                        >
-                            Proceder al Pago
-                        </Button>
+                        {calculateTotal()===0?
+                            <FreeQuinielasButton price={buyJornada ? buyJornada.price : jornada.price} country={user.country} user={user.uid} jornadaId={buyJornada ? buyJornada.id : jornada.id} />
+                            :
+                            <CheckoutButton price={buyJornada ? buyJornada.price : jornada.price} country={user.country} user={user.uid} jornadaId={buyJornada ? buyJornada.id : jornada.id}/>
+                        }
+
+
                     </Box>
                 </>
             )}

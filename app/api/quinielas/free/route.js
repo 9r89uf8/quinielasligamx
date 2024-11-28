@@ -1,4 +1,5 @@
-// app/api/posts/route.js
+// app/api/quinielas/free/route.js
+//route for the free quinielas
 import { adminDb } from '@/app/utils/firebaseAdmin';
 import mailgun from "mailgun-js";
 

@@ -1,3 +1,4 @@
+//route to verify the payment and set the quinielas to paid=true
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { adminDb } from '@/app/utils/firebaseAdmin';

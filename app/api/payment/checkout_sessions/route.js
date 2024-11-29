@@ -59,7 +59,7 @@ export async function POST(req) {
             ],
             mode: 'payment',
             locale: locale,
-            metadata: { userId: userId, jornadaId: jornadaId },
+            metadata: { userId: userId, jornadaId: jornadaId, quantity: quantity  },
             success_url: `${origin}/payment/result?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${origin}/payment/result?session_id={CHECKOUT_SESSION_ID}`,
         };

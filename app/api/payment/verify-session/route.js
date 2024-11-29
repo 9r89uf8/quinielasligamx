@@ -16,6 +16,7 @@ export async function POST(req) {
         if (session.payment_status === 'paid') {
             const userId = session.metadata.userId;
             const jornadaId = session.metadata.jornadaId;
+            const quantity = session.metadata.quantity;
 
             const quinielasRef = adminDb.firestore().collection('quiniela');
             const quinielasSnapshot = await quinielasRef
@@ -44,7 +45,7 @@ export async function POST(req) {
             // After successful update of quinielas, update the user's quinielas amount
             const userRef = adminDb.firestore().collection('users').doc(userId);
             // Update user's quinielas amount to the length of the updated quinielas
-            await userRef.update({ userQuinielasAmount: quinielasSnapshot.size, jornadaId: jornadaId });
+            await userRef.update({ userQuinielasAmount: quinielasSnapshot.size, jornadaId: jornadaId, freeQuinielasAmount: 0 });
 
             // After successful update, create the updated quinielas array
             const updatedQuinielas = quinielasSnapshot.docs.map(doc => ({
@@ -73,11 +74,11 @@ export async function POST(req) {
             let totalString = ''
             if(userData.country==='US'){
                 price = jornada.price
-                total = quinielas.length*jornada.price
+                total = quantity*jornada.price
                 totalString = `${total} Dólares`
             }else {
                 price = jornada.price*15
-                total = quinielas.length*(jornada.price*15)
+                total = quantity*(jornada.price*15)
                 totalString = `${total} Pesos`
             }
 

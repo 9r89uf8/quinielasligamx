@@ -187,6 +187,11 @@ const Cart = () => {
                     </TableContainer>
 
                     <Box sx={{ marginTop: '20px', textAlign: 'right' }}>
+                        {user && freeQuinielasAmount>0 &&(
+                            <Typography variant="h5" sx={{ color: 'white' }}>
+                                Quinielas Gratis: {freeQuinielasAmount}
+                            </Typography>
+                        )}
                         <Typography variant="h5" sx={{ color: 'white' }}>
                             Total: ${calculateTotal().toFixed(2)} {currency}
                         </Typography>

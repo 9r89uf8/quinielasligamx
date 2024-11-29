@@ -74,12 +74,12 @@ export async function POST(req) {
         let totalString = ''
         if(userData.country==='US'){
             price = jornada.price
-            total = quinielas.length*jornada.price
-            totalString = `${total} Dólares`
+            total = 0
+            totalString = `$0 Dólares`
         }else {
             price = jornada.price*15
-            total = quinielas.length*(jornada.price*15)
-            totalString = `${total} Pesos`
+            total = 0
+            totalString = `$0 Pesos`
         }
 
 

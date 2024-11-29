@@ -27,7 +27,7 @@ const FreeQuinielasButton = ({country, user, price, jornadaId}) => {
                 marginTop: 10
             }}
         >
-            Comprar Gratis
+            Obtener Gratis
         </Button>
     );
 };

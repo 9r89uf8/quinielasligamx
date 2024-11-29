@@ -3,13 +3,15 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {Container, Typography, CircularProgress, Button} from '@mui/material';
+import {Container, Typography, CircularProgress, Button, Paper} from '@mui/material';
 import { useStore } from '@/app/store/store';
 import { verifySession } from '@/app/services/stripeService';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 const page = () => {
     const router = useRouter();
-    const loading = useStore((state) => state.loading);
+    const verifying = useStore((state) => state.verifying);
     const status = useStore((state) => state.status);
 
     useEffect(() => {
@@ -18,55 +20,87 @@ const page = () => {
 
         if (sessionId) {
             verifySession(sessionId);
-        } else {
-            useStripeStore.getState().setStatus('cancel');
-            useStripeStore.getState().setLoading(false);
         }
     }, []);
 
-    if (loading) {
+    if (verifying || status === null) {
         return (
-            <Container maxWidth="sm">
-                <CircularProgress />
+            <Container
+                maxWidth="sm"
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}
+            >
+                <Paper elevation={3} sx={{ p: 4, borderRadius: 2, textAlign: 'center', width: '100%' }}>
+                    <Typography variant="h5" component="h1" gutterBottom fontWeight="bold">
+                        por favor espera unos segundos.
+                    </Typography>
+                    <Typography variant="h5" component="h1" gutterBottom fontWeight="bold">
+                        no toques nada.
+                    </Typography>
+                    <CircularProgress />
+                </Paper>
             </Container>
         );
     }
 
     const handleNavigate = () => {
-        router.push('/quinielas/user'); // Replace '/register' with the path you want to navigate to
+        router.push('/quinielas/dashboard'); // Replace '/register' with the path you want to navigate to
     };
 
     return (
-        <Container maxWidth="sm">
-            {status === 'success' ? (
-                    <div style={{textAlign: "center", marginTop: 15}}>
-                        <Typography variant="h4" component="h1" gutterBottom>
+        <Container maxWidth="sm" sx={{ py: 4 }}>
+            <Paper elevation={3} sx={{ p: 4, borderRadius: 2, textAlign: 'center', width: '100%' }}>
+                {status === 'success' ? (
+                    <>
+                        <CheckCircleOutlineIcon sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
+                        <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
                             Pago Exitoso!
                         </Typography>
                         <Button
+                            variant="contained"
                             onClick={handleNavigate}
-                            style={{
-                                backgroundImage: 'linear-gradient(45deg, #32cd32, #008080)',
+                            sx={{
+                                backgroundImage: 'linear-gradient(45deg, #2196f3, #21cbf3)',
                                 color: 'white',
-                                padding: '10px 20px',
-                                borderRadius: '20px',
+                                py: 1.5,
+                                px: 4,
+                                borderRadius: 4,
                                 fontWeight: 'bold',
-                                boxShadow: '0 3px 5px 2px rgba(50, 205, 50, .3)',
-                                marginTop: '20px'
+                                textTransform: 'none',
+                                boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+                                '&:hover': {
+                                    backgroundImage: 'linear-gradient(45deg, #1e88e5, #1eb8e5)',
+                                },
                             }}
                         >
-                            Ver Mis Quinielas
+                            Ver mis quinielas
                         </Button>
-                    </div>
-
-            ) : (
-                <div style={{textAlign: "center", marginTop: 15}}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Pago Cancelado
-                    </Typography>
-                </div>
-
-            )}
+                    </>
+                ) : (
+                    <>
+                        <CancelOutlinedIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
+                        <Typography variant="h4" component="h1" gutterBottom fontWeight="bold">
+                            Pago Cancelado
+                        </Typography>
+                        <Typography variant="body1" sx={{ mb: 3 }}>
+                            Su pago no se completó. Si tuvo algún problema, inténtelo de nuevo o comuníquese con nuestro equipo de soporte.
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={() => router.push('/buy')}
+                            sx={{
+                                py: 1.5,
+                                px: 4,
+                                borderRadius: 4,
+                                fontWeight: 'bold',
+                                textTransform: 'none',
+                            }}
+                        >
+                            Regresar
+                        </Button>
+                    </>
+                )}
+            </Paper>
         </Container>
     );
 };

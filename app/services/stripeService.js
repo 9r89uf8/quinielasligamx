@@ -65,11 +65,10 @@ export const createCheckoutSession = async (formData) => {
 
 export const verifySession = async (sessionId) => {
     const addNotification = useStore.getState().addNotification;
-    const setLoading = useStore.getState().setLoading;
+    const setVerifying = useStore.getState().setVerifying;
     const setError = useStore.getState().setError;
     const setStatus = useStore.getState().setStatus;
 
-    setLoading(true);
     setError(null);
     setStatus(null);
 
@@ -85,18 +84,13 @@ export const verifySession = async (sessionId) => {
 
         if (data.success) {
             setStatus('success');
-            addNotification({
-                id: Date.now(),
-                type: 'success',
-                message: 'Pago Exitoso',
-            });
         } else {
             setStatus('cancel');
-            addNotification({
-                id: Date.now(),
-                type: 'error',
-                message: 'Pago Cancelado',
-            });
+            // addNotification({
+            //     id: Date.now(),
+            //     type: 'error',
+            //     message: 'Pago Cancelado',
+            // });
         }
     } catch (error) {
         setStatus('cancel');
@@ -107,6 +101,6 @@ export const verifySession = async (sessionId) => {
             message: 'Error de verificación de pago',
         });
     } finally {
-        setLoading(false);
+        setVerifying(false);
     }
 };

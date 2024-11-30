@@ -142,6 +142,21 @@ const Buy = () => {
 
         await createQuiniela({ games: formattedData, user: user, jornada: jornada });
         // router.push('/cart');
+        // Reset all form fields
+        const resetGames = {};
+        Object.keys(formData).forEach(index => {
+            resetGames[index] = {
+                ...formData[index],
+                guess: ''
+            };
+        });
+        setFormData(resetGames);
+
+        // Scroll to top of the page smoothly
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     };
 
     let list;

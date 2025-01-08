@@ -9,11 +9,13 @@ export async function POST(req) {
 
         const gamesList = games.map(game => ({
             gameId: game.gameId,
-            team1: { name: game.team1.name, logo: game.team1.logo, score: '-' },
-            team2: { name: game.team2.name, logo: game.team2.logo, score: '-' },
+            team1: { fullName: game.team1.fullName, logo: game.team1.logo, score: '-' },
+            team2: { fullName: game.team2.fullName, logo: game.team2.logo, score: '-' },
             // Check if game.result is empty, if so, pick a random guess
             guess: game.result === '' ? guesses[Math.floor(Math.random() * guesses.length)] : game.result,
             result: '',
+            gameDate: game.gameDate,
+            league: game.league,
             gamePlayed: false,
             gameCancelled: false,
             correct: false

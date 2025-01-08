@@ -74,7 +74,7 @@ export async function POST(req) {
                     `The game start on ${jornada.startDate} and ends on ${jornada.endDate}.`+
                     `the current game number is game ${jornada.jornadaNum}.`+
                     "To create an account all you need is a name, email and phone number."+
-                    `If a user has 10 points in a single Quiniela he or she wins $${jornada.prize} dollars if he or she lives in the usa or $${jornada.prize*17} pesos if he or she lives in Mexico`+
+                    `If a user has 10 points in a single Quiniela he or she wins $${jornada.prize} dollars if he or she lives in the usa or $${jornada.prize*15} pesos if he or she lives in Mexico`+
                     "Winners can withdraw their prize money using Western Union or a bank transfer. " +
                     "The company will contact winners directly via phone call to inform them of their victory and guide them through the prize withdrawal process. " +
                     "Ensure to provide clear, concise, and friendly responses, offering assistance and guidance wherever needed."

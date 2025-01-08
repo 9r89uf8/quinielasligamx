@@ -39,11 +39,11 @@ const QuinielaNumber = styled(Typography)(({ theme }) => ({
 }));
 
 const PointsText = styled(Typography)(({ theme }) => ({
-    fontSize: '1rem',
+    fontSize: '1.4rem',
 }));
 
 const StatusText = styled(Typography)(({ theme }) => ({
-    fontSize: '1rem',
+    fontSize: '1.5rem',
     marginTop: theme.spacing(1),
 }));
 

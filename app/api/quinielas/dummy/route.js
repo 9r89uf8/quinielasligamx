@@ -8,11 +8,13 @@ export async function POST(req) {
         const guesses = ['L', 'E', 'V'];
         const gamesList = games.map(game => ({
             gameId: game.gameId,
-            team1: { name: game.team1.name, logo: game.team1.logo, score: '-' },
-            team2: { name: game.team2.name, logo: game.team2.logo, score: '-' },
+            team1: { fullName: game.team1.fullName, logo: game.team1.logo, score: '-' },
+            team2: { fullName: game.team2.fullName, logo: game.team2.logo, score: '-' },
             guess: guesses[Math.floor(Math.random() * guesses.length)], // Randomly assign L, E, or V
             result: '',
             gamePlayed: false,
+            gameDate: game.gameDate,
+            league: game.league,
             gameCancelled: false,
             correct: false
         }));

@@ -8,7 +8,6 @@ import {
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-
 const MatchDisplay = ({ match }) => {
     const getPredictionColor = (correct, gamePlayed) => {
         if (gamePlayed) {
@@ -25,6 +24,22 @@ const MatchDisplay = ({ match }) => {
             default: return guess;
         }
     };
+
+    const formatGameDate = (dateString) => {
+        // e.g. dateString = "2025-01-08"
+        const [year, month, day] = dateString.split('-').map(Number);
+
+        // Note: months are zero-based in JS
+        const date = new Date(year, month - 1, day);
+
+        return date.toLocaleDateString('es-MX', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };;
+
 
     const TeamDisplay = ({ team }) => (
         <div style={{
@@ -97,6 +112,18 @@ const MatchDisplay = ({ match }) => {
                     margin: '0 12px',
                     minWidth: '120px'
                 }}>
+                    {/* League Display */}
+                    <div style={{
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        color: '#90caf9',
+                        marginBottom: '8px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px'
+                    }}>
+                        {match.league}
+                    </div>
+
                     {match.gameCancelled ? (
                         <div style={{
                             color: '#ff4444',
@@ -111,13 +138,13 @@ const MatchDisplay = ({ match }) => {
                             alignItems: 'center',
                             gap: '8px'
                         }}>
-              <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                {match.team1.score}
-              </span>
+                            <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                                {match.team1.score}
+                            </span>
                             <span style={{ fontSize: '20px', color: '#adb5bd' }}>-</span>
                             <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                {match.team2.score}
-              </span>
+                                {match.team2.score}
+                            </span>
                         </div>
                     )}
 
@@ -135,12 +162,25 @@ const MatchDisplay = ({ match }) => {
                             minWidth: '80px',
                             textAlign: 'center'
                         }}>
-              <span style={{ fontSize: '21px', fontWeight: 500 }}>
-                {getPredictionLabel(match.guess)}
-              </span>
+                            <span style={{ fontSize: '21px', fontWeight: 500 }}>
+                                {getPredictionLabel(match.guess)}
+                            </span>
                         </div>
 
                         <ResultIcon correct={match.correct} gamePlayed={match.gamePlayed} />
+
+                        {/* Game Date Display (only for unplayed games) */}
+                        {!match.gamePlayed && (
+                            <div style={{
+                                fontSize: '12px',
+                                color: '#90caf9',
+                                marginTop: '8px',
+                                textAlign: 'center',
+                                maxWidth: '150px'
+                            }}>
+                                {formatGameDate(match.gameDate)}
+                            </div>
+                        )}
                     </div>
                 </div>
 

@@ -20,6 +20,8 @@ async function updateQuinielasGames(quinielas, updatedGames) {
                 game.result = updatedGame.result;
                 game.gamePlayed = updatedGame.gamePlayed;
                 game.gameCancelled = updatedGame.gameCancelled;
+                game.gameDate = updatedGame.gameDate;
+                game.league = updatedGame.league;
                 game.correct = game.gamePlayed && !game.gameCancelled && game.guess === game.result;
 
                 if (game.correct) {
@@ -91,6 +93,8 @@ async function updateJornadaGames(quinielas, updatedGames, id) {
                 game.result = updatedGame.result;
                 game.gamePlayed = updatedGame.gamePlayed;
                 game.gameCancelled = updatedGame.gameCancelled;
+                game.gameDate = updatedGame.gameDate;
+                game.league = updatedGame.league;
 
                 if(updatedGame.gamePlayed){
                     playedAmount+=1;

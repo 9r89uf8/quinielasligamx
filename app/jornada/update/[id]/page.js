@@ -55,10 +55,12 @@ const UpdateJornadaScore = () => {
         jornada.games.forEach((game, index) => {
             initialGames[index] = {
                 gameId: game.gameId,
-                team1: { name: game.team1.name, logo: game.team1.logo, score: game.team1.score },
-                team2: { name: game.team2.name, logo: game.team2.logo, score: game.team2.score },
+                team1: { fullName: game.team1.fullName, logo: game.team1.logo, score: game.team1.score },
+                team2: { fullName: game.team2.fullName, logo: game.team2.logo, score: game.team2.score },
                 result: game.result,
                 gamePlayed: game.gamePlayed,
+                gameDate: game.gameDate,
+                league: game.league,
                 gameCancelled: game.gameCancelled,
             };
         });

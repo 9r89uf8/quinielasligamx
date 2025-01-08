@@ -150,8 +150,8 @@ const Buy = () => {
                 gamePlayed: false,
                 gameCancelled: false,
                 correct: false,
-                gameDate: game.gameDate,
-                league: game.league
+                gameDate: gameData.gameDate,
+                league: gameData.league
             };
         });
 
@@ -175,7 +175,12 @@ const Buy = () => {
     };
 
     const formatGameDate = (dateString) => {
-        const date = new Date(dateString);
+        // e.g. dateString = "2025-01-08"
+        const [year, month, day] = dateString.split('-').map(Number);
+
+        // Note: months are zero-based in JS
+        const date = new Date(year, month - 1, day);
+
         return date.toLocaleDateString('es-MX', {
             weekday: 'long',
             year: 'numeric',
@@ -183,6 +188,7 @@ const Buy = () => {
             day: 'numeric'
         });
     };
+
 
     const getResultLabel = (value) => {
         switch (value) {

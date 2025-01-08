@@ -62,6 +62,30 @@ export const registerUser = async (data) => {
     }
 };
 
+export const registerUserGoogle = async (data) => {
+    const setUser = useStore.getState().setUser;
+    try {
+        const response = await fetch('/api/auth/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setUser(data.user);
+            return { user: data.user, error: null };
+        } else {
+            const errorData = await response.json();
+            return { user: null, error: errorData.error };
+        }
+    } catch (error) {
+        return { user: null, error: error.message };
+    }
+};
+
 export const passwordReset = async (email) => {
     try {
         const response = await fetch('/api/auth/reset-password', {

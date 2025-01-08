@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { registerUser } from "@/app/services/authService";
+import { registerUser, registerUserGoogle } from "@/app/services/authService";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,6 +11,11 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { alpha, styled } from '@mui/material/styles';
 import Link from 'next/link';
+
+// 1) Import GoogleAuthProvider and signInWithPopup
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+// 2) Import your firebase auth object
+import {auth} from "@/app/utils/firebaseClient";
 
 const GlassCard = styled(Card)({
     textAlign: 'center',
@@ -110,6 +115,29 @@ const RegisterPage = () => {
         }
     };
 
+    // 4) New function: Register/Sign In with Google
+    const handleGoogleSignIn = async () => {
+        try {
+            setDisableRegister(true);
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            // If successful, you get a user object
+            if (result.user) {
+                const idToken = await result.user.getIdToken();
+                const { user, error } = await registerUserGoogle({ idToken: idToken, country });
+                setDisableRegister(false);
+                if (user) {
+                    router.push('/');
+                } else {
+                    console.error(error);
+                }
+            }
+        } catch (error) {
+            setDisableRegister(false);
+            console.error("Error signing in with Google:", error);
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -183,6 +211,16 @@ const RegisterPage = () => {
                                 Crear Cuenta
                             </GradientButton>
                         </form>
+
+                        {/* 5) New button: Sign in with Google */}
+                        <GradientButton
+                            variant="contained"
+                            onClick={handleGoogleSignIn}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                        >
+                            Inicia sesión con Google
+                        </GradientButton>
 
                         <Divider sx={{ my: 3 }}>
                             <Typography color="textSecondary">o</Typography>

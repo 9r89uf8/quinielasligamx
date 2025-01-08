@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { styled } from '@mui/material/styles';
 import {
     Box,
@@ -14,7 +14,12 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/app/store/store';
-import { loginUser } from '@/app/services/authService';
+import {loginUser, registerUserGoogle} from '@/app/services/authService';
+
+// 1) Import GoogleAuthProvider and signInWithPopup
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+// 2) Import your firebase auth object
+import {auth} from "@/app/utils/firebaseClient";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(4),
@@ -83,6 +88,15 @@ const LoginPage = () => {
     const router = useRouter();
     const setUser = useStore((state) => state.setUser);
 
+    const [country, setCountry] = useState('');
+    useEffect(() => {
+        fetch('https://ipinfo.io/json?token=5a17bbfded96f7')
+            .then(response => response.json())
+            .then(data => {
+                setCountry(data.country);
+            });
+    }, []);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         const { user, error } = await loginUser(email, password, setUser);
@@ -97,6 +111,27 @@ const LoginPage = () => {
 
     const handleRegister = () => {
         router.push('/register');
+    };
+
+    // 4) New function: Register/Sign In with Google
+    const handleGoogleSignIn = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            // If successful, you get a user object
+            if (result.user) {
+                const idToken = await result.user.getIdToken();
+                const { user, error } = await registerUserGoogle({ idToken: idToken, country });
+
+                if (user) {
+                    router.push('/');
+                } else {
+                    console.error(error);
+                }
+            }
+        } catch (error) {
+            console.error("Error signing in with Google:", error);
+        }
     };
 
     return (
@@ -144,6 +179,16 @@ const LoginPage = () => {
 
                         <StyledButton type="submit">
                             Iniciar sesión
+                        </StyledButton>
+
+                        {/* 5) New button: Sign in with Google */}
+                        <StyledButton
+                            variant="contained"
+                            onClick={handleGoogleSignIn}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                        >
+                            Inicia sesión con Google
                         </StyledButton>
 
                         <Grid container spacing={2}>

@@ -32,15 +32,27 @@ const StyledTextExtra = styled(Typography)(({ theme }) => ({
 const GameListComponent = ({ games }) => (
     <>
         {games.map((item, index) => (
-            <StyledText key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <img src={item.team1.logo} alt={item.team1.name} style={{ width: '20px', height: '20px', marginRight: '8px' }} />
-                    <span>{item.team1.name}</span>
+            <StyledText key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column' }}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img src={item.team1.logo} alt={item.team1.shortName} style={{ width: '20px', height: '20px', marginRight: '8px' }} />
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
+                            <span>{item.team1.fullName}</span>
+                            <small>({item.team1.shortName})</small>
+                        </div>
+                    </div>
+                    <span>vs</span>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+                            <span>{item.team2.fullName}</span>
+                            <small>({item.team2.shortName})</small>
+                        </div>
+                        <img src={item.team2.logo} alt={item.team2.shortName} style={{ width: '20px', height: '20px', marginLeft: '8px' }} />
+                    </div>
                 </div>
-                <span>vs</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <span>{item.team2.name}</span>
-                    <img src={item.team2.logo} alt={item.team2.name} style={{ width: '20px', height: '20px', marginLeft: '8px' }} />
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', fontSize: '0.8em' }}>
+                    <span>{item.league}</span>
+                    <span>{item.gameDate}</span>
                 </div>
             </StyledText>
         ))}

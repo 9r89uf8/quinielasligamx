@@ -35,7 +35,6 @@ const generateRandomUserId = () => {
 const Chat = () => {
     const [prompt, setPrompt] = useState('');
     const user = useStore((state) => state.user);
-    const jornada = useStore((state) => state.jornada);
     const conversationHistory = useStore((state) => state.conversationHistory);
     const messageSent = useStore((state) => state.messageSent);
 
@@ -56,7 +55,7 @@ const Chat = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await sendChatPrompt({ userId: user ? user.uid : localUserId, userMessage: prompt, jornada });
+        await sendChatPrompt({ userId: user ? user.uid : localUserId, userMessage: prompt });
         setPrompt('');
     };
 

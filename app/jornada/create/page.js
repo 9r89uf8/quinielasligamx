@@ -57,21 +57,35 @@ const CreateJornada = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
 
 
-    //for 9 games
     const [theGames, setTheGames] = useState([]);
-    let gameNumber = 1
 
+    // Add state for league and date for current game
+    const [currentGameLeague, setCurrentGameLeague] = useState('');
+    const [currentGameDate, setCurrentGameDate] = useState('');
 
-
-// Adjust addEntryClick to add an object with the two selected teams
+    // Modify addEntryClick to include league and date
     const addEntryClick = () => {
-        if(selectedTeam1 && selectedTeam2) {
-            setTheGames([...theGames, { team1: selectedTeam1, team2: selectedTeam2, result: '' }]);
-            gameNumber += 1;
-            setSelectedTeam1('')
-            setSelectedTeam2('')
-        } else {
-            // Handle error: both teams must be selected
+        if(selectedTeam1 && selectedTeam2 && currentGameLeague && currentGameDate) {
+            setTheGames([...theGames, {
+                team1: {
+                    shortName: selectedTeam1.shortName,
+                    fullName: selectedTeam1.fullName,
+                    logo: selectedTeam1.logo
+                },
+                team2: {
+                    shortName: selectedTeam2.shortName,
+                    fullName: selectedTeam2.fullName,
+                    logo: selectedTeam2.logo
+                },
+                league: currentGameLeague,
+                gameDate: currentGameDate,
+                result: ''
+            }]);
+            // Reset form after adding game
+            setSelectedTeam1('');
+            setSelectedTeam2('');
+            // setCurrentGameLeague('');
+            // setCurrentGameDate('');
         }
     };
 
@@ -94,26 +108,44 @@ const CreateJornada = () => {
                     <form onSubmit={e => onSubmit(e)} style={{marginTop: 10}}>
                         <Grid container spacing={1} justifyContent="center">
                             <Grid item sm={10} lg={11} xs={11}>
-                                {theGames.length<9?
+                                {theGames.length < 10 ? (
                                     <>
                                         <TeamSelectComponent
                                             selectedTeam={selectedTeam1}
                                             handleChange={handleChangeTeam1}
-                                            label="Team 1"
+                                            label="Home Team"
                                             id="team1-select"
                                         />
                                         <TeamSelectComponent
                                             selectedTeam={selectedTeam2}
                                             handleChange={handleChangeTeam2}
-                                            label="Team 2"
+                                            label="Away Team"
                                             id="team2-select"
                                         />
+                                        <FormControl fullWidth style={{margin: 5}}>
+                                            <TextField
+                                                label="League Name"
+                                                value={currentGameLeague}
+                                                onChange={(e) => setCurrentGameLeague(e.target.value)}
+                                            />
+                                        </FormControl>
+                                        <FormControl fullWidth style={{margin: 5}}>
+                                            <TextField
+                                                type="date"
+                                                label="Game Date"
+                                                value={currentGameDate}
+                                                onChange={(e) => setCurrentGameDate(e.target.value)}
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                            />
+                                        </FormControl>
                                     </>
-                                    :
+                                ) : (
                                     <Typography component="div" variant="h5" color="text.primary">
-                                        9 games added
+                                        10 games added
                                     </Typography>
-                                }
+                                )}
 
 
                             </Grid>
@@ -190,7 +222,7 @@ const CreateJornada = () => {
 
                         </Grid>
                     </form>
-                    {theGames.length<9?
+                    {theGames.length<10?
                         <Button style={{margin: 10}} variant="contained" color="primary" onClick={addEntryClick} value={text}>add</Button>
                         :
                         <Button style={{margin: 10}} type="submit" variant="contained" color="primary" onClick={onSubmit}>submit</Button>

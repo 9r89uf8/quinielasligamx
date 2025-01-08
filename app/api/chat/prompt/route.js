@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 export async function POST(req) {
     try {
 
-        const { userMessage, userId, jornada } = await req.json();
+        const { userMessage, userId } = await req.json();
 
         const userDocF = await adminDb
             .firestore()
@@ -14,6 +14,15 @@ export async function POST(req) {
             .get();
 
         const userData = userDocF.data();
+
+        const jornadaSnapshot = await adminDb.firestore().collection('jornada')
+            .where('active', '==', true) // Filter for active jornadas
+            .orderBy('timestamp', 'desc') // Ensure you have an index for this query in Firestore
+            .limit(1) // Limit to only the most recent active jornada
+            .get();
+
+        // Since we're using limit(1), there should only be one document
+        const jornada = jornadaSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))[0];
 
         const quinielasSnapshot = await adminDb.firestore().collection('quiniela')
             .where('paid', '==', true)
@@ -78,8 +87,9 @@ export async function POST(req) {
         const openai = new OpenAI({
             apiKey: process.env.OPENAI_API_KEY,
         });
+
         const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4o-mini",
             messages: conversationHistory,
         });
 

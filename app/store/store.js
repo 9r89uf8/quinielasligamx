@@ -23,7 +23,7 @@ export const useStore = create(
             ...createChatSlice(...a)
         }),
         {
-            name: 'app-storage', // unique name for the storage
+            name: 'ss3', // unique name for the storage
             storage: createJSONStorage(() => localStorage), // use local storage
         }
     )

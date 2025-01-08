@@ -1,14 +1,13 @@
-// components/Buy.js
+// Components/Buy.js
 'use client';
 
 import React, { Fragment, useState, useEffect } from "react";
 import { useStore } from '@/app/store/store';
 import { createQuiniela } from '@/app/services/quinielasService';
-import {fetchLatestJornada} from "@/app/services/jornadaService";
+import { fetchLatestJornada } from "@/app/services/jornadaService";
 import { useRouter } from 'next/navigation';
 import CartComp from "@/app/components/cart/CartComp";
-import {useRealtimeCart} from "@/app/components/hooks/UseRealtimeCart";
-// Material UI imports for styling
+import { useRealtimeCart } from "@/app/components/hooks/UseRealtimeCart";
 import {
     FormControl,
     InputLabel,
@@ -19,14 +18,11 @@ import {
     Typography,
     Box,
     Paper,
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Divider,
+    Tooltip,
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
+import InfoIcon from '@mui/icons-material/Info';
 
 const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -42,16 +38,28 @@ const StyledText = styled(Typography)(({ theme }) => ({
     fontSize: 18,
     textAlign: 'center',
     borderRadius: theme.shape.borderRadius,
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
+    lineHeight: '1.2'
 }));
 
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
-    background: "linear-gradient(45deg, #0077b6 30%, #023e8a 90%)",
-    color: theme.palette.common.white,
-    margin: theme.spacing(1, 0),
-    boxShadow: theme.shadows[3],
-    '&:before': {
-        backgroundColor: 'transparent',
-    },
+const GameDateTime = styled(Typography)(({ theme }) => ({
+    color: theme.palette.text.secondary,
+    fontSize: '1.1rem',
+    textAlign: 'center',
+    marginTop: theme.spacing(1),
+}));
+
+const LeagueLabel = styled(Typography)(({ theme }) => ({
+    color: theme.palette.primary.main,
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    marginBottom: theme.spacing(1),
 }));
 
 const Buy = () => {
@@ -61,6 +69,7 @@ const Buy = () => {
     const [formData, setFormData] = useState({});
     const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
 
+
     useEffect(() => {
         const getLatestJornada = async () => {
             if (!jornada) {
@@ -69,9 +78,11 @@ const Buy = () => {
                 latestJornada.active.games.forEach((game, index) => {
                     initialGames[index] = {
                         gameId: game.gameId,
-                        team1: { name: game.team1.name, logo: game.team1.logo, guess: '' },
-                        team2: { name: game.team2.name, logo: game.team2.logo, guess: '' },
-                        guess: ''
+                        team1: { fullName: game.team1.fullName, logo: game.team1.logo, guess: '' },
+                        team2: { fullName: game.team2.fullName, logo: game.team2.logo, guess: '' },
+                        guess: '',
+                        gameDate: game.gameDate,
+                        league: game.league
                     };
                 });
                 setFormData(initialGames);
@@ -81,9 +92,11 @@ const Buy = () => {
                     jornada.games.forEach((game, index) => {
                         initialGames[index] = {
                             gameId: game.gameId,
-                            team1: { name: game.team1.name, logo: game.team1.logo, guess: '' },
-                            team2: { name: game.team2.name, logo: game.team2.logo, guess: '' },
-                            guess: ''
+                            team1: { fullName: game.team1.fullName, logo: game.team1.logo, guess: '' },
+                            team2: { fullName: game.team2.fullName, logo: game.team2.logo, guess: '' },
+                            guess: '',
+                            gameDate: game.gameDate,
+                            league: game.league
                         };
                     });
                     setFormData(initialGames);
@@ -130,13 +143,15 @@ const Buy = () => {
             const gameData = formData[game];
             return {
                 gameId: gameData.gameId,
-                team1: { name: gameData.team1.name, logo: gameData.team1.logo, score: '-' },
-                team2: { name: gameData.team2.name, logo: gameData.team2.logo, score: '-' },
+                team1: { fullName: gameData.team1.fullName, logo: gameData.team1.logo, score: '-' },
+                team2: { fullName: gameData.team2.fullName, logo: gameData.team2.logo, score: '-' },
                 guess: gameData.guess,
                 result: '',
                 gamePlayed: false,
                 gameCancelled: false,
-                correct: false
+                correct: false,
+                gameDate: game.gameDate,
+                league: game.league
             };
         });
 
@@ -159,21 +174,53 @@ const Buy = () => {
         });
     };
 
+    const formatGameDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('es-MX', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
+    const getResultLabel = (value) => {
+        switch (value) {
+            case 'L':
+                return 'Local Gana';
+            case 'E':
+                return 'Empate';
+            case 'V':
+                return 'Visitante Gana';
+            default:
+                return value;
+        }
+    };
+
     let list;
     if (jornada && jornada.games) {
         list = jornada.games.map((item, index) => (
             <Grid item xs={12} md={6} lg={4} key={index}>
-                <Paper elevation={3} style={{ padding: '5px', margin: '5px' }}>
-                    <Grid container spacing={2} alignItems="center" justifyContent="center">
-                        <Grid item xs={4} style={{ textAlign: 'center' }}>
-                            <img src={item.team1.logo} alt={item.team1.name} style={{ width: '60px', marginBottom: '10px' }} />
-                            <StyledText>{item.team1.name}</StyledText>
-                        </Grid>
-                        <Grid item xs={4}>
+                <Paper elevation={3} style={{ padding: '20px', margin: '5px' }}>
+                    <LeagueLabel>
+                        <SportsSoccerIcon />
+                        {item.league}
+                        <Tooltip title="Liga oficial" placement="top">
+                            <InfoIcon fontSize="small" />
+                        </Tooltip>
+                    </LeagueLabel>
+
+                    <GameDateTime>
+                        {formatGameDate(item.gameDate)}
+                    </GameDateTime>
+
+                    <Grid container spacing={2} alignItems="center" justifyContent="center" style={{ marginTop: '10px' }}>
+
+                        <Grid item xs={12}>
                             <FormControl fullWidth>
-                                {(!formData[index]?.guess || formData[index].guess === 'DEFAULT_VALUE') && (
-                                    <InputLabel id={`select-outcome-${index}`} sx={{ fontSize: '1.25rem' }}>Elige</InputLabel>
-                                )}
+                                <InputLabel id={`select-outcome-${index}`}>
+                                    Selecciona el Resultado
+                                </InputLabel>
                                 <Select
                                     labelId={`select-outcome-${index}`}
                                     id={`select-outcome-${item.gameName}`}
@@ -181,18 +228,39 @@ const Buy = () => {
                                     name={item.gameName}
                                     onChange={e => onChange(e, index)}
                                     required
-                                    sx={{ fontSize: '1.5rem' }}
-                                    label={!formData[index]?.guess || formData[index]?.guess === 'DEFAULT_VALUE' ? 'Elige' : ''}
+                                    label="Selecciona el Resultado"
                                 >
-                                    <MenuItem value="L" sx={{ fontSize: '1.5rem' }}>L</MenuItem>
-                                    <MenuItem value="E" sx={{ fontSize: '1.5rem' }}>E</MenuItem>
-                                    <MenuItem value="V" sx={{ fontSize: '1.5rem' }}>V</MenuItem>
+                                    <MenuItem value="L">
+                                        <Box>
+                                            <Typography variant="h6">{item.team1.fullName} Gana - L</Typography>
+                                        </Box>
+                                    </MenuItem>
+                                    <MenuItem value="E">
+                                        <Box>
+                                            <Typography variant="h6">Empate - E</Typography>
+                                            <Typography variant="h6" color="textSecondary">
+                                                Nadie gana
+                                            </Typography>
+                                        </Box>
+                                    </MenuItem>
+                                    <MenuItem value="V">
+                                        <Box>
+                                            <Typography variant="h6">{item.team2.fullName} Gana - V</Typography>
+                                        </Box>
+                                    </MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={4} style={{ textAlign: 'center' }}>
+                        <Grid item xs={12} style={{ textAlign: 'center', marginBottom: -80 }}>
+                            <h4>vs</h4>
+                        </Grid>
+                        <Grid item xs={6} style={{ textAlign: 'center' }}>
+                            <img src={item.team1.logo} alt={item.team1.name} style={{ width: '60px', marginBottom: '10px' }} />
+                            <StyledText>{item.team1.fullName}</StyledText>
+                        </Grid>
+                        <Grid item xs={6} style={{ textAlign: 'center' }}>
                             <img src={item.team2.logo} alt={item.team2.name} style={{ width: '60px', marginBottom: '10px' }} />
-                            <StyledText>{item.team2.name}</StyledText>
+                            <StyledText>{item.team2.fullName}</StyledText>
                         </Grid>
                     </Grid>
                 </Paper>

@@ -120,11 +120,18 @@ const PrizeHighlight = ({ children, ...props }) => (
         {children}
     </Box>
 );
+export default function JornadaInfo({ jornada }) {
+    // Fallback data when jornada is not available
+    const fallbackData = {
+        prize: 3,
+        jornadaNum: 2,
+        endDate: "22 de Enero, 2025"
+    };
 
-export default async function JornadaInfo({jornada}) {
+    // Use the actual jornada data if available, otherwise use fallback
+    const currentData = jornada&&jornada.active? jornada : fallbackData;
+    const prizeM = currentData.prize * 15;
 
-
-    let prizeM = jornada.prize*15
     return (
         <Item elevation={3}>
             <Grid container spacing={2} justifyContent="center">
@@ -133,7 +140,7 @@ export default async function JornadaInfo({jornada}) {
                         variant="h1"
                         sx={{
                             color: '#222222',
-                            fontSize: {xs: '2.0rem', md: '4rem'},
+                            fontSize: { xs: '2.0rem', md: '4rem' },
                             fontWeight: 900,
                             mb: 2,
                         }}
@@ -141,18 +148,18 @@ export default async function JornadaInfo({jornada}) {
                         Quiniela Liga MX
                     </Typography>
                     <Typography variant="h4" gutterBottom sx={{ color: '#343a40' }}>
-                        Jornada {jornada.jornadaNum}
+                        Jornada {currentData.jornadaNum}
                     </Typography>
                     <Typography variant="h5" gutterBottom sx={{ color: '#343a40' }}>
-                        Termina el {jornada.endDate}
+                        Termina el {currentData.endDate}
                     </Typography>
                 </Grid>
                 <Grid item xs={12}>
                     <PrizeCard country="México">
-                        <Typography variant="h5" gutterBottom style={{color: 'white'}}>
+                        <Typography variant="h5" gutterBottom style={{ color: 'white' }}>
                             Si vives en México ganas
                         </Typography>
-                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }} />
                         <Typography
                             variant="h3"
                             component="h3"
@@ -166,22 +173,22 @@ export default async function JornadaInfo({jornada}) {
                         </Typography>
                         <Typography
                             variant="h4"
-                            sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
+                            sx={{ fontWeight: 500, color: '#ffffff', mb: 2 }}
                         >
                             pesos
                         </Typography>
-                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
-                        <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }} />
+                        <Typography variant="h5" sx={{ mb: 2 }} style={{ color: 'white' }}>
                             1 quiniela cuesta $45 pesos
                         </Typography>
                     </PrizeCard>
                 </Grid>
                 <Grid item xs={12}>
                     <PrizeCard country="USA">
-                        <Typography variant="h5" gutterBottom style={{color: 'white'}}>
+                        <Typography variant="h5" gutterBottom style={{ color: 'white' }}>
                             Si vives en Estados Unidos ganas
                         </Typography>
-                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }} />
                         <Typography
                             variant="h3"
                             component="h3"
@@ -191,16 +198,16 @@ export default async function JornadaInfo({jornada}) {
                                 mb: 1,
                             }}
                         >
-                            ${jornada.prize.toLocaleString()}
+                            ${currentData.prize.toLocaleString()}
                         </Typography>
                         <Typography
                             variant="h4"
-                            sx={{fontWeight: 500, color: '#ffffff', mb: 2}}
+                            sx={{ fontWeight: 500, color: '#ffffff', mb: 2 }}
                         >
                             dólares
                         </Typography>
-                        <Divider sx={{ my: 1, borderColor: '#595959' }}/>
-                        <Typography variant="h5" sx={{mb: 2}} style={{color: 'white'}}>
+                        <Divider sx={{ my: 1, borderColor: '#595959' }} />
+                        <Typography variant="h5" sx={{ mb: 2 }} style={{ color: 'white' }}>
                             1 quiniela cuesta $3 dólares
                         </Typography>
                     </PrizeCard>
@@ -216,18 +223,18 @@ export default async function JornadaInfo({jornada}) {
                             id="panel1a-header"
                         >
                             <Typography variant="h6">
-                                Necesitas 9 puntos para ganar
+                                Necesitas 10 puntos para ganar
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography variant="h6" gutterBottom>
-                                Necesitas hacer 9 puntos en una quiniela para ganar los $
-                                {jornada.prize} dólares o ${jornada.prize * 15} pesos
+                                Necesitas hacer 10 puntos en una quiniela para ganar los $
+                                {currentData.prize} dólares o ${currentData.prize * 15} pesos
                                 automáticamente.
                             </Typography>
                             <Typography variant="h6">
-                                Cada persona con 9 puntos gana ${jornada.prize} dólares o $
-                                {jornada.prize * 15} pesos sin importar la cantidad de
+                                Cada persona con 10 puntos gana ${currentData.prize} dólares o $
+                                {currentData.prize * 15} pesos sin importar la cantidad de
                                 ganadores.
                             </Typography>
                         </AccordionDetails>
@@ -236,6 +243,6 @@ export default async function JornadaInfo({jornada}) {
             </Grid>
         </Item>
     );
-};
+}
 
 

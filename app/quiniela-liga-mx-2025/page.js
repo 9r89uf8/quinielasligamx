@@ -1,30 +1,41 @@
 // app/quinielas/page.js
-import React from 'react';
-import {fetchLatestJornadaServer} from "@/app/services/jornadaService";
-import {fetchQuinielasServer} from "@/app/services/quinielasService";
+'use client'
+import React, {useEffect} from 'react';
+import {fetchAllJornadas, fetchLatestJornada, fetchLatestJornadaServer} from "@/app/services/jornadaService";
+import {fetchQuinielas} from "@/app/services/quinielasService";
 import {Box, Grid, Typography} from '@mui/material';
+import { useStore } from '@/app/store/store';
 import SingleQuiniela from '@/app/components/quinielas/SingleQuiniela';
 
 import JornadaInfo from "@/app/components/JornadaInfo";
 
 
-export default async function Quinielas () {
-    let jornada = null;
-    let quinielas = [];
+export default function Quinielas () {
+    const jornada = useStore((state) => state.jornada);
+    const quinielas = useStore((state) => state.quinielas);
+    const jornadas = useStore((state) => state.jornadas);
 
-    try {
-        jornada = await fetchLatestJornadaServer();
-        quinielas = await fetchQuinielasServer({ jornada: jornada.active });
+    useEffect(() => {
+        const loadJornadasAndQuinielas = async () => {
+            try {
+                if (!jornadas || jornadas.length === 0) {
+                    const fetchedJornada = await fetchLatestJornada();
+                    await fetchQuinielas({jornada:fetchedJornada.active})
+                }
 
-    } catch (error) {
-        console.error('Error fetching jornada:', error);
-    }
+            } catch (error) {
+                console.error('Error loading jornadas and quinielas:', error);
+            }
+        };
+
+        loadJornadasAndQuinielas();
+    }, []);
 
     return (
         <Box padding={2}>
             {/*<ContactUs/>*/}
             {/*<BuyBanner cart={cart?cart:null} jornada={jornada?jornada:null}/>*/}
-            <JornadaInfo jornada={jornada.active}/>
+            <JornadaInfo jornada={jornada}/>
             {/*<WinningsReceptionMethods/>*/}
             {/*<QuinielaWinners/>*/}
             {/*<FilterQuinielas jornada={jornada}/>*/}

@@ -1,21 +1,19 @@
-// app/middleware/authMiddleware.js
 import { adminAuth } from '@/app/utils/firebaseAdmin';
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 export const authMiddleware = async (req) => {
-    const cookieStore = cookies();
-    const token = cookieStore.get('token')?.value;
+    const token = req.cookies.get('tokenMX')?.value;
 
     if (!token) {
-        throw new Error('Authentication required');
+        console.log('No token found');
+        return { authenticated: false, error: 'No token found' };
     }
 
     try {
-        const decodedToken = await adminAuth.verifyIdToken(token);
-        req.user = decodedToken;
+        const decodedToken = await adminAuth.verifySessionCookie(token, true);
+        return { authenticated: true, user: decodedToken };
     } catch (error) {
-        throw new Error('Invalid token');
+        console.error('Invalid token:', error);
+        return { authenticated: false, error: 'Invalid token' };
     }
 };
 

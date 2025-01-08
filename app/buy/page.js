@@ -6,6 +6,7 @@ import { useStore } from '@/app/store/store';
 import { createQuiniela } from '@/app/services/quinielasService';
 import { fetchLatestJornada } from "@/app/services/jornadaService";
 import { useRouter } from 'next/navigation';
+import {checkIfCookie} from "@/app/services/authService";
 import CartComp from "@/app/components/cart/CartComp";
 import { useRealtimeCart } from "@/app/components/hooks/UseRealtimeCart";
 import {
@@ -68,6 +69,15 @@ const Buy = () => {
     const router = useRouter();
     const [formData, setFormData] = useState({});
     const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
+
+
+    useEffect(() => {
+        const checkIfLogedIn = async () => {
+            await checkIfCookie();
+        };
+
+        checkIfLogedIn();
+    }, []);
 
 
     useEffect(() => {

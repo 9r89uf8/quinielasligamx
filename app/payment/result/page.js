@@ -27,7 +27,7 @@ const page = () => {
         return (
             <Container
                 maxWidth="sm"
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
                 <Paper elevation={3} sx={{ p: 4, borderRadius: 2, textAlign: 'center', width: '100%' }}>
                     <Typography variant="h5" component="h1" gutterBottom fontWeight="bold">

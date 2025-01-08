@@ -13,22 +13,30 @@ export async function POST(request) {
         const user = userCredential.user;
         const token = await user.getIdToken();
 
-        // Fetch the user document from Firestore
-        const userDoc = await adminDb.firestore().collection('users').doc(userCredential.user.uid).get();
+        // Set the session duration (e.g., 48 hours)
+        const expiresIn = 48 * 60 * 60 * 1000; // in milliseconds
+
+        // Create a session cookie with the specified expiration time
+        const sessionCookie = await adminDb.auth().createSessionCookie(token, { expiresIn });
+
+        // Reference to the user document
+        const userRef = adminDb.firestore().collection('users').doc(userCredential.user.uid);
+        const userDoc = await userRef.get();
 
         if (!userDoc.exists) {
             throw new Error('User not found in Firestore');
         }
 
         const userData = userDoc.data();
+
         // Set the token in an httpOnly cookie
         const cookieStore = cookies();
-        cookieStore.set('token', token, {
+        cookieStore.set('tokenMX', sessionCookie, {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 3600, // 1 hour
+            maxAge: expiresIn / 1000, // Convert to seconds
         });
 
         return new Response(JSON.stringify({ user: userData, token }), {

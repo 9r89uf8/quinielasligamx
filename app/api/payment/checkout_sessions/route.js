@@ -66,6 +66,7 @@ export async function POST(req) {
 
         const checkoutSession = await stripe.checkout.sessions.create(params);
 
+        console.log(checkoutSession)
 
         return NextResponse.json(checkoutSession);
     } catch (error) {

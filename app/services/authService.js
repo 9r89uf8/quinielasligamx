@@ -132,3 +132,27 @@ export const editUser = async (formData) => {
     }
 };
 
+
+export const checkIfCookie = async () => {
+    const logout = useStore.getState().logout;
+    const clearCart = useStore.getState().clearCart;
+    const clearQuinielas = useStore.getState().clearQuinielas;
+    try {
+        const response = await fetch('/api/auth/verify', {
+            method: 'GET',
+        });
+
+        const data = await response.json();
+        if(data.isAuthenticated) {
+            return data;
+        }else {
+            logout(); // Call the logout action from userSlice
+            clearCart()
+            clearQuinielas()
+            return data;
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+};

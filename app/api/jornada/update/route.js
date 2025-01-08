@@ -63,8 +63,8 @@ async function updateQuinielasGames(quinielas, updatedGames) {
             games: quiniela.games,
             correctAmount: correctAmount,
             quinielaStarted: true,
-            finished: gamesPlayedCount >= 9,
-            winner: correctAmount >= 9
+            finished: gamesPlayedCount >= 10,
+            winner: correctAmount >= 10
         };
 
         const quinielaDocRef = adminDb.firestore().collection('quiniela').doc(quiniela.id);
@@ -100,7 +100,7 @@ async function updateJornadaGames(quinielas, updatedGames, id) {
 
         const updateData = {
             games: quiniela.games,
-            played: playedAmount >= 9
+            played: playedAmount >= 10
         };
 
         const jornadaDocRef = adminDb.firestore().collection('jornada').doc(id);

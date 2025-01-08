@@ -96,11 +96,11 @@ const teams = [
 ];
 
 const fantasyScores = [
-    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 9, country: 'MX', prize: '150,000', currency: 'pesos'},
-    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 9, country: 'US', prize: '10,000', currency: 'dólares'},
-    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 9, country: 'MX', prize: '150,000', currency: 'pesos'},
-    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'MX', prize: '150,000', currency: 'pesos'},
-    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 9, country: 'US', prize: '10,000', currency: 'dólares'},
+    { place: 1, user: "Carlos11S", gameName: "Jornada 17",gameYear: "Liga MX, 2024", points: 10, country: 'MX', prize: '150,000', currency: 'pesos'},
+    { place: 2, user: "Mario_Ro3", gameName: "Jornada 17", gameYear: "Liga MX, 2024", points: 10, country: 'US', prize: '10,000', currency: 'dólares'},
+    { place: 3, user: "Juan Pérez", gameName: "Jornada 16", gameYear: "Liga MX, 2024", points: 10, country: 'MX', prize: '150,000', currency: 'pesos'},
+    { place: 4, user: "luisitoo2024", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 10, country: 'MX', prize: '150,000', currency: 'pesos'},
+    { place: 5, user: "Luis Martínez", gameName: "Jornada 15", gameYear: "Liga MX, 2024", points: 10, country: 'US', prize: '10,000', currency: 'dólares'},
 ];
 
 export default function HomePage() {
@@ -179,7 +179,7 @@ export default function HomePage() {
                             <FormControl variant="outlined" sx={{minWidth: 140}}>
                                 <InputLabel sx={{color: 'black'}}>Jornada</InputLabel>
                                 <Select
-                                    defaultValue={1}
+                                    defaultValue={2}
                                     label="Jornada"
                                     sx={{
                                         color: 'black',
@@ -212,7 +212,7 @@ export default function HomePage() {
                                 fontWeight: 'bold',
                             }}
                         >
-                            {formattedDate}
+                            16 de Enero, 2025
                         </Typography>
                     </Box>
 

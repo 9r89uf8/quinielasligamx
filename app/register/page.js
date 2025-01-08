@@ -1,44 +1,85 @@
-// app/register/page.jsx
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {registerUser} from "@/app/services/authService";
+import { registerUser } from "@/app/services/authService";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import {alpha, styled} from '@mui/material/styles';
+import Divider from '@mui/material/Divider';
+import { alpha, styled } from '@mui/material/styles';
+import Link from 'next/link';
 
 const GlassCard = styled(Card)({
     textAlign: 'center',
     color: 'black',
-    background: '#ffffff', // semi-transparent white
-    backdropFilter: 'blur(10px)', // apply blur
-    borderRadius: 10, // rounded corners
+    background: '#ffffff',
+    backdropFilter: 'blur(10px)',
+    borderRadius: 12,
     marginBottom: 15,
     border: `1px solid ${alpha('#ffffff', 0.2)}`,
+    transition: 'transform 0.2s ease-in-out',
+    '&:hover': {
+        transform: 'translateY(-2px)',
+    },
 });
 
 const GradientButton = styled(Button)(({ theme }) => ({
     background: 'black',
     border: '1px solid rgba(255, 255, 255, 0.2)',
-    borderRadius: '4px',
+    borderRadius: '6px',
     color: 'white',
     cursor: 'pointer',
-    padding: '6px 16px',
-    margin: '4px',
-    fontSize: '0.875rem',
+    padding: '12px 24px',
+    margin: '8px',
+    fontSize: '1rem',
     lineHeight: '1.5',
     fontWeight: '500',
     backdropFilter: 'blur(10px)',
-    '&.selected': {
-        background: 'rgba(255, 255, 255, 0.5)',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+        background: '#333',
+        transform: 'translateY(-1px)',
+    },
+    '&.secondary': {
+        background: 'white',
+        color: 'black',
+        border: '1px solid black',
+        '&:hover': {
+            background: '#f5f5f5',
+        },
     },
 }));
+
+const StyledTextField = styled(TextField)({
+    marginBottom: 20,
+    '& label': {
+        color: 'black',
+        fontSize: 18,
+    },
+    '& label.Mui-focused': {
+        color: 'black',
+    },
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: 'rgba(0, 0, 0, 0.23)',
+            borderRadius: 8,
+        },
+        '&:hover fieldset': {
+            borderColor: 'black',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: 'black',
+        },
+        '& input': {
+            color: 'black',
+            fontSize: 16,
+            padding: '14px',
+        },
+    },
+});
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -48,11 +89,8 @@ const RegisterPage = () => {
     const [country, setCountry] = useState('');
     const [disableRegister, setDisableRegister] = useState(false);
     const router = useRouter();
-    let data = { email, password, phoneNumber, username, country }
-
 
     useEffect(() => {
-
         fetch('https://ipinfo.io/json?token=5a17bbfded96f7')
             .then(response => response.json())
             .then(data => {
@@ -60,11 +98,10 @@ const RegisterPage = () => {
             });
     }, []);
 
-
     const handleRegister = async (e) => {
         e.preventDefault();
         setDisableRegister(true);
-        const { user, error } = await registerUser(data);
+        const { user, error } = await registerUser({ email, password, phoneNumber, username, country });
         setDisableRegister(false);
         if (user) {
             router.push('/');
@@ -74,132 +111,126 @@ const RegisterPage = () => {
     };
 
     return (
-        <>
-            <div style={{textAlign: "center", margin: '-25px auto -25px auto'}}>
-                <img src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/Quinielas+(3).png" alt="logo" style={{width: 230, height: "auto"}}/>
-            </div>
+        <Box
+            sx={{
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                padding: "40px 20px",
+            }}
+        >
+            <Box display="flex" justifyContent="center" alignItems="center">
+                <GlassCard sx={{ width: '380px', maxWidth: '100%', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)' }}>
+                    <CardContent>
+                        <Typography
+                            variant="h4"
+                            sx={{
+                                marginBottom: 3,
+                                fontWeight: 600,
+                                fontSize: '2rem'
+                            }}
+                        >
+                            Crear una cuenta
+                        </Typography>
 
-            <Box style={{height:"100vh"}} display="flex" justifyContent="start" alignItems="center" flexDirection="column">
-                <GlassCard sx={{ width: '330px', maxWidth: '500px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', p: 1 }}>
-                    <CardContent style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
+                        <form onSubmit={handleRegister}>
+                            <StyledTextField
+                                label="Usuario"
+                                name="name"
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
+                                variant="outlined"
+                                fullWidth
+                                required
+                            />
+                            <StyledTextField
+                                label="Teléfono"
+                                name="phone"
+                                value={phoneNumber}
+                                onChange={e => setPhoneNumber(e.target.value)}
+                                variant="outlined"
+                                fullWidth
+                                required
+                            />
+                            <StyledTextField
+                                label="Correo electrónico"
+                                name="email"
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                variant="outlined"
+                                fullWidth
+                                required
+                            />
+                            <StyledTextField
+                                label="Contraseña"
+                                name="password"
+                                type="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                variant="outlined"
+                                fullWidth
+                                required
+                            />
 
-                        <Box textAlign="center">
-                            <Typography variant="h4" style={{marginBottom:20}}>Crear una cuenta</Typography>
+                            <GradientButton
+                                type="submit"
+                                variant="contained"
+                                disabled={disableRegister}
+                                fullWidth
+                            >
+                                Crear Cuenta
+                            </GradientButton>
+                        </form>
 
-                            <form onSubmit={handleRegister}>
-                                <TextField style={{marginBottom: 15}} label="Usuario" name="name" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" fullWidth required
-                                           InputLabelProps={{
-                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
-                                           }}
-                                           sx={{
-                                               '& label.Mui-focused': {
-                                                   color: 'black', // Color of the label when the TextField is focused
-                                               },
-                                               '& .MuiOutlinedInput-root': {
-                                                   '& fieldset': {
-                                                       borderColor: 'black', // Color of the border in normal state
-                                                   },
-                                                   '&.Mui-focused fieldset': {
-                                                       borderColor: 'black', // Color of the border when the TextField is focused
-                                                   },
-                                                   '& input': {
-                                                       color: 'black', // Color of the input text
-                                                   }
-                                               }
-                                           }}
-                                />
+                        <Divider sx={{ my: 3 }}>
+                            <Typography color="textSecondary">o</Typography>
+                        </Divider>
 
-                                <TextField style={{marginBottom: 15}} label="Teléfono" name="phone" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} variant="outlined" fullWidth required
-                                           InputLabelProps={{
-                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
-                                           }}
-                                           sx={{
-                                               '& label.Mui-focused': {
-                                                   color: 'black', // Color of the label when the TextField is focused
-                                               },
-                                               '& .MuiOutlinedInput-root': {
-                                                   '& fieldset': {
-                                                       borderColor: 'black', // Color of the border in normal state
-                                                   },
-                                                   '&.Mui-focused fieldset': {
-                                                       borderColor: 'black', // Color of the border when the TextField is focused
-                                                   },
-                                                   '& input': {
-                                                       color: 'black', // Color of the input text
-                                                   }
-                                               }
-                                           }}
-                                />
-
-
-                                <TextField style={{marginBottom: 15}} label="Correo electrónico" name="email" value={email} onChange={e => setEmail(e.target.value)} variant="outlined" fullWidth required
-                                           InputLabelProps={{
-                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
-                                           }}
-                                           sx={{
-                                               '& label.Mui-focused': {
-                                                   color: 'black', // Color of the label when the TextField is focused
-                                               },
-                                               '& .MuiOutlinedInput-root': {
-                                                   '& fieldset': {
-                                                       borderColor: 'black', // Color of the border in normal state
-                                                   },
-                                                   '&.Mui-focused fieldset': {
-                                                       borderColor: 'black', // Color of the border when the TextField is focused
-                                                   },
-                                                   '& input': {
-                                                       color: 'black', // Color of the input text
-                                                   }
-                                               }
-                                           }}
-                                />
-                                <TextField style={{marginBottom: 15}} label="Contraseña" name="password" value={password} onChange={e => setPassword(e.target.value)} variant="outlined" type="password" fullWidth required
-                                           InputLabelProps={{
-                                               sx: { color: 'black', fontSize:22 } // Apply white color to label
-                                           }}
-                                           sx={{
-                                               '& label.Mui-focused': {
-                                                   color: 'black', // Color of the label when the TextField is focused
-                                               },
-                                               '& .MuiOutlinedInput-root': {
-                                                   '& fieldset': {
-                                                       borderColor: 'black', // Color of the border in normal state
-                                                   },
-                                                   '&.Mui-focused fieldset': {
-                                                       borderColor: 'black', // Color of the border when the TextField is focused
-                                                   },
-                                                   '& input': {
-                                                       color: 'black', // Color of the input text
-                                                   }
-                                               }
-                                           }}
-                                />
-
-
-                                <GradientButton style={{marginBottom: 15, fontSize:22, marginTop:15}} type="submit" variant="contained" disabled={disableRegister}>
-                                    Crear Cuenta
-                                </GradientButton>
-
-                                {/*<Link to="/login" style={{textDecoration: "none"}}>*/}
-                                {/*    <GradientButton style={{marginBottom: 15}} >*/}
-                                {/*        Entrar*/}
-                                {/*    </GradientButton>*/}
-                                {/*</Link>*/}
-                            </form>
-                        </Box>
+                        <Link href="/login" style={{ textDecoration: 'none' }}>
+                            <GradientButton
+                                className="secondary"
+                                fullWidth
+                            >
+                                Ya tengo una cuenta
+                            </GradientButton>
+                        </Link>
                     </CardContent>
                 </GlassCard>
-
-                <GlassCard elevation={4} style={{margin:18}}>
-                    <img src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/Quinielas+(1).png" alt="logo" style={{width: 45, height: "auto"}}/>
-                    <Typography style={{fontSize:'14px'}}>
-                        © 2024 - Todos los Derechos Reservados LIGA MX. Quinielas liga mx 2024-2025.
-                    </Typography>
-
-
-                </GlassCard>
             </Box>
-        </>
+
+            <GlassCard
+                sx={{
+                    maxWidth: '380px',
+                    margin: '0 auto',
+                    marginTop: 4,
+                    padding: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 2
+                }}
+            >
+                <img
+                    src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/Quinielas+(1).png"
+                    alt="logo"
+                    style={{
+                        width: 45,
+                        height: "auto"
+                    }}
+                />
+                <Typography
+                    sx={{
+                        fontSize: '14px',
+                        color: 'rgba(0, 0, 0, 0.8)'
+                    }}
+                >
+                    © 2025 - Todos los Derechos Reservados LIGA MX.
+                    Quiniela liga mx 2025.
+                </Typography>
+            </GlassCard>
+        </Box>
     );
 };
 

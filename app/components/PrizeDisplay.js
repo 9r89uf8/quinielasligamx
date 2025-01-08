@@ -58,7 +58,7 @@ const PrizeDisplay = () => {
             <Grid container spacing={3}>
                 <Grid item xs={12} md={12}>
                     <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', textAlign: 'center', marginBottom: 4 }}>
-                        Con 9 puntos ganas
+                        Con 10 puntos ganas
                     </Typography>
                 </Grid>
             </Grid>

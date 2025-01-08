@@ -56,7 +56,7 @@ const QuinielaCard = ({ item, index, onDelete, onView, loadingCart, currency }) 
                 </Typography>
             </Box>
             <Box sx={{ textAlign: 'center', mb: 2 }}>
-                <Typography variant="subtitle1">
+                <Typography variant="h5">
                     ${item.price} {currency}
                 </Typography>
             </Box>
@@ -226,7 +226,7 @@ const Cart = () => {
                                 Quinielas Gratis: {freeQuinielasAmount}
                             </Typography>
                         )}
-                        <Typography variant="h5" sx={{ color: 'white' }}>
+                        <Typography variant="h4" sx={{ color: 'white' }}>
                             Total: ${calculateTotal().toFixed(2)} {currency}
                         </Typography>
                         {calculateTotal() === 0 ? (

@@ -90,7 +90,7 @@ const WinnerCard = ({ winner }) => {
                     <span style={{
                         color: '#0369a1',
                         fontWeight: '500'
-                    }}>{winner.correctAmount} Puntos</span>
+                    }}>10 Puntos</span>
                 </div>
             </div>
             {/* Bottom row with points and date */}

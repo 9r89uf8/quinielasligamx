@@ -18,7 +18,7 @@ import {
     Typography,
     Box,
     Paper,
-    Tooltip,
+    Tooltip,CircularProgress
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
@@ -189,20 +189,6 @@ const Buy = () => {
         });
     };
 
-
-    const getResultLabel = (value) => {
-        switch (value) {
-            case 'L':
-                return 'Local Gana';
-            case 'E':
-                return 'Empate';
-            case 'V':
-                return 'Visitante Gana';
-            default:
-                return value;
-        }
-    };
-
     let list;
     if (jornada && jornada.games) {
         list = jornada.games.map((item, index) => (
@@ -272,6 +258,49 @@ const Buy = () => {
                 </Paper>
             </Grid>
         ));
+    }
+
+    if(!jornada){
+        return (
+            <Box
+                sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
+                <Item elevation={6} sx={{ p: 4, maxWidth: 400 }}>
+                    {/* Soccer icon */}
+                    <SportsSoccerIcon
+                        sx={{ fontSize: 60, color: 'green', mb: 2 }}
+                    />
+
+                    {/* Title */}
+                    <Typography
+                        variant="h5"
+                        component="div"
+                        sx={{ mb: 2, fontWeight: 'bold' }}
+                    >
+                        Cargando Liga MX
+                    </Typography>
+
+                    {/* Spinning progress indicator */}
+                    <CircularProgress
+                        color="success"
+                        size={50}
+                    />
+
+                    {/* Small message underneath */}
+                    <Typography
+                        variant="body2"
+                        sx={{ mt: 2 }}
+                    >
+                        Por favor, espera un momento...
+                    </Typography>
+                </Item>
+            </Box>
+        );
     }
 
     if (jornada && jornada.openToBuy) {

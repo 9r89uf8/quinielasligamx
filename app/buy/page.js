@@ -260,6 +260,8 @@ const Buy = () => {
         ));
     }
 
+
+
     if(!jornada){
         return (
             <Box

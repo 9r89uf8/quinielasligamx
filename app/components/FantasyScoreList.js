@@ -72,29 +72,34 @@ const ScoreCard = ({ score }) => {
             </div>
 
             {/* Game info and points */}
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: 'auto'
-            }}>
+            <div style={{textAlign: 'center'}}>
                 <div style={{
                     fontSize: '25px',
                     padding: '8px 16px',
                     borderRadius: '8px',
-                    display: 'inline-block'
+                }}>
+                    <span style={{
+                        color: '#494949',
+                        fontWeight: '500'
+                    }}>{score.date}</span>
+                </div>
+            </div>
+
+
+            {/* Game info and points */}
+            <div style={{textAlign: 'center'}}>
+                <div style={{
+                    fontSize: '25px',
+                    padding: '8px 16px',
+                    borderRadius: '8px',
                 }}>
                     <span style={{
                         color: '#0369a1',
                         fontWeight: '500'
                     }}>{score.points} Puntos</span>
                 </div>
-                <div style={{
-                    fontSize: '25px',
-                    color: '#0369a1',
-                    fontWeight: '500'
-                }}>{score.gameName}</div>
             </div>
+
         </div>
     );
 };

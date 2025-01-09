@@ -166,10 +166,11 @@ const PrizeDisplay = () => {
                         component={Link}
                         href="/chat"
                         sx={{
-                            color: 'black',
+                            color: 'white',
                             textAlign: 'center',
                             fontWeight: '700',
-                            bgcolor: 'rgb(255,255,255)',
+                            fontSize: '21px',
+                            bgcolor: 'rgb(2,2,2)',
                             backdropFilter: 'blur(2px)',
                             '&:hover': {
                                 bgcolor: 'rgba(255, 255, 255, 0.2)',

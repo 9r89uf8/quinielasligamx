@@ -26,7 +26,7 @@ const Navbar = async () => {
                         style={{ width: 45, height: 'auto', marginRight: 4 }}
                     />
                     <Link href="/" passHref legacyBehavior>
-                        <Button color="inherit" component="a">Quiniela Liga MX</Button>
+                        <Button color="inherit" component="a">Quiniela Liga MX 2025</Button>
                     </Link>
                 </Box>
 

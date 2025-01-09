@@ -219,7 +219,7 @@ const RegisterPage = () => {
                             fullWidth
                             sx={{ mb: 2 }}
                         >
-                            Inicia sesión con Google
+                            Crear Cuenta Con Google
                         </GradientButton>
 
                         <Divider sx={{ my: 3 }}>

@@ -56,10 +56,10 @@ const NavbarClient = () => {
                 onClose={handleMenuClose}
             >
                 {user ? (
-                    <MenuItem onClick={handleSignOut}>Salir</MenuItem>
+                    <MenuItem onClick={handleSignOut} style={{fontSize: 25}}>Salir</MenuItem>
                 ) : [
-                    <MenuItem key="login" onClick={handleLogin}>Entrar a mi cuenta</MenuItem>,
-                    <MenuItem key="register" onClick={handleRegister}>Crear Cuenta</MenuItem>
+                    <MenuItem key="login" onClick={handleLogin} style={{fontSize: 25}}>Entrar a mi cuenta</MenuItem>,
+                    <MenuItem key="register" onClick={handleRegister} style={{fontSize: 25}}>Crear Cuenta</MenuItem>
                 ]}
             </Menu>
         </div>

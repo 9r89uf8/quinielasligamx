@@ -108,6 +108,7 @@ const PrizeDisplay = () => {
                     sx={{
                         color: 'black',
                         fontWeight: '700',
+                        fontSize: '16px',
                         bgcolor: 'rgb(255,255,255)',
                         backdropFilter: 'blur(2px)',
                         '&:hover': {
@@ -127,6 +128,7 @@ const PrizeDisplay = () => {
                         color: 'black',
                         textAlign: 'center',
                         fontWeight: '700',
+                        fontSize: '16px',
                         bgcolor: 'rgb(255,255,255)',
                         backdropFilter: 'blur(2px)',
                         '&:hover': {
@@ -170,7 +172,7 @@ const PrizeDisplay = () => {
                             textAlign: 'center',
                             fontWeight: '700',
                             fontSize: '21px',
-                            bgcolor: 'rgb(2,2,2)',
+                            bgcolor: 'rgb(41,41,41)',
                             backdropFilter: 'blur(2px)',
                             '&:hover': {
                                 bgcolor: 'rgba(255, 255, 255, 0.2)',

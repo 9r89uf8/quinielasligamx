@@ -17,7 +17,7 @@ import { styled } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import Box from '@mui/material/Box';
 
-const NAVBAR_HEIGHT = '64px'; // Adjusted to match the top bar height
+const NAVBAR_HEIGHT = '57px'; // Increased height to accommodate larger icons
 
 const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) => ({
     '.MuiBottomNavigationAction-root': {
@@ -32,9 +32,12 @@ const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) 
     },
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    color: 'rgba(0, 0, 0, 0.7)', // Dark icons for better contrast
+    color: 'rgba(0, 0, 0, 0.7)',
     '&.Mui-selected': {
-        color: 'rgba(0, 0, 0, 0.9)', // Darker color for selected icons
+        color: 'rgba(0, 0, 0, 0.9)',
+    },
+    '& .MuiSvgIcon-root': { // Add custom styling for icons
+        fontSize: '3.1rem', // Make icons bigger
     },
 }));
 
@@ -47,7 +50,7 @@ const FloatingBottomNavigation = styled(BottomNavigation)`
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     height: ${NAVBAR_HEIGHT};
@@ -57,11 +60,11 @@ const FloatingBottomNavigation = styled(BottomNavigation)`
 
 const StyledPopover = styled(Popover)(({ theme }) => ({
     '& .MuiPaper-root': {
-        background: 'linear-gradient(to right, #333333, #555555)', // Dark gradient background
+        background: 'linear-gradient(to right, #333333, #555555)',
         borderRadius: '12px',
         padding: theme.spacing(1),
         boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        maxWidth: 'none', // Remove maxWidth constraint
+        maxWidth: 'none',
     },
 }));
 
@@ -73,6 +76,9 @@ const StyledButton = styled(Button)(({ theme, gradient }) => ({
     backgroundImage: gradient,
     borderRadius: '8px',
     minWidth: '30px',
+    '& .MuiSvgIcon-root': { // Add custom styling for icons in popover buttons
+        fontSize: '2.5rem',
+    },
     '&:hover': {
         backgroundImage: gradient,
         filter: 'brightness(1.1)',
@@ -82,7 +88,6 @@ const StyledButton = styled(Button)(({ theme, gradient }) => ({
 export default function FloatingNavbar() {
     const router = useRouter();
     const pathname = usePathname();
-
     const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(() => {
@@ -104,39 +109,39 @@ export default function FloatingNavbar() {
         {
             name: 'HOME',
             path: '/quiniela-liga-mx-2025',
-            icon: <HomeIcon fontSize="large" />,
+            icon: <HomeIcon />, // Removed fontSize prop as it's handled by styled component
         },
         {
             name: 'OPTIONS',
             path: null,
-            icon: <MessageIcon fontSize="large" />,
+            icon: <MessageIcon />,
             onClick: handleMenuOpen,
         },
         {
             name: 'USER',
             path: '/quinielas/dashboard',
-            icon: <AccountCircleIcon fontSize="large" />,
+            icon: <AccountCircleIcon />,
         },
     ];
 
     const menuOptions = [
         {
             label: 'Mensaje',
-            icon: <ChatIcon fontSize="large" />,
+            icon: <ChatIcon />,
             path: '/chat',
-            gradient: 'linear-gradient(to right, #ff7e5f, #feb47b)', // Example gradient
+            gradient: 'linear-gradient(to right, #ff7e5f, #feb47b)',
         },
         {
             label: 'Comprar',
-            icon: <ShoppingCartIcon fontSize="large" />,
+            icon: <ShoppingCartIcon />,
             path: '/buy',
-            gradient: 'linear-gradient(to right, #6a11cb, #2575fc)', // Example gradient
+            gradient: 'linear-gradient(to right, #6a11cb, #2575fc)',
         },
         {
             label: 'Ganadores',
-            icon: <EmojiEventsIcon fontSize="large" />,
+            icon: <EmojiEventsIcon />,
             path: '/ganadores',
-            gradient: 'linear-gradient(to right, #43cea2, #185a9d)', // Example gradient
+            gradient: 'linear-gradient(to right, #43cea2, #185a9d)',
         },
     ];
 
@@ -170,7 +175,7 @@ export default function FloatingNavbar() {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
-                disableScrollLock={true} // Prevents scrolling issue
+                disableScrollLock={true}
                 anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'center',
@@ -191,7 +196,7 @@ export default function FloatingNavbar() {
                                 }}
                             >
                                 <Box sx={{ fontSize: '1.2rem', marginBottom: '8px' }}>{option.label}</Box>
-                                {React.cloneElement(option.icon, { fontSize: 'large' })}
+                                {React.cloneElement(option.icon)}
                             </StyledButton>
                         </Grid>
                     ))}

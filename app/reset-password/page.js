@@ -38,69 +38,62 @@ const GradientButton = styled(Button)(({ theme }) => ({
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         await passwordReset(email);
         setIsLoading(false);
+        setIsSubmitted(true);
     };
 
     return (
-        <Box display="flex" flexDirection="column" justifyContent="start" alignItems="center" height="100vh">
-            <GlassCard sx={{ width: '330px', maxWidth: '500px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', p: 1 }}>
-                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" width="100%" textAlign="center">
-                    <Typography variant="h5">Solicitud de nueva contraseña</Typography>
-                    <Typography variant="subtitle1">Introduce tu correo electrónico</Typography>
+        <Box
+            sx={{
+                minHeight: 'calc(100vh - var(--floating-navbar-height, 0px))',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 2,
+            }}
+        >
+            <GlassCard sx={{ width: '380px', maxWidth: '90%', padding: 3 }}>
+                <Typography variant="h4" sx={{ color: 'black', marginBottom: 3, fontWeight: 'bold' }}>
+                    Solicitud de nueva contraseña
+                </Typography>
+                <Typography variant="h6" sx={{ color: 'black', marginBottom: 2 }}>
+                    Introduce tu correo electrónico
+                </Typography>
 
-
+                {isSubmitted ? (
+                    <Alert severity="success" sx={{ mb: 2, backgroundColor: 'rgba(76, 175, 80, 0.1)', color: 'black', fontSize: 19 }}>
+                        Por favor, revisa tu correo electrónico para encontrar el correo para crear una nueva contraseña.
+                    </Alert>
+                ) : (
                     <form onSubmit={handleSubmit}>
-                        <Box component="div" mt={2}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="email"
-                                style={{color: 'black'}}
-                                inputProps={{ style: { color: 'black' } }}
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                label="correo electrónico"
-                                variant="outlined"
-                                InputLabelProps={{
-                                    sx: { color: 'black' } // Apply white color to label
-                                }}
-                                InputProps={{
-                                    startAdornment: (
-                                        <LockOutlinedIcon color="primary" />
-                                    ),
-                                }}
-                                sx={{
-                                    '& label.Mui-focused': {
-                                        color: 'black', // Color of the label when the TextField is focused
-                                    },
-                                    '& .MuiOutlinedInput-root': {
-                                        '& fieldset': {
-                                            borderColor: 'black', // Color of the border in normal state
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: 'black', // Color of the border when the TextField is focused
-                                        },
-                                        '& input': {
-                                            color: 'black', // Color of the input text
-                                        }
-                                    }
-                                }}
-                            />
-                        </Box>
+                        <TextField
+                            required
+                            fullWidth
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            label="Correo electrónico"
+                            variant="outlined"
+                            InputProps={{
+                                startAdornment: (
+                                    <LockOutlinedIcon sx={{ color: 'black', mr: 1 }} />
+                                ),
+                            }}
+                        />
 
-                        <Box component="div" mt={2}>
-                            <GradientButton type="submit" disabled={isLoading}>
-                                {isLoading ? "Loading..." : "Enviar"}
-                            </GradientButton>
-                        </Box>
+                        <GradientButton type="submit" disabled={isLoading || isSubmitted}>
+                            {isLoading ? "Enviando..." : "Enviar"}
+                        </GradientButton>
                     </form>
-                </Box>
+                )}
             </GlassCard>
         </Box>
     );

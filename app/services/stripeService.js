@@ -1,5 +1,5 @@
 import getStripe from "@/app/utils/getStripe";
-import { useStore } from '../store/store'; // Ensure you import the correct store
+import {useStore} from '../store/store'; // Ensure you import the correct store
 
 export const createCheckoutSession = async (formData) => {
     const addNotification = useStore.getState().addNotification;
@@ -80,18 +80,7 @@ export const verifySession = async (sessionId) => {
             },
             body: JSON.stringify({ session_id: sessionId }),
         });
-        const data = await response.json();
-
-        if (data.success) {
-            setStatus('success');
-        } else {
-            setStatus('cancel');
-            // addNotification({
-            //     id: Date.now(),
-            //     type: 'error',
-            //     message: 'Pago Cancelado',
-            // });
-        }
+        return await response.json()
     } catch (error) {
         setStatus('cancel');
         setError(error.message);

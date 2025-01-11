@@ -5,7 +5,7 @@ export async function POST() {
     const cookieStore = cookies();
 
     // Clear the token cookie
-    cookieStore.set('token', '', {
+    cookieStore.set('tokenMX', '', {
         path: '/',
         httpOnly: true,
         sameSite: 'lax',

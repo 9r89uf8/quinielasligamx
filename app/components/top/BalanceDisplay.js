@@ -231,7 +231,7 @@ const BalanceDisplay = () => {
                             sx={{
                                 minWidth: 160,
                                 textTransform: 'none',
-                                fontSize: '1.1rem',
+                                fontSize: '1.4rem',
                             }}
                         >
                             Retirar Dinero
@@ -255,7 +255,7 @@ const BalanceDisplay = () => {
                                     <LocalAtmIcon color="primary" />
                                     <Box>
                                         <Typography variant="h5">Retiro en Efectivo</Typography>
-                                        <Typography variant="body2" color="text.secondary">
+                                        <Typography variant="h6" color="text.secondary">
                                             Sucursales de Western Union en México/Estados Unidos
                                         </Typography>
                                     </Box>
@@ -267,7 +267,7 @@ const BalanceDisplay = () => {
                                     <AccountBalanceIcon color="primary" />
                                     <Box>
                                         <Typography variant="h5">Depósito Bancario</Typography>
-                                        <Typography variant="body2" color="text.secondary">
+                                        <Typography variant="h6" color="text.secondary">
                                             Reciba el dinero directamente en su cuenta bancaria
                                         </Typography>
                                     </Box>

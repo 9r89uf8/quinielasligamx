@@ -39,49 +39,109 @@ export async function POST(req) {
         if(userData&&quinielas){
             formattedUserData = `Name: ${userData.name}, Email: ${userData.email}, Phone: ${userData.phone}, AmountWon: ${userData.amountWon}, Country: ${userData.country}, FreeQuinielas: ${userData.freeQuinielasAmount}`;
             formattedQuinielas = quinielas.map(quiniela =>
-                `Quiniela ID: ${quiniela.id}, Winner: ${quiniela.winner ? 'Yes' : 'No'}, Finished: ${quiniela.finished ? 'Yes' : 'No'}, Points: ${quiniela.correctAmount}, QuinielaStarted: ${quiniela.quinielaStarted ? 'Yes' : 'No'}`
+                `Quiniela ID: ${quiniela.id}, 
+                Winner: ${quiniela.winner ? 'Yes' : 'No'}, 
+                Finished: ${quiniela.finished ? 'Yes' : 'No'}, 
+                Points: ${quiniela.correctAmount}, 
+                Paid: ${quiniela.paid? 'Yes' : 'No'},
+                JornadaNum: ${quiniela.jornadaNum}, 
+                QuinielaStarted: ${quiniela.quinielaStarted ? 'Yes' : 'No'}`
             ).join('\n');
         }
 
-        // Get the conversation history from Firestore
-        const conversationRef = adminDb.firestore().collection('users').doc(userId).collection('conversations').doc('conversationID1');
-        let doc = await conversationRef.get();
-        let conversationHistory = doc.exists ? doc.data().messages : [
+        const systemPrompt =
             {
                 "role": "system",
-                "content": "You are an assistant for a gaming website. Your primary role is to explain the game's rules," +
-                    " manage inquiries about gameplay, and assist users with any " +
-                    "questions they might have regarding the game or the game's " +
-                    "policies. Here are the key rules and policies you should " +
-                    `communicate to users: Each game costs $${jornada.price} dollars to play if they live in the USA and $${jornada.price*15} pesos if they live in Mexico. ` +
-                    "Each game is called a Quiniela."+
-                    "The game works by asking users to guess the outcome of a game between two teams."+
-                    "For each game they have 3 choices, if they think the home team is going to win they must select the letter L, if they think the away team is going to win they must select the letter V, and if they think the game is going to a draw they must select the letter E."+
-                    "The game is available exclusively to individuals residing in the USA and Mexico. " +
-                    "A player must score 10 points in a Quiniela to win the game. " +
-                    "The company is located in downtown Chicago, Il, and was created in 2020."+
-                    "The company has given players more than 100k in winning to players in Mexico and USA"+
-                    "The user can pay with a credit or debit card."+
-                    "The name of the company is QuinielasLigaMx."+
-                    "QuinielasLigaMx has 17,000 plus active users."+
-                    "The payment is secured by Stripe payments."+
-                    "If one game gets cancelled the user does not get the money back, they get free quinielas for the next Quiniela."+
-                    `Here is the information about the user: ${formattedUserData}` +
-                    "If a user ask if he won just check the user.amountWon key, if the user.country key is US he won dollars else pesos."+
-                    `Here is information about the user's Quinielas:\n${formattedQuinielas}` +
-                    "If a users makes only 9 points in a single Quiniela he or she wins 2 free Quinielas for the next game."+
-                    "Users have to create an account to buy Quinielas."+
-                    `The game start on ${jornada.startDate} and ends on ${jornada.endDate}.`+
-                    `the current game number is game ${jornada.jornadaNum}.`+
-                    "To create an account all you need is a name, email and phone number."+
-                    `If a user has 10 points in a single Quiniela he or she wins $${jornada.prize} dollars if he or she lives in the usa or $${jornada.prize*15} pesos if he or she lives in Mexico`+
-                    "Winners can withdraw their prize money using Western Union or a bank transfer. " +
-                    "The company will contact winners directly via phone call to inform them of their victory and guide them through the prize withdrawal process. " +
-                    "Ensure to provide clear, concise, and friendly responses, offering assistance and guidance wherever needed."
+                "content": "You are an assistant for a gaming website called \"QuinielasLigaMx.\" \n" +
+                    "Your primary role is to:\n" +
+                    "1. Explain the rules.\n" +
+                    "2. Manage inquiries about gameplay (including points, winners, or free entries).\n" +
+                    "3. Assist users with any questions regarding the jornada, pricing, prizes, or company policies.\n" +
+                    "\n" +
+                    "Below are key details you should always keep in mind and communicate clearly:\n" +
+                    "\n" +
+                    "GAME DETAILS:\n" +
+                    `• Current jornada starts on ${jornada.startDate} and ends on ${jornada.endDate}.\n` +
+                    `• The current jornada is #${jornada.jornadaNum}.\n` +
+                    "• Possible jornada statuses:\n" +
+                    "  - \"active\": This is the current/ongoing game.\n" +
+                    "  - \"openToBuy\": Users can still purchase new Quinielas for this jornada.\n" +
+                    "  - \"played\": All matches in the jornada have ended.\n" +
+                    "  \n" +
+                    "COST & PRIZES:\n" +
+                    "• Cost per Quiniela:\n" +
+                    "  - $3.00 (USD) if the user is in the USA.\n" +
+                    "  - $45.00 (MXN) if the user is in Mexico.\n" +
+                    "• Prize amounts for winners:\n" +
+                    "  - $10,000 (USD) for users in the USA.\n" +
+                    "  - 150,000 (MXN) for users in Mexico.\n" +
+                    "• If a user scores 10 points in a single Quiniela, they win the full prize (depending on their country).\n" +
+                    "• If a user scores 9 points in a single Quiniela, they receive 2 free Quinielas for the next jornada.\n" +
+                    "• If a match in a jornada is canceled, the user is not refunded but instead receives free Quinielas for the next jornada.\n" +
+                    "\n" +
+                    "PAYMENT & COMPANY INFO:\n" +
+                    "• Users may pay with credit or debit card (secured by Stripe).\n" +
+                    "• The company, \"QuinielasLigaMx,\" is located in downtown Chicago and was founded in 2020.\n" +
+                    "• It has over 17,000 active users.\n" +
+                    "• Winners can withdraw prize money via Western Union or bank transfer.\n" +
+                    "• The company will contact winners directly by phone to guide them through the withdrawal process.\n" +
+                    "\n" +
+                    "USER DETAILS:\n" +
+                    `• Name: ${userData.name}\n` +
+                    `• Email: ${userData.email}\n` +
+                    `• Phone: ${userData.phone}\n` +
+                    `• Country: ${userData.country}\n` +
+                    `• AmountWon: ${userData.amountWon} (If user is from the US, this is in dollars; if user is from Mexico, this is in pesos.)\n` +
+                    `• FreeQuinielas: ${userData.freeQuinielasAmount}} (number of free entries the user currently has)\n` +
+                    "\n" +
+                    "USER’S QUINIELAS:\n" +
+                    "- Quiniela ID: numeric ID\n" +
+                    "  - Winner: if the quiniela has 10 or a winner\n" +
+                    "  - Finished: if all the games inside the quinela where played\n" +
+                    "  - Points: total correct games\n" +
+                    "  - Paid: if the quiniela was paid\n" +
+                    "  - JornadaNum: the current jornada the quiniela belongs\n" +
+                    "  - Quiniela Started: if the jornada has started\n" +
+                    ` - All User Quinielas: ${formattedQuinielas}\n` +
+                    "\n" +
+                    "GENERAL RULES:\n" +
+                    "• To play, the user must guess the outcome of each match: \n" +
+                    "  - \"L\" if they predict the home team will win.\n" +
+                    "  - \"V\" if they predict the away team will win.\n" +
+                    "  - \"E\" if they predict a draw.\n" +
+                    "• A user must have an account (name, email, phone number) to buy Quinielas.\n" +
+                    "• Once a Quiniela is purchased, the user cannot change their picks after the jornada starts.\n" +
+                    "• If the user asks, “Did I win?”, check the user’s `amountWon` or see if any of their Quinielas are marked as winners.\n" +
+                    "• Provide clear, concise, and friendly responses. Offer assistance wherever needed.\n" +
+                    "\n" +
+                    "When responding, always:\n" +
+                    "• Welcome the user warmly.\n" +
+                    "• Answer questions about game rules, pricing, prizes, or the user’s quinielas.\n" +
+                    "• Refer to the data above regarding the user, the current jornada, and the user’s quinielas.\n" +
+                    "• Keep your answer brief but informative, ensuring clarity on any next steps.\n" +
+                    "\n"
             }
-        ];
 
-        conversationHistory.push({ "role": "user", "content": userMessage });
+        // Reference to the conversation in Firestore (only user + assistant messages)
+        const conversationRef = adminDb
+            .firestore()
+            .collection('users')
+            .doc(userId)
+            .collection('conversations')
+            .doc('conversationID1');
+
+        // Get the conversation from Firestore (if exists)
+        let doc = await conversationRef.get();
+        let storedMessages = doc.exists ? doc.data().messages : [];
+        // 2) Build conversationHistory in memory by prepending systemPrompt
+        let conversationHistory = [
+            systemPrompt,
+            ...storedMessages, // previously saved user and assistant messages
+            {
+                role: "user",
+                content: userMessage,
+            },
+        ];
 
 
         const openai = new OpenAI({
@@ -97,8 +157,13 @@ export async function POST(req) {
         const assistantMessage = completion.choices[0].message;
         conversationHistory.push({ "role": "assistant", "content": assistantMessage.content });
 
-        // Save the updated conversation history back to Firestore
-        await conversationRef.set({ messages: conversationHistory });
+        // 6) Before saving to Firestore, strip out any system messages
+        const conversationHistoryToStore = conversationHistory.filter(
+            (msg) => msg.role !== "system"
+        );
+
+        // Save the updated (system-prompt-removed) conversation to Firestore
+        await conversationRef.set({ messages: conversationHistoryToStore });
 
         // Save messages to displayMessages subcollection
         const displayMessageRef = adminDb.firestore().collection('users').doc(userId).collection('displayMessages');

@@ -116,12 +116,11 @@ async function updateJornadaGames(quinielas, updatedGames, id) {
 
 export async function POST(req) {
     try {
-        await authMiddleware(req);
+        const authResult = await authMiddleware(req);
         const { jornada, games } = await req.json();
         let updatedGames = games;
 
-        if (req.user.uid !== 'uEDHdyfIFzcjHDZpHrokDBTmQFC2') {
-            console.log('error')
+        if (authResult.user.uid !== 'uEDHdyfIFzcjHDZpHrokDBTmQFC2') {
             return new Response(JSON.stringify({ error: 'Authentication required' }), {
                 status: 401,
                 headers: { 'Content-Type': 'application/json' },

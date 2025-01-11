@@ -27,10 +27,10 @@ export async function POST(req) {
 
 
     try {
-        await authMiddleware(req);
+        const authResult = await authMiddleware(req);
         const { games, jornada } = await req.json();
 
-        if (req.user.uid !=='uEDHdyfIFzcjHDZpHrokDBTmQFC2') {
+        if (authResult.user.uid !=='uEDHdyfIFzcjHDZpHrokDBTmQFC2') {
             return new Response(JSON.stringify({ error: 'Authentication required' }), {
                 status: 401,
                 headers: { 'Content-Type': 'application/json' },

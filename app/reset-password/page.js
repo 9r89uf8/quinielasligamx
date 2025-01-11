@@ -51,7 +51,6 @@ const ResetPassword = () => {
     return (
         <Box
             sx={{
-                minHeight: 'calc(100vh - var(--floating-navbar-height, 0px))',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',

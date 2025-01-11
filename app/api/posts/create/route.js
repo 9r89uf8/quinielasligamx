@@ -4,10 +4,10 @@ import { authMiddleware } from '@/app/middleware/authMiddleware';
 
 export async function POST(req) {
     try {
-        await authMiddleware(req);
+        const authResult = await authMiddleware(req);
         const { title, content } = await req.json();
 
-        if (!req.user) {
+        if (!authResult.authenticated) {
             return new Response(JSON.stringify({ error: 'Authentication required' }), {
                 status: 401,
                 headers: { 'Content-Type': 'application/json' },
@@ -18,7 +18,7 @@ export async function POST(req) {
         const postRef = await adminDb.firestore().collection('posts').add({
             title,
             content,
-            userId: req.user.uid,
+            userId: authResult.user.uid,
             timestamp: adminDb.firestore.FieldValue.serverTimestamp(),
         });
 

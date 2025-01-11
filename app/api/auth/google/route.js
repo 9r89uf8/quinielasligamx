@@ -12,6 +12,7 @@ export async function POST(req) {
         // 2) If the user doesn't exist in Firestore, create a new record
         const { uid, email, name, phoneNumber } = decoded;
         const userDoc = await adminDb.firestore().collection('users').doc(uid).get();
+        console.log(userDoc.data());
 
         if (!userDoc.exists) {
             await adminDb.firestore().collection('users').doc(uid).set({

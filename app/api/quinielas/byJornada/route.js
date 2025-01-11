@@ -5,7 +5,6 @@ export async function POST(req) {
     try {
         const { id, user } = await req.json();
 
-        console.log(id, user)
 
         const jornadaDocRef = adminDb.firestore().collection('jornada').doc(id);
         const jornadaSnapshot = await jornadaDocRef.get();

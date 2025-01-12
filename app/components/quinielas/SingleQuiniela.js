@@ -114,7 +114,7 @@ const SingleQuiniela = ({
                             <Typography
                                 variant="h5"
                                 component="div"
-                                sx={{ fontWeight: 'bold' }}
+                                sx={{ fontWeight: 'bold', overflowWrap: 'break-word', wordWrap: 'break-word', }}
                             >
                                 {quiniela.userName}
                             </Typography>

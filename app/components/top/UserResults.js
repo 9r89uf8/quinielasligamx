@@ -1,6 +1,15 @@
-import React from 'react';
-import { Grid, Typography, Divider, FormControl, Select, MenuItem } from '@mui/material';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import React, { useState } from 'react';
+import {
+    Grid,
+    Typography,
+    FormControl,
+    Select,
+    MenuItem,
+    Button,
+    List,
+    ListItem,
+    Collapse
+} from '@mui/material';
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Box from '@mui/material/Box';
@@ -17,6 +26,8 @@ const GradientBackground = styled(Box)(({ theme }) => ({
 const GreetingText = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
     fontSize: '1.8rem',
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
 }));
 
 const SubtitleText = styled(Typography)(({ theme }) => ({
@@ -47,7 +58,52 @@ const StatusText = styled(Typography)(({ theme }) => ({
     marginTop: theme.spacing(1),
 }));
 
-const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuinielas, jornada, quinielas }) => {
+const TransactionsList = styled(List)(({ theme }) => ({
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+}));
+
+const TransactionItem = styled(ListItem)(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: theme.spacing(2),
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    '&:last-child': {
+        borderBottom: 'none',
+    },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+    marginTop: theme.spacing(2),
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    color: '#4361ee',
+    '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+    },
+}));
+
+const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuinielas, jornada, transactions }) => {
+    const [showTransactions, setShowTransactions] = useState(false);
+
+    const handleToggleTransactions = () => {
+        setShowTransactions(!showTransactions);
+    };
+
+    const formatDate = (timestamp) => {
+        if (!timestamp || !timestamp._seconds) return 'Invalid date';
+        const date = new Date(timestamp._seconds * 1000); // Convert seconds to milliseconds
+        return date.toLocaleDateString('es-MX', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            // hour: '2-digit',
+            // minute: '2-digit'
+        });
+    };
+
     return (
         <GradientBackground>
             <Grid container spacing={2}>
@@ -75,7 +131,7 @@ const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuini
                                 '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255, 255, 255, 0.5)' },
                             }}
                         >
-                            {jornadas && jornadas.length > 0&&jornadas.map((jornada) => (
+                            {jornadas && jornadas.length > 0 && jornadas.map((jornada) => (
                                 <MenuItem key={jornada.id} value={jornada.id}>
                                     {jornada.jornadaNum}
                                 </MenuItem>
@@ -83,7 +139,43 @@ const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuini
                         </Select>
                     </FormControl>
                 </Grid>
+
+                <Grid item xs={12}>
+                    <StyledButton
+                        variant="contained"
+                        onClick={handleToggleTransactions}
+                    >
+                        {showTransactions ? 'Ocultar Transacciones' : 'Transacciones'}
+                    </StyledButton>
+
+                    <Collapse in={showTransactions}>
+                        <TransactionsList>
+                            {transactions&&transactions.length>0&&transactions.map((transaction, index) => (
+                                <TransactionItem key={index}>
+                                    <Typography variant="subtitle1" sx={{ color: 'black' }}>
+                                        Total: {transaction.amount} {transaction.currency}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: 'black' }}>
+                                        Estado: {transaction.status === 'completed' ? 'Completado' : 'Fallido'}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: 'black' }}>
+                                        Fecha: {formatDate(transaction.timestamp)}
+                                    </Typography>
+                                    <Typography variant="body2" sx={{ color: 'black' }}>
+                                        Quinielas: {transaction.quinielaIds.join(', ')}
+                                    </Typography>
+                                </TransactionItem>
+                            ))}
+                            {(!transactions || transactions.length === 0) && (
+                                <Typography variant="h5" sx={{ textAlign: 'center', py: 2, color: 'black' }}>
+                                    No hay transacciones disponibles
+                                </Typography>
+                            )}
+                        </TransactionsList>
+                    </Collapse>
+                </Grid>
             </Grid>
+
             {userQuinielas && userQuinielas.length > 0 ? (
                 userQuinielas.map((item, i) => (
                     <StyledPaper key={item.id} elevation={6}>
@@ -122,6 +214,3 @@ const UserResults = ({ currentJornadaId, handleChange, jornadas, user, userQuini
 };
 
 export default UserResults;
-
-
-

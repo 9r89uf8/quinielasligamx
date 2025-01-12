@@ -93,3 +93,18 @@ export const verifySession = async (sessionId) => {
         setVerifying(false);
     }
 };
+
+export const getTransactions = async (sessionId) => {
+    const setTransactions = useStore.getState().setTransactions;
+
+    try {
+        const response = await fetch('/api/payment/transactions', {
+            method: 'GET'
+        });
+        const transactions = await response.json();
+        setTransactions(transactions)
+        return transactions
+    } catch (error) {
+        console.log(error)
+    }
+};

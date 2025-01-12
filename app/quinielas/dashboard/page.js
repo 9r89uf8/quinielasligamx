@@ -1,80 +1,22 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import WinnersList from '@/app/components/top/WinnersList';
 import UserResults from '@/app/components/top/UserResults';
 import { useStore } from '@/app/store/store';
+import {getTransactions} from "@/app/services/stripeService";
 import { fetchAllJornadas, fetchLatestJornada } from '@/app/services/jornadaService';
 import { fetchQuinielas, fetchUserQuinielasByJornadaId } from '@/app/services/quinielasService';
 import {
     Grid,
-    Box,
-    Typography,
-    Paper,
-    MenuItem,
-    Select,
-    Divider
+    Box
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import SavingsIcon from '@mui/icons-material/Savings';
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import SingleQuiniela from "@/app/components/quinielas/SingleQuiniela";
 import BalanceDisplay from "@/app/components/top/BalanceDisplay";
-
-const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    margin: '12px auto 2px auto'
-}));
-
-const StyledText = styled(Typography)(({ theme }) => ({
-    ...theme.typography.body2,
-    background: 'linear-gradient(45deg, #02CC92 8%, #1283C9 80%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
-    color: 'white',
-    padding: 5,
-    fontSize: 22,
-    textAlign: 'center',
-    width: 200,
-    margin: '8px auto 15px auto'
-}));
-
-const StyledTextTwo = styled(Typography)(({ theme }) => ({
-    ...theme.typography.body2,
-    background: "linear-gradient(45deg, #3d52d5 8%, #090c9b 80%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
-    color: 'white',
-    padding: 10,
-    fontSize: 18,
-    textAlign: 'center',
-    margin: '10px 10px 10px 10px'
-}));
-
-const StyledTextThree = styled(Typography)(({ theme }) => ({
-    ...theme.typography.body2,
-    background: 'linear-gradient(45deg, #80ed99 30%, #57cc99 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
-    color: 'white',
-    padding: 5,
-    fontSize: 18,
-    textAlign: 'center',
-    width: 250,
-    margin: '8px auto 15px auto'
-}));
 
 const Dashboard = () => {
     const user = useStore((state) => state.user);
     const jornada = useStore((state) => state.jornada);
-    const quinielas = useStore((state) => state.quinielas);
+    const transactions = useStore((state) => state.transactions);
     const userQuinielas = useStore((state) => state.userQuinielas);
     const jornadas = useStore((state) => state.jornadas);
 
@@ -85,6 +27,8 @@ const Dashboard = () => {
     useEffect(() => {
         const loadJornadasAndQuinielas = async () => {
             try {
+
+                await getTransactions()
                 setLoading(true);
                 if (!jornadas || jornadas.length === 0) {
                     const fetchedJornadas = await fetchAllJornadas();
@@ -141,7 +85,7 @@ const Dashboard = () => {
                         user={user}
                         userQuinielas={userQuinielas}
                         jornada={jornada}
-                        quinielas={quinielas}
+                        transactions={transactions}
                     />
                 </Grid>
 
